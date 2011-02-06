@@ -69,7 +69,8 @@ class SubsMgr < OSX::NSWindowController
     @serieSelectionnee = "."
     @spotFilter = ""
     @appPath = OSX::NSBundle.mainBundle.resourcePath.fileSystemRepresentation
-    Icones.path = @appPath
+    Icones.path = File.join(@appPath, "Icones")
+    $stderr.puts "PATH: #{Icones.path}"
 
     # First run ? Fichier manquants ?
     unless File.exist?("/Library/Application\ Support/SubsMgr/")
@@ -1519,6 +1520,7 @@ class SubsMgr < OSX::NSWindowController
 
     # Affichage des sources actives dans la liste des épisodes
     @sourcesActives = 0
+
     @source3.setImage(Icones.list["None"])
     @liste.tableColumns[5].setIdentifier("None")
     @liste.tableColumns[5].setHeaderToolTip("None")

@@ -3,7 +3,7 @@
 # ------------------------------------------
 if (rvm = `$HOME/.rvm/bin/rvm gemdir`.strip) != ''
   # lorsqu'on utilise rvm, les gems ne sont pas forcement trouvé donc on force le chemin des gems
-  ENV['GEM_HOME'] = "#{rvm}"
+  ENV['GEM_HOME'] = rvm
   require 'rubygems'
   Gem.clear_paths
 else
@@ -19,7 +19,7 @@ require 'mechanize'
 # ------------------------------------------
 # Common definitions
 # ------------------------------------------
-require 'structures'
+require 'structures.rb'
 require 'file_cache'
 require 'icones'
 require 'statistics'
