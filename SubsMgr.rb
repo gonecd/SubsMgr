@@ -374,7 +374,7 @@ class SubsMgr < OSX::NSWindowController
         if imageFile == ""
           begin
             monURL = "http://www.thetvdb.com/api/GetSeries.php?seriesname="+temp.gsub(/ /, '+')
-            doc = FileCache.get_html(monURL)
+            doc = FileCache.get_html(monURL, :xml => true)
             monindex = 0
             compteur = 0
             doc.search("SeriesName").each do |k|

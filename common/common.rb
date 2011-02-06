@@ -1,7 +1,15 @@
 # ------------------------------------------
 # External libs
 # ------------------------------------------
-require 'rubygems'
+if (rvm = `$HOME/.rvm/bin/rvm gemdir`.strip) != ''
+  # lorsqu'on utilise rvm, les gems ne sont pas forcement trouvé donc on force le chemin des gems
+  ENV['GEM_HOME'] = "#{rvm}"
+  require 'rubygems'
+  Gem.clear_paths
+else
+  require 'rubygems'
+end
+
 require 'open-uri'
 require 'cgi'
 require 'csv'

@@ -2,12 +2,14 @@ module FileCache
   CACHE_PATH = "/tmp/subsmgr"
 
   module_function
-  
+
+  # recuperer un sous titre non compressé
   def get_srt(link, referer = nil)
     path = FileCache.get_srt(link, referer)
     FileUtils.cp(path, "/tmp/Sub.srt")
   end
-    
+
+  # recuperer un zip contenant le bon sous titre
   def get_zip(link, file, referer = nil)
     begin
       # Récupération du zip
@@ -27,57 +29,42 @@ module FileCache
     end
   end
 
+  # recuperer un fichier quelconque
   def get_file(source, referer = nil)
     FileUtils.mkdir_p(CACHE_PATH)
+    # on fabrique un nom de fichier unique pour le garder en cache pendant toute la journée
+    crc = Digest::MD5.hexdigest("#{source}-#{Time.now.strftime('%Y-%m-%d')}")
+    full_path = File.join(CACHE_PATH, crc)
 
-    begin
-      # on fabrique un nom de fichier unique pour le garder en cache pendant toute la journée
-      crc = Digest::MD5.hexdigest("#{source}-#{Time.now.strftime('%Y-%m-%d')}")
-      full_path = File.join(CACHE_PATH, crc)
-
-      unless (File.exists?(full_path) && File.size(full_path)>0)
-        file = BROWSER.get(source, :referer => referer)
-        File.open(full_path, "w") {|f| f.write(file.body)}
-      end
-      return full_path
-    rescue URI::InvalidURIError => err
-      # not a full url ?
-      if !@retried
-        uri = URI.parse(source)
-        source = uri.merge(err.message.split(":").last.strip.gsub(' ', '%20')).to_s
-        @retried = true
-        retry # on recommence au debut mais avec l'url modifiée pour voir
-      else
-        # bah ca marche pas, donc on laisse raler
-        raise err
-      end
+    unless (File.exists?(full_path) && File.size(full_path)>0)
+      file = BROWSER.get(source, :referer => referer)
+      File.open(full_path, "w") {|f| f.write(file.body)}
     end
+    return full_path
   end
 
-  def get_html(source, referer = nil)
+  def get_html(source, options = {})
+    # options:
+    # +referer+ : préciser un referer pour tromper d'eventuelle vérification sur le serveur
+    # +xml+: ajouter :xml => true si la page demandée est une page XML
     FileUtils.mkdir_p(CACHE_PATH)
-    begin
-      # on fabrique un nom de fichier unique pour le garder en cache pendant toute la journée
-      crc = Digest::MD5.hexdigest("#{source}-#{Time.now.strftime('%Y-%m-%d')}")
-      full_path = File.join(CACHE_PATH, crc)
+    # on fabrique un nom de fichier unique pour le garder en cache pendant toute la journée
+    crc = Digest::MD5.hexdigest("#{source}-#{Time.now.strftime('%Y-%m-%d')}")
+    full_path = File.join(CACHE_PATH, crc)
 
-      if (File.exists?(full_path) && File.size(full_path)>0)
+    if (File.exists?(full_path) && File.size(full_path)>0)
+      if options[:xml]
         Nokogiri::HTML(open(full_path).read).root
       else
-        file = BROWSER.get(source, :referer => referer)
-        File.open(full_path, "w") {|f| f.write(file.body)}
-        file.root
+        Nokogiri::XML(open(full_path).read).root
       end
-    rescue URI::InvalidURIError => err
-      # not a full url ?
-      if !@retried
-        uri = URI.parse(source)
-        source = uri.merge(err.message.split(":").last.strip.gsub(' ', '%20')).to_s
-        @retried = true
-        retry # on recommence au debut mais avec l'url modifiée pour voir
+    else
+      file = BROWSER.get(source, :referer => options[:refered])
+      File.open(full_path, "w") {|f| f.write(file.body.to_s)}
+      if options[:xml]
+        file = Nokogiri::XML(file.body).root
       else
-        # bah ca marche pas, donc on laisse raler
-        raise err
+        file.root
       end
     end
   end
