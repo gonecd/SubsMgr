@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		097F98BF12FF167E002F004B /* plugin in Resources */ = {isa = PBXBuildFile; fileRef = 097F98B312FF167E002F004B /* plugin */; };
+		097F98C712FF1694002F004B /* common in Resources */ = {isa = PBXBuildFile; fileRef = 097F98C012FF1694002F004B /* common */; };
 		4DDCA7060ACC9A6100E082CE /* MainMenu.nib in Resources */ = {isa = PBXBuildFile; fileRef = 29B97318FDCFA39411CA2CEA /* MainMenu.nib */; };
 		4DDCA7070ACC9A6100E082CE /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C165CFE840E0CC02AAC07 /* InfoPlist.strings */; };
 		4DDCA7080ACC9A6100E082CE /* rb_main.rb in Resources */ = {isa = PBXBuildFile; fileRef = E8F5E25803AEB7C803A81C6F /* rb_main.rb */; };
@@ -38,21 +40,6 @@
 		62997BA61053CF8F0080F479 /* tvsubtitles.png in Resources */ = {isa = PBXBuildFile; fileRef = 62997BA51053CF8F0080F479 /* tvsubtitles.png */; };
 		62997BAB1053D28F0080F479 /* kchart.png in Resources */ = {isa = PBXBuildFile; fileRef = 62997BAA1053D28F0080F479 /* kchart.png */; };
 		62997BAD1053D3C60080F479 /* database.png in Resources */ = {isa = PBXBuildFile; fileRef = 62997BAC1053D3C60080F479 /* database.png */; };
-		62A6D49512FDEEEE0096C03E /* common.rb in Resources */ = {isa = PBXBuildFile; fileRef = 62A6D49012FDEEEE0096C03E /* common.rb */; };
-		62A6D49612FDEEEE0096C03E /* file_cache.rb in Resources */ = {isa = PBXBuildFile; fileRef = 62A6D49112FDEEEE0096C03E /* file_cache.rb */; };
-		62A6D49712FDEEEE0096C03E /* icones.rb in Resources */ = {isa = PBXBuildFile; fileRef = 62A6D49212FDEEEE0096C03E /* icones.rb */; };
-		62A6D49812FDEEEE0096C03E /* statistics.rb in Resources */ = {isa = PBXBuildFile; fileRef = 62A6D49312FDEEEE0096C03E /* statistics.rb */; };
-		62A6D49912FDEEEE0096C03E /* structures.rb in Resources */ = {isa = PBXBuildFile; fileRef = 62A6D49412FDEEEE0096C03E /* structures.rb */; };
-		62A6D4BF12FDEF850096C03E /* forom.rb in Resources */ = {isa = PBXBuildFile; fileRef = 62A6D49F12FDEF1C0096C03E /* forom.rb */; };
-		62A6D4C012FDEF850096C03E /* local.rb in Resources */ = {isa = PBXBuildFile; fileRef = 62A6D4A012FDEF1C0096C03E /* local.rb */; };
-		62A6D4C112FDEF850096C03E /* my_source.rb in Resources */ = {isa = PBXBuildFile; fileRef = 62A6D4A112FDEF1C0096C03E /* my_source.rb */; };
-		62A6D4C212FDEF850096C03E /* plugin.rb in Resources */ = {isa = PBXBuildFile; fileRef = 62A6D4A212FDEF1C0096C03E /* plugin.rb */; };
-		62A6D4C312FDEF850096C03E /* podnapisi.rb in Resources */ = {isa = PBXBuildFile; fileRef = 62A6D4A312FDEF1C0096C03E /* podnapisi.rb */; };
-		62A6D4C412FDEF850096C03E /* series_sub.rb in Resources */ = {isa = PBXBuildFile; fileRef = 62A6D4A412FDEF1C0096C03E /* series_sub.rb */; };
-		62A6D4C512FDEF850096C03E /* sous_titres_eu.rb in Resources */ = {isa = PBXBuildFile; fileRef = 62A6D4A512FDEF1C0096C03E /* sous_titres_eu.rb */; };
-		62A6D4C612FDEF850096C03E /* test.rb in Resources */ = {isa = PBXBuildFile; fileRef = 62A6D4A612FDEF1C0096C03E /* test.rb */; };
-		62A6D4C712FDEF850096C03E /* tv_subs.rb in Resources */ = {isa = PBXBuildFile; fileRef = 62A6D4A712FDEF1C0096C03E /* tv_subs.rb */; };
-		62A6D4C812FDEF850096C03E /* tv_subtitles.rb in Resources */ = {isa = PBXBuildFile; fileRef = 62A6D4A812FDEF1C0096C03E /* tv_subtitles.rb */; };
 		62A6D4FC12FDF6750096C03E /* flag.png in Resources */ = {isa = PBXBuildFile; fileRef = 623FDED40F519351006D7138 /* flag.png */; };
 		62AAFA410F69BBF2007F8151 /* QTKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 62AAFA400F69BBF2007F8151 /* QTKit.framework */; };
 		62BF882612AAB20900D0E178 /* torrent.png in Resources */ = {isa = PBXBuildFile; fileRef = 62BF882512AAB20900D0E178 /* torrent.png */; };
@@ -72,6 +59,8 @@
 
 /* Begin PBXFileReference section */
 		089C165DFE840E0CC02AAC07 /* English */ = {isa = PBXFileReference; comments = "Hello world"; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		097F98B312FF167E002F004B /* plugin */ = {isa = PBXFileReference; lastKnownFileType = folder; path = plugin; sourceTree = "<group>"; };
+		097F98C012FF1694002F004B /* common */ = {isa = PBXFileReference; lastKnownFileType = folder; path = common; sourceTree = "<group>"; };
 		1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		29B97319FDCFA39411CA2CEA /* English */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = English; path = English.lproj/MainMenu.nib; sourceTree = "<group>"; };
@@ -105,21 +94,6 @@
 		62997BA51053CF8F0080F479 /* tvsubtitles.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = tvsubtitles.png; path = Icones/tvsubtitles.png; sourceTree = "<group>"; };
 		62997BAA1053D28F0080F479 /* kchart.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = kchart.png; path = Icones/kchart.png; sourceTree = "<group>"; };
 		62997BAC1053D3C60080F479 /* database.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = database.png; path = Icones/database.png; sourceTree = "<group>"; };
-		62A6D49012FDEEEE0096C03E /* common.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = common.rb; sourceTree = "<group>"; };
-		62A6D49112FDEEEE0096C03E /* file_cache.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = file_cache.rb; sourceTree = "<group>"; };
-		62A6D49212FDEEEE0096C03E /* icones.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = icones.rb; sourceTree = "<group>"; };
-		62A6D49312FDEEEE0096C03E /* statistics.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = statistics.rb; sourceTree = "<group>"; };
-		62A6D49412FDEEEE0096C03E /* structures.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = structures.rb; sourceTree = "<group>"; };
-		62A6D49F12FDEF1C0096C03E /* forom.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = forom.rb; sourceTree = "<group>"; };
-		62A6D4A012FDEF1C0096C03E /* local.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = local.rb; sourceTree = "<group>"; };
-		62A6D4A112FDEF1C0096C03E /* my_source.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = my_source.rb; sourceTree = "<group>"; };
-		62A6D4A212FDEF1C0096C03E /* plugin.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = plugin.rb; sourceTree = "<group>"; };
-		62A6D4A312FDEF1C0096C03E /* podnapisi.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = podnapisi.rb; sourceTree = "<group>"; };
-		62A6D4A412FDEF1C0096C03E /* series_sub.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = series_sub.rb; sourceTree = "<group>"; };
-		62A6D4A512FDEF1C0096C03E /* sous_titres_eu.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = sous_titres_eu.rb; sourceTree = "<group>"; };
-		62A6D4A612FDEF1C0096C03E /* test.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = test.rb; sourceTree = "<group>"; };
-		62A6D4A712FDEF1C0096C03E /* tv_subs.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = tv_subs.rb; sourceTree = "<group>"; };
-		62A6D4A812FDEF1C0096C03E /* tv_subtitles.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = tv_subtitles.rb; sourceTree = "<group>"; };
 		62AAFA400F69BBF2007F8151 /* QTKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QTKit.framework; path = /System/Library/Frameworks/QTKit.framework; sourceTree = "<absolute>"; };
 		62BF882512AAB20900D0E178 /* torrent.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = torrent.png; path = Icones/torrent.png; sourceTree = "<group>"; };
 		62BF8A4A12B5304600D0E178 /* antenne2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = antenne2.png; path = Icones/antenne2.png; sourceTree = "<group>"; };
@@ -155,8 +129,8 @@
 		080E96DDFE201D6D7F000001 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				62A6D49E12FDEF1C0096C03E /* plugin */,
-				62A6D48F12FDEEEE0096C03E /* common */,
+				097F98C012FF1694002F004B /* common */,
+				097F98B312FF167E002F004B /* plugin */,
 				622D82210F349470008F05CD /* SubsMgr.rb */,
 			);
 			name = Classes;
@@ -283,35 +257,6 @@
 			path = plist;
 			sourceTree = "<group>";
 		};
-		62A6D48F12FDEEEE0096C03E /* common */ = {
-			isa = PBXGroup;
-			children = (
-				62A6D49012FDEEEE0096C03E /* common.rb */,
-				62A6D49112FDEEEE0096C03E /* file_cache.rb */,
-				62A6D49212FDEEEE0096C03E /* icones.rb */,
-				62A6D49312FDEEEE0096C03E /* statistics.rb */,
-				62A6D49412FDEEEE0096C03E /* structures.rb */,
-			);
-			path = common;
-			sourceTree = "<group>";
-		};
-		62A6D49E12FDEF1C0096C03E /* plugin */ = {
-			isa = PBXGroup;
-			children = (
-				62A6D49F12FDEF1C0096C03E /* forom.rb */,
-				62A6D4A012FDEF1C0096C03E /* local.rb */,
-				62A6D4A112FDEF1C0096C03E /* my_source.rb */,
-				62A6D4A212FDEF1C0096C03E /* plugin.rb */,
-				62A6D4A312FDEF1C0096C03E /* podnapisi.rb */,
-				62A6D4A412FDEF1C0096C03E /* series_sub.rb */,
-				62A6D4A512FDEF1C0096C03E /* sous_titres_eu.rb */,
-				62A6D4A612FDEF1C0096C03E /* test.rb */,
-				62A6D4A712FDEF1C0096C03E /* tv_subs.rb */,
-				62A6D4A812FDEF1C0096C03E /* tv_subtitles.rb */,
-			);
-			path = plugin;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -414,22 +359,9 @@
 				62BF8A4B12B5304600D0E178 /* antenne2.png in Resources */,
 				62F37E4312BD1DEF00561B37 /* toggle.png in Resources */,
 				62F37E8812BD603D00561B37 /* special.png in Resources */,
-				62A6D49512FDEEEE0096C03E /* common.rb in Resources */,
-				62A6D49612FDEEEE0096C03E /* file_cache.rb in Resources */,
-				62A6D49712FDEEEE0096C03E /* icones.rb in Resources */,
-				62A6D49812FDEEEE0096C03E /* statistics.rb in Resources */,
-				62A6D49912FDEEEE0096C03E /* structures.rb in Resources */,
-				62A6D4BF12FDEF850096C03E /* forom.rb in Resources */,
-				62A6D4C012FDEF850096C03E /* local.rb in Resources */,
-				62A6D4C112FDEF850096C03E /* my_source.rb in Resources */,
-				62A6D4C212FDEF850096C03E /* plugin.rb in Resources */,
-				62A6D4C312FDEF850096C03E /* podnapisi.rb in Resources */,
-				62A6D4C412FDEF850096C03E /* series_sub.rb in Resources */,
-				62A6D4C512FDEF850096C03E /* sous_titres_eu.rb in Resources */,
-				62A6D4C612FDEF850096C03E /* test.rb in Resources */,
-				62A6D4C712FDEF850096C03E /* tv_subs.rb in Resources */,
-				62A6D4C812FDEF850096C03E /* tv_subtitles.rb in Resources */,
 				62A6D4FC12FDF6750096C03E /* flag.png in Resources */,
+				097F98BF12FF167E002F004B /* plugin in Resources */,
+				097F98C712FF1694002F004B /* common in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
