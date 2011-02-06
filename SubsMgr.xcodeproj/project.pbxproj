@@ -1,0 +1,547 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 44;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		4DDCA7060ACC9A6100E082CE /* MainMenu.nib in Resources */ = {isa = PBXBuildFile; fileRef = 29B97318FDCFA39411CA2CEA /* MainMenu.nib */; };
+		4DDCA7070ACC9A6100E082CE /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C165CFE840E0CC02AAC07 /* InfoPlist.strings */; };
+		4DDCA7080ACC9A6100E082CE /* rb_main.rb in Resources */ = {isa = PBXBuildFile; fileRef = E8F5E25803AEB7C803A81C6F /* rb_main.rb */; };
+		4DDCA70A0ACC9A6100E082CE /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; settings = {ATTRIBUTES = (); }; };
+		4DDCA70C0ACC9A6100E082CE /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
+		4DDCA70D0ACC9A6100E082CE /* RubyCocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E8F5E24E03AEB6EC03A81C6F /* RubyCocoa.framework */; };
+		620246F20FB233700044157C /* package.png in Resources */ = {isa = PBXBuildFile; fileRef = 620246F10FB233700044157C /* package.png */; };
+		620246F40FB233830044157C /* advancedsettings.png in Resources */ = {isa = PBXBuildFile; fileRef = 620246F30FB233830044157C /* advancedsettings.png */; };
+		620246F60FB2339A0044157C /* kate.png in Resources */ = {isa = PBXBuildFile; fileRef = 620246F50FB2339A0044157C /* kate.png */; };
+		620246F80FB233B40044157C /* Startup Wizard.png in Resources */ = {isa = PBXBuildFile; fileRef = 620246F70FB233B40044157C /* Startup Wizard.png */; };
+		620246FA0FB233C40044157C /* xeyes.png in Resources */ = {isa = PBXBuildFile; fileRef = 620246F90FB233C40044157C /* xeyes.png */; };
+		6216F3141044997C00CED421 /* opensubtitles.ico in Resources */ = {isa = PBXBuildFile; fileRef = 6216F3101044997C00CED421 /* opensubtitles.ico */; };
+		6216F3151044997C00CED421 /* podnapisi.ico in Resources */ = {isa = PBXBuildFile; fileRef = 6216F3111044997C00CED421 /* podnapisi.ico */; };
+		6216F3161044997C00CED421 /* seriessub.png in Resources */ = {isa = PBXBuildFile; fileRef = 6216F3121044997C00CED421 /* seriessub.png */; };
+		622D82220F349470008F05CD /* SubsMgr.rb in Resources */ = {isa = PBXBuildFile; fileRef = 622D82210F349470008F05CD /* SubsMgr.rb */; };
+		623FDF2D0F51B4D0006D7138 /* SM.icns in Resources */ = {isa = PBXBuildFile; fileRef = 623FDF2C0F51B4D0006D7138 /* SM.icns */; };
+		6240A371114D531700AC4634 /* mire.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 6240A370114D531700AC4634 /* mire.jpg */; };
+		62578A1F127DA9D700779F2E /* 3D-TV_32x32.png in Resources */ = {isa = PBXBuildFile; fileRef = 62578A1E127DA9D700779F2E /* 3D-TV_32x32.png */; };
+		62578A54127DBCEF00779F2E /* generator.rb in Resources */ = {isa = PBXBuildFile; fileRef = 62578A51127DBCEF00779F2E /* generator.rb */; };
+		62578A55127DBCEF00779F2E /* parser.rb in Resources */ = {isa = PBXBuildFile; fileRef = 62578A52127DBCEF00779F2E /* parser.rb */; };
+		62578A56127DBCEF00779F2E /* plist.rb in Resources */ = {isa = PBXBuildFile; fileRef = 62578A53127DBCEF00779F2E /* plist.rb */; };
+		62578ADC127DE35C00779F2E /* SubsMgrStats.plist in Resources */ = {isa = PBXBuildFile; fileRef = 62578ADB127DE35C00779F2E /* SubsMgrStats.plist */; };
+		62578B22127DF47800779F2E /* SubsMgrPrefs.plist in Resources */ = {isa = PBXBuildFile; fileRef = 62578B21127DF47800779F2E /* SubsMgrPrefs.plist */; };
+		62578BFF127F110500779F2E /* Release Notes in Resources */ = {isa = PBXBuildFile; fileRef = 62578BFE127F110500779F2E /* Release Notes */; };
+		6273D03111F1E0D9007A17F4 /* manual.png in Resources */ = {isa = PBXBuildFile; fileRef = 6273D03011F1E0D9007A17F4 /* manual.png */; };
+		627EF48A127B2CB0006EBB27 /* soustitreseu.png in Resources */ = {isa = PBXBuildFile; fileRef = 627EF489127B2CB0006EBB27 /* soustitreseu.png */; };
+		6296927F110B619B0012BC26 /* tvsubs.ico in Resources */ = {isa = PBXBuildFile; fileRef = 6296927E110B619B0012BC26 /* tvsubs.ico */; };
+		62969365111DD6B80012BC26 /* forom.ico in Resources */ = {isa = PBXBuildFile; fileRef = 62969364111DD6B80012BC26 /* forom.ico */; };
+		62997BA61053CF8F0080F479 /* tvsubtitles.png in Resources */ = {isa = PBXBuildFile; fileRef = 62997BA51053CF8F0080F479 /* tvsubtitles.png */; };
+		62997BAB1053D28F0080F479 /* kchart.png in Resources */ = {isa = PBXBuildFile; fileRef = 62997BAA1053D28F0080F479 /* kchart.png */; };
+		62997BAD1053D3C60080F479 /* database.png in Resources */ = {isa = PBXBuildFile; fileRef = 62997BAC1053D3C60080F479 /* database.png */; };
+		62A6D49512FDEEEE0096C03E /* common.rb in Resources */ = {isa = PBXBuildFile; fileRef = 62A6D49012FDEEEE0096C03E /* common.rb */; };
+		62A6D49612FDEEEE0096C03E /* file_cache.rb in Resources */ = {isa = PBXBuildFile; fileRef = 62A6D49112FDEEEE0096C03E /* file_cache.rb */; };
+		62A6D49712FDEEEE0096C03E /* icones.rb in Resources */ = {isa = PBXBuildFile; fileRef = 62A6D49212FDEEEE0096C03E /* icones.rb */; };
+		62A6D49812FDEEEE0096C03E /* statistics.rb in Resources */ = {isa = PBXBuildFile; fileRef = 62A6D49312FDEEEE0096C03E /* statistics.rb */; };
+		62A6D49912FDEEEE0096C03E /* structures.rb in Resources */ = {isa = PBXBuildFile; fileRef = 62A6D49412FDEEEE0096C03E /* structures.rb */; };
+		62A6D4BF12FDEF850096C03E /* forom.rb in Resources */ = {isa = PBXBuildFile; fileRef = 62A6D49F12FDEF1C0096C03E /* forom.rb */; };
+		62A6D4C012FDEF850096C03E /* local.rb in Resources */ = {isa = PBXBuildFile; fileRef = 62A6D4A012FDEF1C0096C03E /* local.rb */; };
+		62A6D4C112FDEF850096C03E /* my_source.rb in Resources */ = {isa = PBXBuildFile; fileRef = 62A6D4A112FDEF1C0096C03E /* my_source.rb */; };
+		62A6D4C212FDEF850096C03E /* plugin.rb in Resources */ = {isa = PBXBuildFile; fileRef = 62A6D4A212FDEF1C0096C03E /* plugin.rb */; };
+		62A6D4C312FDEF850096C03E /* podnapisi.rb in Resources */ = {isa = PBXBuildFile; fileRef = 62A6D4A312FDEF1C0096C03E /* podnapisi.rb */; };
+		62A6D4C412FDEF850096C03E /* series_sub.rb in Resources */ = {isa = PBXBuildFile; fileRef = 62A6D4A412FDEF1C0096C03E /* series_sub.rb */; };
+		62A6D4C512FDEF850096C03E /* sous_titres_eu.rb in Resources */ = {isa = PBXBuildFile; fileRef = 62A6D4A512FDEF1C0096C03E /* sous_titres_eu.rb */; };
+		62A6D4C612FDEF850096C03E /* test.rb in Resources */ = {isa = PBXBuildFile; fileRef = 62A6D4A612FDEF1C0096C03E /* test.rb */; };
+		62A6D4C712FDEF850096C03E /* tv_subs.rb in Resources */ = {isa = PBXBuildFile; fileRef = 62A6D4A712FDEF1C0096C03E /* tv_subs.rb */; };
+		62A6D4C812FDEF850096C03E /* tv_subtitles.rb in Resources */ = {isa = PBXBuildFile; fileRef = 62A6D4A812FDEF1C0096C03E /* tv_subtitles.rb */; };
+		62A6D4FC12FDF6750096C03E /* flag.png in Resources */ = {isa = PBXBuildFile; fileRef = 623FDED40F519351006D7138 /* flag.png */; };
+		62AAFA410F69BBF2007F8151 /* QTKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 62AAFA400F69BBF2007F8151 /* QTKit.framework */; };
+		62BF882612AAB20900D0E178 /* torrent.png in Resources */ = {isa = PBXBuildFile; fileRef = 62BF882512AAB20900D0E178 /* torrent.png */; };
+		62BF8A4B12B5304600D0E178 /* antenne2.png in Resources */ = {isa = PBXBuildFile; fileRef = 62BF8A4A12B5304600D0E178 /* antenne2.png */; };
+		62E14D7611BA79A200A76550 /* infos.png in Resources */ = {isa = PBXBuildFile; fileRef = 62E14D7311BA79A200A76550 /* infos.png */; };
+		62E14D7711BA79A200A76550 /* load.png in Resources */ = {isa = PBXBuildFile; fileRef = 62E14D7411BA79A200A76550 /* load.png */; };
+		62E14D7811BA79A200A76550 /* test.png in Resources */ = {isa = PBXBuildFile; fileRef = 62E14D7511BA79A200A76550 /* test.png */; };
+		62E14D7A11BA79B000A76550 /* dir.png in Resources */ = {isa = PBXBuildFile; fileRef = 62E14D7911BA79B000A76550 /* dir.png */; };
+		62E14D7D11BA79BB00A76550 /* view.png in Resources */ = {isa = PBXBuildFile; fileRef = 62E14D7B11BA79BB00A76550 /* view.png */; };
+		62E14D7E11BA79BB00A76550 /* web.png in Resources */ = {isa = PBXBuildFile; fileRef = 62E14D7C11BA79BB00A76550 /* web.png */; };
+		62E14DC711BA931200A76550 /* clean.png in Resources */ = {isa = PBXBuildFile; fileRef = 62E14DC611BA931200A76550 /* clean.png */; };
+		62E14DC911BA932100A76550 /* rollback.png in Resources */ = {isa = PBXBuildFile; fileRef = 62E14DC811BA932100A76550 /* rollback.png */; };
+		62E14DE611BA9A6B00A76550 /* SubsMgr.icns in Resources */ = {isa = PBXBuildFile; fileRef = 62E14DE511BA9A6B00A76550 /* SubsMgr.icns */; };
+		62F37E4312BD1DEF00561B37 /* toggle.png in Resources */ = {isa = PBXBuildFile; fileRef = 62F37E4212BD1DEF00561B37 /* toggle.png */; };
+		62F37E8812BD603D00561B37 /* special.png in Resources */ = {isa = PBXBuildFile; fileRef = 62F37E8712BD603D00561B37 /* special.png */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		089C165DFE840E0CC02AAC07 /* English */ = {isa = PBXFileReference; comments = "Hello world"; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
+		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		29B97319FDCFA39411CA2CEA /* English */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = English; path = English.lproj/MainMenu.nib; sourceTree = "<group>"; };
+		29B97324FDCFA39411CA2CEA /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
+		29B97325FDCFA39411CA2CEA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
+		4DDCA7110ACC9A6100E082CE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		4DDCA7120ACC9A6100E082CE /* SubsMgr.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SubsMgr.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		620246F10FB233700044157C /* package.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = package.png; path = Icones/package.png; sourceTree = "<group>"; };
+		620246F30FB233830044157C /* advancedsettings.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = advancedsettings.png; path = Icones/advancedsettings.png; sourceTree = "<group>"; };
+		620246F50FB2339A0044157C /* kate.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = kate.png; path = Icones/kate.png; sourceTree = "<group>"; };
+		620246F70FB233B40044157C /* Startup Wizard.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Startup Wizard.png"; path = "Icones/Startup Wizard.png"; sourceTree = "<group>"; };
+		620246F90FB233C40044157C /* xeyes.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = xeyes.png; path = Icones/xeyes.png; sourceTree = "<group>"; };
+		6216F3101044997C00CED421 /* opensubtitles.ico */ = {isa = PBXFileReference; lastKnownFileType = image.ico; name = opensubtitles.ico; path = Icones/opensubtitles.ico; sourceTree = "<group>"; };
+		6216F3111044997C00CED421 /* podnapisi.ico */ = {isa = PBXFileReference; lastKnownFileType = image.ico; name = podnapisi.ico; path = Icones/podnapisi.ico; sourceTree = "<group>"; };
+		6216F3121044997C00CED421 /* seriessub.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = seriessub.png; path = Icones/seriessub.png; sourceTree = "<group>"; };
+		622D82210F349470008F05CD /* SubsMgr.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = SubsMgr.rb; sourceTree = "<group>"; };
+		623FDED40F519351006D7138 /* flag.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = flag.png; path = Icones/flag.png; sourceTree = "<group>"; };
+		623FDF2C0F51B4D0006D7138 /* SM.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; name = SM.icns; path = Icones/SM.icns; sourceTree = "<group>"; };
+		6240A370114D531700AC4634 /* mire.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = mire.jpg; path = Icones/mire.jpg; sourceTree = "<group>"; };
+		62578A1E127DA9D700779F2E /* 3D-TV_32x32.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "3D-TV_32x32.png"; path = "Icones/3D-TV_32x32.png"; sourceTree = "<group>"; };
+		62578A51127DBCEF00779F2E /* generator.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = generator.rb; sourceTree = "<group>"; };
+		62578A52127DBCEF00779F2E /* parser.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = parser.rb; sourceTree = "<group>"; };
+		62578A53127DBCEF00779F2E /* plist.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = plist.rb; sourceTree = "<group>"; };
+		62578ADB127DE35C00779F2E /* SubsMgrStats.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = SubsMgrStats.plist; sourceTree = "<group>"; };
+		62578B21127DF47800779F2E /* SubsMgrPrefs.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = SubsMgrPrefs.plist; sourceTree = "<group>"; };
+		62578BFE127F110500779F2E /* Release Notes */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Release Notes"; sourceTree = "<group>"; };
+		6273D03011F1E0D9007A17F4 /* manual.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = manual.png; path = Icones/manual.png; sourceTree = "<group>"; };
+		627EF489127B2CB0006EBB27 /* soustitreseu.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = soustitreseu.png; path = Icones/soustitreseu.png; sourceTree = "<group>"; };
+		6296927E110B619B0012BC26 /* tvsubs.ico */ = {isa = PBXFileReference; lastKnownFileType = image.ico; name = tvsubs.ico; path = Icones/tvsubs.ico; sourceTree = "<group>"; };
+		62969364111DD6B80012BC26 /* forom.ico */ = {isa = PBXFileReference; lastKnownFileType = image.ico; name = forom.ico; path = Icones/forom.ico; sourceTree = "<group>"; };
+		62997BA51053CF8F0080F479 /* tvsubtitles.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = tvsubtitles.png; path = Icones/tvsubtitles.png; sourceTree = "<group>"; };
+		62997BAA1053D28F0080F479 /* kchart.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = kchart.png; path = Icones/kchart.png; sourceTree = "<group>"; };
+		62997BAC1053D3C60080F479 /* database.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = database.png; path = Icones/database.png; sourceTree = "<group>"; };
+		62A6D49012FDEEEE0096C03E /* common.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = common.rb; sourceTree = "<group>"; };
+		62A6D49112FDEEEE0096C03E /* file_cache.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = file_cache.rb; sourceTree = "<group>"; };
+		62A6D49212FDEEEE0096C03E /* icones.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = icones.rb; sourceTree = "<group>"; };
+		62A6D49312FDEEEE0096C03E /* statistics.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = statistics.rb; sourceTree = "<group>"; };
+		62A6D49412FDEEEE0096C03E /* structures.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = structures.rb; sourceTree = "<group>"; };
+		62A6D49F12FDEF1C0096C03E /* forom.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = forom.rb; sourceTree = "<group>"; };
+		62A6D4A012FDEF1C0096C03E /* local.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = local.rb; sourceTree = "<group>"; };
+		62A6D4A112FDEF1C0096C03E /* my_source.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = my_source.rb; sourceTree = "<group>"; };
+		62A6D4A212FDEF1C0096C03E /* plugin.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = plugin.rb; sourceTree = "<group>"; };
+		62A6D4A312FDEF1C0096C03E /* podnapisi.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = podnapisi.rb; sourceTree = "<group>"; };
+		62A6D4A412FDEF1C0096C03E /* series_sub.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = series_sub.rb; sourceTree = "<group>"; };
+		62A6D4A512FDEF1C0096C03E /* sous_titres_eu.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = sous_titres_eu.rb; sourceTree = "<group>"; };
+		62A6D4A612FDEF1C0096C03E /* test.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = test.rb; sourceTree = "<group>"; };
+		62A6D4A712FDEF1C0096C03E /* tv_subs.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = tv_subs.rb; sourceTree = "<group>"; };
+		62A6D4A812FDEF1C0096C03E /* tv_subtitles.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = tv_subtitles.rb; sourceTree = "<group>"; };
+		62AAFA400F69BBF2007F8151 /* QTKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QTKit.framework; path = /System/Library/Frameworks/QTKit.framework; sourceTree = "<absolute>"; };
+		62BF882512AAB20900D0E178 /* torrent.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = torrent.png; path = Icones/torrent.png; sourceTree = "<group>"; };
+		62BF8A4A12B5304600D0E178 /* antenne2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = antenne2.png; path = Icones/antenne2.png; sourceTree = "<group>"; };
+		62E14D7311BA79A200A76550 /* infos.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = infos.png; path = Icones/infos.png; sourceTree = "<group>"; };
+		62E14D7411BA79A200A76550 /* load.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = load.png; path = Icones/load.png; sourceTree = "<group>"; };
+		62E14D7511BA79A200A76550 /* test.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = test.png; path = Icones/test.png; sourceTree = "<group>"; };
+		62E14D7911BA79B000A76550 /* dir.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = dir.png; path = Icones/dir.png; sourceTree = "<group>"; };
+		62E14D7B11BA79BB00A76550 /* view.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = view.png; path = Icones/view.png; sourceTree = "<group>"; };
+		62E14D7C11BA79BB00A76550 /* web.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = web.png; path = Icones/web.png; sourceTree = "<group>"; };
+		62E14DC611BA931200A76550 /* clean.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = clean.png; path = Icones/clean.png; sourceTree = "<group>"; };
+		62E14DC811BA932100A76550 /* rollback.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = rollback.png; path = Icones/rollback.png; sourceTree = "<group>"; };
+		62E14DE511BA9A6B00A76550 /* SubsMgr.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; name = SubsMgr.icns; path = Icones/SubsMgr.icns; sourceTree = "<group>"; };
+		62F37E4212BD1DEF00561B37 /* toggle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = toggle.png; path = Icones/toggle.png; sourceTree = "<group>"; };
+		62F37E8712BD603D00561B37 /* special.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = special.png; path = Icones/special.png; sourceTree = "<group>"; };
+		E8F5E24E03AEB6EC03A81C6F /* RubyCocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RubyCocoa.framework; path = /System/Library/Frameworks/RubyCocoa.framework; sourceTree = "<absolute>"; };
+		E8F5E25803AEB7C803A81C6F /* rb_main.rb */ = {isa = PBXFileReference; lastKnownFileType = text.script.ruby; path = rb_main.rb; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		4DDCA70B0ACC9A6100E082CE /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4DDCA70C0ACC9A6100E082CE /* Cocoa.framework in Frameworks */,
+				4DDCA70D0ACC9A6100E082CE /* RubyCocoa.framework in Frameworks */,
+				62AAFA410F69BBF2007F8151 /* QTKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		080E96DDFE201D6D7F000001 /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				62A6D49E12FDEF1C0096C03E /* plugin */,
+				62A6D48F12FDEEEE0096C03E /* common */,
+				622D82210F349470008F05CD /* SubsMgr.rb */,
+			);
+			name = Classes;
+			sourceTree = "<group>";
+		};
+		1058C7A0FEA54F0111CA2CBB /* Linked Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				62AAFA400F69BBF2007F8151 /* QTKit.framework */,
+				1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */,
+				E8F5E24E03AEB6EC03A81C6F /* RubyCocoa.framework */,
+			);
+			name = "Linked Frameworks";
+			sourceTree = "<group>";
+		};
+		1058C7A2FEA54F0111CA2CBB /* Other Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				29B97325FDCFA39411CA2CEA /* Foundation.framework */,
+				29B97324FDCFA39411CA2CEA /* AppKit.framework */,
+			);
+			name = "Other Frameworks";
+			sourceTree = "<group>";
+		};
+		19C28FACFE9D520D11CA2CBB /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				4DDCA7120ACC9A6100E082CE /* SubsMgr.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		29B97314FDCFA39411CA2CEA /* SubsMgr */ = {
+			isa = PBXGroup;
+			children = (
+				080E96DDFE201D6D7F000001 /* Classes */,
+				29B97315FDCFA39411CA2CEA /* Other Sources */,
+				29B97317FDCFA39411CA2CEA /* Resources */,
+				29B97323FDCFA39411CA2CEA /* Frameworks */,
+				19C28FACFE9D520D11CA2CBB /* Products */,
+				4DDCA7110ACC9A6100E082CE /* Info.plist */,
+			);
+			name = SubsMgr;
+			sourceTree = "<group>";
+		};
+		29B97315FDCFA39411CA2CEA /* Other Sources */ = {
+			isa = PBXGroup;
+			children = (
+				62578A4F127DBCEF00779F2E /* lib */,
+				29B97316FDCFA39411CA2CEA /* main.m */,
+				E8F5E25803AEB7C803A81C6F /* rb_main.rb */,
+			);
+			name = "Other Sources";
+			sourceTree = "<group>";
+		};
+		29B97317FDCFA39411CA2CEA /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				62F37E8712BD603D00561B37 /* special.png */,
+				62F37E4212BD1DEF00561B37 /* toggle.png */,
+				62BF8A4A12B5304600D0E178 /* antenne2.png */,
+				62BF882512AAB20900D0E178 /* torrent.png */,
+				62578BFE127F110500779F2E /* Release Notes */,
+				62578B21127DF47800779F2E /* SubsMgrPrefs.plist */,
+				62578ADB127DE35C00779F2E /* SubsMgrStats.plist */,
+				62578A1E127DA9D700779F2E /* 3D-TV_32x32.png */,
+				627EF489127B2CB0006EBB27 /* soustitreseu.png */,
+				6273D03011F1E0D9007A17F4 /* manual.png */,
+				62E14DE511BA9A6B00A76550 /* SubsMgr.icns */,
+				62E14DC811BA932100A76550 /* rollback.png */,
+				62E14DC611BA931200A76550 /* clean.png */,
+				62E14D7B11BA79BB00A76550 /* view.png */,
+				62E14D7C11BA79BB00A76550 /* web.png */,
+				62E14D7911BA79B000A76550 /* dir.png */,
+				62E14D7311BA79A200A76550 /* infos.png */,
+				62E14D7411BA79A200A76550 /* load.png */,
+				62E14D7511BA79A200A76550 /* test.png */,
+				6240A370114D531700AC4634 /* mire.jpg */,
+				62969364111DD6B80012BC26 /* forom.ico */,
+				6296927E110B619B0012BC26 /* tvsubs.ico */,
+				62997BAC1053D3C60080F479 /* database.png */,
+				62997BAA1053D28F0080F479 /* kchart.png */,
+				62997BA51053CF8F0080F479 /* tvsubtitles.png */,
+				6216F3101044997C00CED421 /* opensubtitles.ico */,
+				6216F3111044997C00CED421 /* podnapisi.ico */,
+				6216F3121044997C00CED421 /* seriessub.png */,
+				620246F90FB233C40044157C /* xeyes.png */,
+				620246F70FB233B40044157C /* Startup Wizard.png */,
+				620246F50FB2339A0044157C /* kate.png */,
+				620246F30FB233830044157C /* advancedsettings.png */,
+				620246F10FB233700044157C /* package.png */,
+				623FDF2C0F51B4D0006D7138 /* SM.icns */,
+				623FDED40F519351006D7138 /* flag.png */,
+				29B97318FDCFA39411CA2CEA /* MainMenu.nib */,
+				089C165CFE840E0CC02AAC07 /* InfoPlist.strings */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
+		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				1058C7A0FEA54F0111CA2CBB /* Linked Frameworks */,
+				1058C7A2FEA54F0111CA2CBB /* Other Frameworks */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		62578A4F127DBCEF00779F2E /* lib */ = {
+			isa = PBXGroup;
+			children = (
+				62578A50127DBCEF00779F2E /* plist */,
+				62578A53127DBCEF00779F2E /* plist.rb */,
+			);
+			path = lib;
+			sourceTree = "<group>";
+		};
+		62578A50127DBCEF00779F2E /* plist */ = {
+			isa = PBXGroup;
+			children = (
+				62578A51127DBCEF00779F2E /* generator.rb */,
+				62578A52127DBCEF00779F2E /* parser.rb */,
+			);
+			path = plist;
+			sourceTree = "<group>";
+		};
+		62A6D48F12FDEEEE0096C03E /* common */ = {
+			isa = PBXGroup;
+			children = (
+				62A6D49012FDEEEE0096C03E /* common.rb */,
+				62A6D49112FDEEEE0096C03E /* file_cache.rb */,
+				62A6D49212FDEEEE0096C03E /* icones.rb */,
+				62A6D49312FDEEEE0096C03E /* statistics.rb */,
+				62A6D49412FDEEEE0096C03E /* structures.rb */,
+			);
+			path = common;
+			sourceTree = "<group>";
+		};
+		62A6D49E12FDEF1C0096C03E /* plugin */ = {
+			isa = PBXGroup;
+			children = (
+				62A6D49F12FDEF1C0096C03E /* forom.rb */,
+				62A6D4A012FDEF1C0096C03E /* local.rb */,
+				62A6D4A112FDEF1C0096C03E /* my_source.rb */,
+				62A6D4A212FDEF1C0096C03E /* plugin.rb */,
+				62A6D4A312FDEF1C0096C03E /* podnapisi.rb */,
+				62A6D4A412FDEF1C0096C03E /* series_sub.rb */,
+				62A6D4A512FDEF1C0096C03E /* sous_titres_eu.rb */,
+				62A6D4A612FDEF1C0096C03E /* test.rb */,
+				62A6D4A712FDEF1C0096C03E /* tv_subs.rb */,
+				62A6D4A812FDEF1C0096C03E /* tv_subtitles.rb */,
+			);
+			path = plugin;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		4DDCA7040ACC9A6100E082CE /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		4DDCA7030ACC9A6100E082CE /* SubsMgr */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 4DDCA70E0ACC9A6100E082CE /* Build configuration list for PBXNativeTarget "SubsMgr" */;
+			buildPhases = (
+				4DDCA7040ACC9A6100E082CE /* Headers */,
+				4DDCA7050ACC9A6100E082CE /* Resources */,
+				4DDCA7090ACC9A6100E082CE /* Sources */,
+				4DDCA70B0ACC9A6100E082CE /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = SubsMgr;
+			productInstallPath = "$(HOME)/Applications";
+			productName = SubsMgr;
+			productReference = 4DDCA7120ACC9A6100E082CE /* SubsMgr.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		29B97313FDCFA39411CA2CEA /* Project object */ = {
+			isa = PBXProject;
+			buildConfigurationList = 4D7A7B570ABF745500C2D4C0 /* Build configuration list for PBXProject "SubsMgr" */;
+			compatibilityVersion = "Xcode 3.0";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				English,
+				Japanese,
+				French,
+				German,
+			);
+			mainGroup = 29B97314FDCFA39411CA2CEA /* SubsMgr */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				4DDCA7030ACC9A6100E082CE /* SubsMgr */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		4DDCA7050ACC9A6100E082CE /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4DDCA7060ACC9A6100E082CE /* MainMenu.nib in Resources */,
+				4DDCA7070ACC9A6100E082CE /* InfoPlist.strings in Resources */,
+				4DDCA7080ACC9A6100E082CE /* rb_main.rb in Resources */,
+				622D82220F349470008F05CD /* SubsMgr.rb in Resources */,
+				623FDF2D0F51B4D0006D7138 /* SM.icns in Resources */,
+				620246F20FB233700044157C /* package.png in Resources */,
+				620246F40FB233830044157C /* advancedsettings.png in Resources */,
+				620246F60FB2339A0044157C /* kate.png in Resources */,
+				620246F80FB233B40044157C /* Startup Wizard.png in Resources */,
+				620246FA0FB233C40044157C /* xeyes.png in Resources */,
+				6216F3141044997C00CED421 /* opensubtitles.ico in Resources */,
+				6216F3151044997C00CED421 /* podnapisi.ico in Resources */,
+				6216F3161044997C00CED421 /* seriessub.png in Resources */,
+				62997BA61053CF8F0080F479 /* tvsubtitles.png in Resources */,
+				62997BAB1053D28F0080F479 /* kchart.png in Resources */,
+				62997BAD1053D3C60080F479 /* database.png in Resources */,
+				6296927F110B619B0012BC26 /* tvsubs.ico in Resources */,
+				62969365111DD6B80012BC26 /* forom.ico in Resources */,
+				6240A371114D531700AC4634 /* mire.jpg in Resources */,
+				62E14D7611BA79A200A76550 /* infos.png in Resources */,
+				62E14D7711BA79A200A76550 /* load.png in Resources */,
+				62E14D7811BA79A200A76550 /* test.png in Resources */,
+				62E14D7A11BA79B000A76550 /* dir.png in Resources */,
+				62E14D7D11BA79BB00A76550 /* view.png in Resources */,
+				62E14D7E11BA79BB00A76550 /* web.png in Resources */,
+				62E14DC711BA931200A76550 /* clean.png in Resources */,
+				62E14DC911BA932100A76550 /* rollback.png in Resources */,
+				62E14DE611BA9A6B00A76550 /* SubsMgr.icns in Resources */,
+				6273D03111F1E0D9007A17F4 /* manual.png in Resources */,
+				627EF48A127B2CB0006EBB27 /* soustitreseu.png in Resources */,
+				62578A1F127DA9D700779F2E /* 3D-TV_32x32.png in Resources */,
+				62578A54127DBCEF00779F2E /* generator.rb in Resources */,
+				62578A55127DBCEF00779F2E /* parser.rb in Resources */,
+				62578A56127DBCEF00779F2E /* plist.rb in Resources */,
+				62578ADC127DE35C00779F2E /* SubsMgrStats.plist in Resources */,
+				62578B22127DF47800779F2E /* SubsMgrPrefs.plist in Resources */,
+				62578BFF127F110500779F2E /* Release Notes in Resources */,
+				62BF882612AAB20900D0E178 /* torrent.png in Resources */,
+				62BF8A4B12B5304600D0E178 /* antenne2.png in Resources */,
+				62F37E4312BD1DEF00561B37 /* toggle.png in Resources */,
+				62F37E8812BD603D00561B37 /* special.png in Resources */,
+				62A6D49512FDEEEE0096C03E /* common.rb in Resources */,
+				62A6D49612FDEEEE0096C03E /* file_cache.rb in Resources */,
+				62A6D49712FDEEEE0096C03E /* icones.rb in Resources */,
+				62A6D49812FDEEEE0096C03E /* statistics.rb in Resources */,
+				62A6D49912FDEEEE0096C03E /* structures.rb in Resources */,
+				62A6D4BF12FDEF850096C03E /* forom.rb in Resources */,
+				62A6D4C012FDEF850096C03E /* local.rb in Resources */,
+				62A6D4C112FDEF850096C03E /* my_source.rb in Resources */,
+				62A6D4C212FDEF850096C03E /* plugin.rb in Resources */,
+				62A6D4C312FDEF850096C03E /* podnapisi.rb in Resources */,
+				62A6D4C412FDEF850096C03E /* series_sub.rb in Resources */,
+				62A6D4C512FDEF850096C03E /* sous_titres_eu.rb in Resources */,
+				62A6D4C612FDEF850096C03E /* test.rb in Resources */,
+				62A6D4C712FDEF850096C03E /* tv_subs.rb in Resources */,
+				62A6D4C812FDEF850096C03E /* tv_subtitles.rb in Resources */,
+				62A6D4FC12FDF6750096C03E /* flag.png in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		4DDCA7090ACC9A6100E082CE /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4DDCA70A0ACC9A6100E082CE /* main.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		089C165CFE840E0CC02AAC07 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				089C165DFE840E0CC02AAC07 /* English */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		29B97318FDCFA39411CA2CEA /* MainMenu.nib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				29B97319FDCFA39411CA2CEA /* English */,
+			);
+			name = MainMenu.nib;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		4D7A7B580ABF745500C2D4C0 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				PREBINDING = NO;
+				SDKROOT = "$(DEVELOPER_SDK_DIR)/MacOSX10.5.sdk";
+			};
+			name = Debug;
+		};
+		4D7A7B590ABF745500C2D4C0 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT_PRE_XCODE_3_1)";
+				ARCHS_STANDARD_32_64_BIT_PRE_XCODE_3_1 = "x86_64 i386 ppc";
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				PREBINDING = NO;
+				SDKROOT = "$(DEVELOPER_SDK_DIR)/MacOSX10.6.sdk";
+			};
+			name = Release;
+		};
+		4DDCA70F0ACC9A6100E082CE /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = YES;
+				GCC_MODEL_TUNING = G5;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				INFOPLIST_FILE = Info.plist;
+				INSTALL_PATH = "$(HOME)/Applications";
+				PRODUCT_NAME = SubsMgr;
+				WRAPPER_EXTENSION = app;
+				ZERO_LINK = YES;
+			};
+			name = Debug;
+		};
+		4DDCA7100ACC9A6100E082CE /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT_PRE_XCODE_3_1)";
+				ARCHS_STANDARD_32_64_BIT_PRE_XCODE_3_1 = "x86_64 i386 ppc";
+				GCC_MODEL_TUNING = G5;
+				INFOPLIST_FILE = Info.plist;
+				INSTALL_PATH = "$(HOME)/Applications";
+				ONLY_ACTIVE_ARCH = NO;
+				PRODUCT_NAME = SubsMgr;
+				VALID_ARCHS = "i386 x86_64";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		4D7A7B570ABF745500C2D4C0 /* Build configuration list for PBXProject "SubsMgr" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4D7A7B580ABF745500C2D4C0 /* Debug */,
+				4D7A7B590ABF745500C2D4C0 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		4DDCA70E0ACC9A6100E082CE /* Build configuration list for PBXNativeTarget "SubsMgr" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4DDCA70F0ACC9A6100E082CE /* Debug */,
+				4DDCA7100ACC9A6100E082CE /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 29B97313FDCFA39411CA2CEA /* Project object */;
+}

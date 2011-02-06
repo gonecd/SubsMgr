@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Directories</key>
+	<dict>
+		<key>Download</key>
+		<string>/</string>
+		<key>Series</key>
+		<string>/</string>
+		<key>Banners</key>
+		<string>/</string>
+		<key>Subtitles</key>
+		<string>/</string>
+		<key>Torrents</key>
+		<string>/</string>
+	</dict>
+	<key>Naming Rules</key>
+	<dict>
+		<key>Directories</key>
+		<integer>0</integer>
+		<key>Episodes</key>
+		<integer>0</integer>
+		<key>Separator</key>
+		<integer>1</integer>
+	</dict>
+	<key>Automatism</key>
+	<dict>
+		<key>Min confidence</key>
+		<integer>2</integer>
+		<key>Schedule SearchAll</key>
+		<integer>0</integer>
+		<key>Schedule ProcessAll</key>
+		<integer>0</integer>
+		<key>Forom key</key>
+		<string></string>
+	</dict>
+	<key>Sources</key>
+	<dict>
+		<key>Forom</key>
+		<dict>
+			<key>Active</key>
+			<integer>1</integer>
+			<key>Ranking</key>
+			<integer>0</integer>
+		</dict>
+		<key>Podnapisi</key>
+		<dict>
+			<key>Active</key>
+			<integer>0</integer>
+			<key>Ranking</key>
+			<integer>0</integer>
+		</dict>
+		<key>SeriesSub</key>
+		<dict>
+			<key>Active</key>
+			<integer>0</integer>
+			<key>Ranking</key>
+			<integer>0</integer>
+		</dict>
+		<key>SousTitresEU</key>
+		<dict>
+			<key>Active</key>
+			<integer>0</integer>
+			<key>Ranking</key>
+			<integer>0</integer>
+		</dict>
+		<key>TVSubs</key>
+		<dict>
+			<key>Active</key>
+			<integer>0</integer>
+			<key>Ranking</key>
+			<integer>0</integer>
+		</dict>
+		<key>TVSubtitles</key>
+		<dict>
+			<key>Active</key>
+			<integer>0</integer>
+			<key>Ranking</key>
+			<integer>0</integer>
+		</dict>
+		<key>Local</key>
+		<dict>
+			<key>Active</key>
+			<integer>0</integer>
+			<key>Ranking</key>
+			<integer>0</integer>
+		</dict>
+		<key>MySource</key>
+		<dict>
+			<key>Active</key>
+			<integer>0</integer>
+			<key>Ranking</key>
+			<integer>0</integer>
+		</dict>
+	</dict>
+	<key>Subs management</key>
+	<dict>
+		<key>Move</key>
+		<integer>1</integer>
+		<key>SupprCrochets</key>
+		<integer>0</integer>
+		<key>SupprAccolades</key>
+		<integer>0</integer>
+		<key>Commande</key>
+		<string></string>
+	</dict>
+</dict>
+</plist>

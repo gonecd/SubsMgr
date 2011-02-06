@@ -1,0 +1,64 @@
+
+19/12/2010
+
+ENH : suppresion de l'écran Library
+
+ENH : intégration des données de librairies dans le panel de droite
+
+NEW : gestion de deux modes d'affichage : Library ou Sous-titrage
+
+NEW : affichage du statut global de la saison pour chaque série
+
+ENH : sélection des séries par saison
+
+NEW : bouton de suppression d'une saison compléte de la librairie (non implémenté)
+
+NEW : bouton d'ouverture de la page TVdb associée à la série / saison
+
+BUG : correction d'un bug empêchant la sauvegarde des stats de traitement
+
+
+
+
+04/12/2010
+
+NEW : merge des préférences par défaut et des préférences utilisateur (pour lors des ajouts de préférence)
+
+NEW : nouvelle préférence "Torrents Directory"
+
+NEW : nouvel écran Library
+
+
+
+
+01/11/2010
+
+NEW : gestion de la suppression des tags <...>
+
+NEW : gestion de la suppression des tags {...}
+
+NEW : possibilité de lancer une commande unix (ou un script) de traitement sur les sous-titres
+
+NEW : refonte des préférences et gestion sous forme de plist
+
+NEW : gestions des statistiques sous forme de plist
+
+NEW : séparation du code des sources dans des fichiers externes
+
+NEW : ajout de la source www.sous-titres.eu
+
+NEW : ajout de la source MySource (à développer toi-même !)
+
+NEW : ajout d'un fenêtre de Release Notes
+
+ENH : meilleure gestion mémoire des icones de sources
+
+ENH : refonte graphique des fenêtres de statistiques et de préférences
+
+ENH : suppression du filtrage des TAGs pour SeriesSub
+
+ENH : filtrage des fichiers .ass pour la source Local Directory
+
+BUG : correction de bugs liés à l'absence du fichier d'historique au démarrage
+
+BUG : correction d'un bug sur la suppression dans l'historique
