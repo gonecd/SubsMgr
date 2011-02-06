@@ -70,7 +70,6 @@ class SubsMgr < OSX::NSWindowController
     @spotFilter = ""
     @appPath = OSX::NSBundle.mainBundle.resourcePath.fileSystemRepresentation
     Icones.path = File.join(@appPath, "Icones")
-    $stderr.puts "PATH: #{Icones.path}"
 
     # First run ? Fichier manquants ?
     unless File.exist?("/Library/Application\ Support/SubsMgr/")
