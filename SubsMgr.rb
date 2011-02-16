@@ -412,7 +412,7 @@ class SubsMgr < OSX::NSWindowController
           if monURL == ""
             new_ligne.image = OSX::NSImage.alloc.initWithContentsOfFile_(@pDirBanner.stringValue()+"00 - All series.jpg")
           else
-            FileCache.get_file(monURL, imageFile)
+            imageFile = FileCache.get_file(monURL, imageFile)
             new_ligne.image = OSX::NSImage.alloc.initWithContentsOfFile_(imageFile)
           end
         end

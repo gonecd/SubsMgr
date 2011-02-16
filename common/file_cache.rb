@@ -1,3 +1,5 @@
+require 'tempfile'
+
 module FileCache
   CACHE_PATH = "/tmp/subsmgr"
 
@@ -13,7 +15,7 @@ module FileCache
   def get_zip(link, file, referer = nil)
     begin
       # Récupération du zip
-      full_path = get_file(link, referer)
+      full_path = get_file(link, :refered => referer, :zip => true)
 
       # Extraction du zip
       if file == "None"
@@ -28,17 +30,33 @@ module FileCache
       @current.comment = "Pb dans la récupération du zip"
     end
   end
+  
+  def recursive_unzip(zip_path)
+    if `zipinfo -1 /tmp/test.zip |grep ".zip"|wc -l`.strip.to_i>0
+      tmp = Tempfile.new("unzip")
+      path = tmp.path
+      File.unlink(path)
+      system("mkdir -p #{path}; /usr/bin/unzip -j -o -qq #{zip_path} -d #{path}/; find #{path} -name \"*.zip\" -exec unzip -j -o {} -d #{path}/ \\; -exec rm {} \\; ; cd #{path}; zip -rj #{zip_path}.new .; mv #{zip_path}.new #{zip_path}")
+      FileUtils.rm_rf(path)
+    end
+    zip_path
+  end
 
   # recuperer un fichier quelconque
-  def get_file(source, referer = nil)
+  # options:
+  # :zip => true pour decompresser recursivement le zip si necessaire et retourne un zip "a plat"
+  # :referer => url de referer a emuler
+  # :path => chemin complet du stockage du fichier si c'est à conserver ailleurs (et dans ce cas, les repertoires doivent deja exister)
+  def get_file(source, options = {})
     FileUtils.mkdir_p(CACHE_PATH)
     # on fabrique un nom de fichier unique pour le garder en cache pendant toute la journée
     crc = Digest::MD5.hexdigest("#{source}-#{Time.now.strftime('%Y-%m-%d')}")
-    full_path = File.join(CACHE_PATH, crc)
+    full_path = options[:path] || File.join(CACHE_PATH, crc)
 
     unless (File.exists?(full_path) && File.size(full_path)>0)
-      file = BROWSER.get(source, :referer => referer)
+      file = BROWSER.get(source, :referer => options[:referer])
       File.open(full_path, "w") {|f| f.write(file.body)}
+      recursive_unzip if options[:zip]
     end
     return full_path
   end

@@ -1,4 +1,4 @@
-# TODO: recursive Zip quand un zip de saison contient les zips de chaque épisode
+q# TODO: recursive Zip quand un zip de saison contient les zips de chaque épisode
 # ex: Dexter.S5 => http://www.seriessub.com/sous-titres/dexter/saison_5/
 
 class Plugin::SeriesSub < Plugin::Base
@@ -39,7 +39,7 @@ class Plugin::SeriesSub < Plugin::Base
         if fichierCible.to_s.match(/zip/im)
           # Download du zip
           req = "http://www.seriessub.com/download-#{vers}.html"
-          path = FileCache.get_file(req, monURL)
+          path = FileCache.get_file(req, :referer => monURL, :zip => true)
 
           # Recherche dans le zip
           `zipinfo -1 #{path}`.collect do |entry|
@@ -78,7 +78,7 @@ class Plugin::SeriesSub < Plugin::Base
         if fichierCible.to_s.match(/zip/im)
           # Downlaod du zip
           req = "http://www.seriessub.com/download-#{vers}.html"
-          path = FileCache.get_file(req, monURL)
+          path = FileCache.get_file(req, :referer => monURL, :zip => true)
 
           # Recherche dans le zip
           `zipinfo -1 /tmp/Sub.zip`.collect do |entry|

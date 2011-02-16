@@ -24,7 +24,7 @@ class Plugin::SousTitresEU < Plugin::Base
         rel = k.search("td.update").text.to_s
 
         # Récupération du zip
-        path = FileCache.get_file("http://www.sous-titres.eu/series/#{vers}")
+        path = FileCache.get_file("http://www.sous-titres.eu/series/#{vers}", :zip => true)
 
         # Exploration du zip
         `zipinfo -1 #{path}`.collect do |entry|
@@ -45,7 +45,7 @@ class Plugin::SousTitresEU < Plugin::Base
         rel = k.search("td.update").text.to_s
 
         # Récupération du zip
-        path = FileCache.get_file("http://www.sous-titres.eu/series/#{vers}")
+        path = FileCache.get_file("http://www.sous-titres.eu/series/#{vers}", :zip => true)
 
         # Exploration du zip
         `zipinfo -1 #{path}`.collect do |entry|
