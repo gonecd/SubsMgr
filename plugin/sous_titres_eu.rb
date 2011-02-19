@@ -10,11 +10,7 @@ class Plugin::SousTitresEU < Plugin::Base
 
   def do_search
     monURL = "http://www.sous-titres.eu/series/#{current.serie.downcase.gsub(/ /, '_')}.html"
-    rec1 = sprintf("%dx0?%s", current.saison, current.episode)
-    rec2 = sprintf("%s\.S0?%s", current.serie.downcase.gsub(/ /, '.'), current.saison, current.saison)
-    rec3 = sprintf("S0?%sE0%s", current.saison, current.episode)
-
-    $stderr.puts "REC: #{rec1} - #{rec2} - #{rec3}"
+    rec_saison = sprintf("%s\.S0?%s", current.serie.downcase.gsub(/ /, '.'), current.saison, current.saison)
 
     doc = FileCache.get_html(monURL)
     doc.search("div.saison tr").collect do |k|
@@ -42,7 +38,7 @@ class Plugin::SousTitresEU < Plugin::Base
           end
         end
         # Cas du zip par saison
-      elsif k.text.downcase.match(/#{rec2}/im)
+      elsif k.text.downcase.match(/#{rec_saison}/im)
         # on zappe les zips de saison uniquement en anglais
         next if fichierCible.match(/\.(EN|VO)\./)
         # Récupération du zip

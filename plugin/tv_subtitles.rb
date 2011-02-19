@@ -28,6 +28,7 @@ class Plugin::TVSubtitles < Plugin::Base
     end
 
     # Trouver l'épisode
+    $stderr.puts "EPISODE LOOKUP: #{monURL}"
     doc = FileCache.get_html(monURL)
     rec = sprintf("%dx%02d", current.saison.to_s, current.episode.to_s)
     doc.search("table tr[@align='middle']").each do |k|
@@ -38,16 +39,18 @@ class Plugin::TVSubtitles < Plugin::Base
     end
 
     # Trouver les sous titres
+    $stderr.puts "SUBTITLE LOOKUP: #{monURL}"
     doc = FileCache.get_html(monURL)
     doc.search("a[@href]").collect do |k|
-      if k.inner_html.to_s.match("Download French subtitles")
-        new_ligne = WebSub.new
-        new_ligne.fichier = "#{current.serie}.#{rec}." + k.search("p[@title='rip']").text.scan(/[0-9]*\ *[a-zA-Z]*/).to_s + "-" + k.search("p[@title='release']").text.scan(/[0-9]*\ *[a-zA-Z]*/).to_s
-        new_ligne.date = k.text.to_s.scan(/[0-9][0-9]\.[0-9][0-9]\.[0-9][0-9]/).to_s
-        new_ligne.lien = k[:href].to_s.scan(/[0-9]*/).to_s
-        new_ligne.referer = monURL
-        new_ligne
-      end
+      next unless (k.at("img") || {})['src'].to_s.match(/fr\.(gif|png|jpg)/im)
+      $stderr.puts k.to_s
+
+      new_ligne = WebSub.new
+      new_ligne.fichier = "#{current.serie}.#{rec}." + k.search("p[@title='rip']").text.scan(/[0-9]*\ *[a-zA-Z]*/).to_s + "-" + k.search("p[@title='release']").text.scan(/[0-9]*\ *[a-zA-Z]*/).to_s
+      new_ligne.date = k.text.to_s.scan(/[0-9][0-9]\.[0-9][0-9]\.[0-9][0-9]/).to_s
+      new_ligne.lien = k[:href].to_s.scan(/[0-9]*/).to_s
+      new_ligne.referer = monURL
+      new_ligne
     end
   end
   
