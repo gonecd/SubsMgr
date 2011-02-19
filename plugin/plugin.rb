@@ -7,7 +7,7 @@ module Plugin
     end
   end
   module_function :constantize
-    
+
 
   class Base
     attr_accessor :current, :rank, :idx_candidat
@@ -19,7 +19,7 @@ module Plugin
       #   FileCache.get_srt(lien, referer = nil) -- stocke le srt disponible sur lien dans /tmp/Sub.srt
       #   FileCache.get_zip(lien, fichier, referer = nil) -- fichier étant le fichier à extraire du zip, la cible étant automatiquement /tmp/Sub.srt
     end
-    
+
     # must be overloaded
     def do_search
       # doit retourner un tableau de lignes du type (les autres champs nécessaires sont remplis automatiquement)
@@ -30,7 +30,7 @@ module Plugin
       #    new_ligne.referer = ""
       []
     end
-    
+
     # ----------------------------
     # NOTHING TO CHANGE AFTER THIS
     # ----------------------------
@@ -118,6 +118,24 @@ module Plugin
 
 
     protected
+
+    # on verifie si +txt+ est une chaine qui correspond à l'épisode +episode+ de la saison +saison+
+    def valid_episode?(txt, saison, episode)
+      txt = txt.to_s.strip
+      return false if txt == ''
+      return false unless txt.match(/\.srt/im)
+      return false if txt.match(/\.(EN|VO)\./im)
+
+      ok = case
+      when txt.match(/s0?#{saison}e0?#{episode}/im): true # format S01E01 et variantes
+      when txt.match(/0?#{saison}x0?#{episode}/im): true # format 01X01 et variantes
+      when txt.match(/#{saison}#{sprintf('%02d',episode)}/im): true   # format 101
+      else false
+      end
+      # $stderr.puts "... match for #{entry}!" if ok
+      ok
+    end
+
     def get_confiance(sousTitre)
       (val, foo) = self.class.calcul_confiance(sousTitre, self.current)
       val.to_f + self.rank

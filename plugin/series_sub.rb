@@ -39,7 +39,7 @@ class Plugin::SeriesSub < Plugin::Base
         if fichierCible.to_s.match(/zip/im)
           # Download du zip
           req = "http://www.seriessub.com/download-#{vers}.html"
-          path = FileCache.get_file(req, monURL)
+          path = FileCache.get_file(req, :referer => monURL, :zip => true)
 
           # Recherche dans le zip
           `zipinfo -1 #{path}`.collect do |entry|
@@ -78,10 +78,10 @@ class Plugin::SeriesSub < Plugin::Base
         if fichierCible.to_s.match(/zip/im)
           # Downlaod du zip
           req = "http://www.seriessub.com/download-#{vers}.html"
-          path = FileCache.get_file(req, monURL)
+          path = FileCache.get_file(req, :referer => monURL, :zip => true)
 
           # Recherche dans le zip
-          `zipinfo -1 /tmp/Sub.zip`.collect do |entry|
+          `zipinfo -1 #{path}`.collect do |entry|
             if entry.to_s.match(/#{rec4}|#{rec5}/im) && !entry.to_s.match(/(\.(VO|eng|en)\.|MACOSX)/im) && entry.to_s.match(/\.srt/im)
               new_ligne = WebSub.new
               new_ligne.fichier = entry.to_s.strip
