@@ -26,26 +26,24 @@ class Plugin::TVSubtitles < Plugin::Base
 			@lastSearchTVsubtitles = "#{current.serie}#{current.saison}"
 			@urlTVsubtitles = monURL
 		end
-
+		return [] unless monURL
+		
 		# Trouver l'épisode
-		$stderr.puts "EPISODE LOOKUP: #{monURL}"
 		doc = FileCache.get_html(monURL)
 		rec = sprintf("%dx%02d", current.saison.to_s, current.episode.to_s)
 		monURL = nil
 		doc.search("table tr[@align='middle']").each do |k|
-			if k.to_s.match(rec)
+			if (k.search("td").any? {|e| e.text.match(/#{rec}/im)})
 				monURL = "http://www.tvsubtitles.net/" + k.search("a").attr("href").to_s
 				break
 			end
 		end
-
+		return [] unless monURL
+		
 		# Trouver les sous titres
-		$stderr.puts "SUBTITLE LOOKUP: #{monURL}"
 		doc = FileCache.get_html(monURL)
 		doc.search("a[@href]").collect do |k|
 			next unless (k.at("img") || {})['src'].to_s.match(/fr\.(gif|png|jpg)/im)
-			$stderr.puts k.to_s
-
 			new_ligne = WebSub.new
 			new_ligne.fichier = "#{current.serie}.#{rec}." + k.search("p[@title='rip']").text.scan(/[0-9]*\ *[a-zA-Z]*/).to_s + "-" + k.search("p[@title='release']").text.scan(/[0-9]*\ *[a-zA-Z]*/).to_s
 			new_ligne.date = k.text.to_s.scan(/[0-9][0-9]\.[0-9][0-9]\.[0-9][0-9]/).to_s
