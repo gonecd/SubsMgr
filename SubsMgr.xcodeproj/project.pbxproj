@@ -17,9 +17,7 @@
 		4DDCA70A0ACC9A6100E082CE /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; settings = {ATTRIBUTES = (); }; };
 		4DDCA70C0ACC9A6100E082CE /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
 		4DDCA70D0ACC9A6100E082CE /* RubyCocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E8F5E24E03AEB6EC03A81C6F /* RubyCocoa.framework */; };
-		620246F20FB233700044157C /* package.png in Resources */ = {isa = PBXBuildFile; fileRef = 620246F10FB233700044157C /* package.png */; };
 		620246F40FB233830044157C /* advancedsettings.png in Resources */ = {isa = PBXBuildFile; fileRef = 620246F30FB233830044157C /* advancedsettings.png */; };
-		620246F60FB2339A0044157C /* kate.png in Resources */ = {isa = PBXBuildFile; fileRef = 620246F50FB2339A0044157C /* kate.png */; };
 		620246F80FB233B40044157C /* Startup Wizard.png in Resources */ = {isa = PBXBuildFile; fileRef = 620246F70FB233B40044157C /* Startup Wizard.png */; };
 		620246FA0FB233C40044157C /* xeyes.png in Resources */ = {isa = PBXBuildFile; fileRef = 620246F90FB233C40044157C /* xeyes.png */; };
 		622D82220F349470008F05CD /* SubsMgr.rb in Resources */ = {isa = PBXBuildFile; fileRef = 622D82210F349470008F05CD /* SubsMgr.rb */; };
@@ -30,18 +28,10 @@
 		62578ADC127DE35C00779F2E /* SubsMgrStats.plist in Resources */ = {isa = PBXBuildFile; fileRef = 62578ADB127DE35C00779F2E /* SubsMgrStats.plist */; };
 		62578B22127DF47800779F2E /* SubsMgrPrefs.plist in Resources */ = {isa = PBXBuildFile; fileRef = 62578B21127DF47800779F2E /* SubsMgrPrefs.plist */; };
 		62578BFF127F110500779F2E /* Release Notes in Resources */ = {isa = PBXBuildFile; fileRef = 62578BFE127F110500779F2E /* Release Notes */; };
-		6273D03111F1E0D9007A17F4 /* manual.png in Resources */ = {isa = PBXBuildFile; fileRef = 6273D03011F1E0D9007A17F4 /* manual.png */; };
 		62997BAB1053D28F0080F479 /* kchart.png in Resources */ = {isa = PBXBuildFile; fileRef = 62997BAA1053D28F0080F479 /* kchart.png */; };
 		62997BAD1053D3C60080F479 /* database.png in Resources */ = {isa = PBXBuildFile; fileRef = 62997BAC1053D3C60080F479 /* database.png */; };
 		62A6D4FC12FDF6750096C03E /* flag.png in Resources */ = {isa = PBXBuildFile; fileRef = 623FDED40F519351006D7138 /* flag.png */; };
 		62AAFA410F69BBF2007F8151 /* QTKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 62AAFA400F69BBF2007F8151 /* QTKit.framework */; };
-		62E14D7611BA79A200A76550 /* infos.png in Resources */ = {isa = PBXBuildFile; fileRef = 62E14D7311BA79A200A76550 /* infos.png */; };
-		62E14D7711BA79A200A76550 /* load.png in Resources */ = {isa = PBXBuildFile; fileRef = 62E14D7411BA79A200A76550 /* load.png */; };
-		62E14D7A11BA79B000A76550 /* dir.png in Resources */ = {isa = PBXBuildFile; fileRef = 62E14D7911BA79B000A76550 /* dir.png */; };
-		62E14D7D11BA79BB00A76550 /* view.png in Resources */ = {isa = PBXBuildFile; fileRef = 62E14D7B11BA79BB00A76550 /* view.png */; };
-		62E14D7E11BA79BB00A76550 /* web.png in Resources */ = {isa = PBXBuildFile; fileRef = 62E14D7C11BA79BB00A76550 /* web.png */; };
-		62E14DC711BA931200A76550 /* clean.png in Resources */ = {isa = PBXBuildFile; fileRef = 62E14DC611BA931200A76550 /* clean.png */; };
-		62E14DC911BA932100A76550 /* rollback.png in Resources */ = {isa = PBXBuildFile; fileRef = 62E14DC811BA932100A76550 /* rollback.png */; };
 		62F37E4312BD1DEF00561B37 /* toggle.png in Resources */ = {isa = PBXBuildFile; fileRef = 62F37E4212BD1DEF00561B37 /* toggle.png */; };
 /* End PBXBuildFile section */
 
@@ -58,9 +48,7 @@
 		29B97325FDCFA39411CA2CEA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
 		4DDCA7110ACC9A6100E082CE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4DDCA7120ACC9A6100E082CE /* SubsMgr.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SubsMgr.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		620246F10FB233700044157C /* package.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = package.png; path = Icones/package.png; sourceTree = "<group>"; };
 		620246F30FB233830044157C /* advancedsettings.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = advancedsettings.png; path = Icones/advancedsettings.png; sourceTree = "<group>"; };
-		620246F50FB2339A0044157C /* kate.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = kate.png; path = Icones/kate.png; sourceTree = "<group>"; };
 		620246F70FB233B40044157C /* Startup Wizard.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Startup Wizard.png"; path = "Icones/Startup Wizard.png"; sourceTree = "<group>"; };
 		620246F90FB233C40044157C /* xeyes.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = xeyes.png; path = Icones/xeyes.png; sourceTree = "<group>"; };
 		622D82210F349470008F05CD /* SubsMgr.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = SubsMgr.rb; sourceTree = "<group>"; };
@@ -72,17 +60,9 @@
 		62578ADB127DE35C00779F2E /* SubsMgrStats.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = SubsMgrStats.plist; sourceTree = "<group>"; };
 		62578B21127DF47800779F2E /* SubsMgrPrefs.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = SubsMgrPrefs.plist; sourceTree = "<group>"; };
 		62578BFE127F110500779F2E /* Release Notes */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Release Notes"; sourceTree = "<group>"; };
-		6273D03011F1E0D9007A17F4 /* manual.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = manual.png; path = Icones/manual.png; sourceTree = "<group>"; };
 		62997BAA1053D28F0080F479 /* kchart.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = kchart.png; path = Icones/kchart.png; sourceTree = "<group>"; };
 		62997BAC1053D3C60080F479 /* database.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = database.png; path = Icones/database.png; sourceTree = "<group>"; };
 		62AAFA400F69BBF2007F8151 /* QTKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QTKit.framework; path = /System/Library/Frameworks/QTKit.framework; sourceTree = "<absolute>"; };
-		62E14D7311BA79A200A76550 /* infos.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = infos.png; path = Icones/infos.png; sourceTree = "<group>"; };
-		62E14D7411BA79A200A76550 /* load.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = load.png; path = Icones/load.png; sourceTree = "<group>"; };
-		62E14D7911BA79B000A76550 /* dir.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = dir.png; path = Icones/dir.png; sourceTree = "<group>"; };
-		62E14D7B11BA79BB00A76550 /* view.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = view.png; path = Icones/view.png; sourceTree = "<group>"; };
-		62E14D7C11BA79BB00A76550 /* web.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = web.png; path = Icones/web.png; sourceTree = "<group>"; };
-		62E14DC611BA931200A76550 /* clean.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = clean.png; path = Icones/clean.png; sourceTree = "<group>"; };
-		62E14DC811BA932100A76550 /* rollback.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = rollback.png; path = Icones/rollback.png; sourceTree = "<group>"; };
 		62F37E4212BD1DEF00561B37 /* toggle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = toggle.png; path = Icones/toggle.png; sourceTree = "<group>"; };
 		E8F5E24E03AEB6EC03A81C6F /* RubyCocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RubyCocoa.framework; path = /System/Library/Frameworks/RubyCocoa.framework; sourceTree = "<absolute>"; };
 		E8F5E25803AEB7C803A81C6F /* rb_main.rb */ = {isa = PBXFileReference; lastKnownFileType = text.script.ruby; path = rb_main.rb; sourceTree = "<group>"; };
@@ -171,21 +151,11 @@
 				62578BFE127F110500779F2E /* Release Notes */,
 				62578B21127DF47800779F2E /* SubsMgrPrefs.plist */,
 				62578ADB127DE35C00779F2E /* SubsMgrStats.plist */,
-				6273D03011F1E0D9007A17F4 /* manual.png */,
-				62E14DC811BA932100A76550 /* rollback.png */,
-				62E14DC611BA931200A76550 /* clean.png */,
-				62E14D7B11BA79BB00A76550 /* view.png */,
-				62E14D7C11BA79BB00A76550 /* web.png */,
-				62E14D7911BA79B000A76550 /* dir.png */,
-				62E14D7311BA79A200A76550 /* infos.png */,
-				62E14D7411BA79A200A76550 /* load.png */,
 				62997BAC1053D3C60080F479 /* database.png */,
 				62997BAA1053D28F0080F479 /* kchart.png */,
 				620246F90FB233C40044157C /* xeyes.png */,
 				620246F70FB233B40044157C /* Startup Wizard.png */,
-				620246F50FB2339A0044157C /* kate.png */,
 				620246F30FB233830044157C /* advancedsettings.png */,
-				620246F10FB233700044157C /* package.png */,
 				623FDF2C0F51B4D0006D7138 /* SM.icns */,
 				623FDED40F519351006D7138 /* flag.png */,
 				29B97318FDCFA39411CA2CEA /* MainMenu.nib */,
@@ -287,21 +257,11 @@
 				4DDCA7080ACC9A6100E082CE /* rb_main.rb in Resources */,
 				622D82220F349470008F05CD /* SubsMgr.rb in Resources */,
 				623FDF2D0F51B4D0006D7138 /* SM.icns in Resources */,
-				620246F20FB233700044157C /* package.png in Resources */,
 				620246F40FB233830044157C /* advancedsettings.png in Resources */,
-				620246F60FB2339A0044157C /* kate.png in Resources */,
 				620246F80FB233B40044157C /* Startup Wizard.png in Resources */,
 				620246FA0FB233C40044157C /* xeyes.png in Resources */,
 				62997BAB1053D28F0080F479 /* kchart.png in Resources */,
 				62997BAD1053D3C60080F479 /* database.png in Resources */,
-				62E14D7611BA79A200A76550 /* infos.png in Resources */,
-				62E14D7711BA79A200A76550 /* load.png in Resources */,
-				62E14D7A11BA79B000A76550 /* dir.png in Resources */,
-				62E14D7D11BA79BB00A76550 /* view.png in Resources */,
-				62E14D7E11BA79BB00A76550 /* web.png in Resources */,
-				62E14DC711BA931200A76550 /* clean.png in Resources */,
-				62E14DC911BA932100A76550 /* rollback.png in Resources */,
-				6273D03111F1E0D9007A17F4 /* manual.png in Resources */,
 				62578A54127DBCEF00779F2E /* generator.rb in Resources */,
 				62578A55127DBCEF00779F2E /* parser.rb in Resources */,
 				62578A56127DBCEF00779F2E /* plist.rb in Resources */,
