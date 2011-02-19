@@ -1,4 +1,4 @@
-q# TODO: recursive Zip quand un zip de saison contient les zips de chaque épisode
+# TODO: recursive Zip quand un zip de saison contient les zips de chaque épisode
 # ex: Dexter.S5 => http://www.seriessub.com/sous-titres/dexter/saison_5/
 
 class Plugin::SeriesSub < Plugin::Base

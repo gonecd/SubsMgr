@@ -37,16 +37,28 @@ end
 # Structure de gestion des sous titres trouvés (candidats)
 class WebSub < CommonStruct
   attr_accessor :fichier, :date, :lien, :confiant, :source, :referer
+
+  def to_s
+    "#{fichier} - #{date} - #{lien} - #{confiant}"
+  end
 end
 
 # Structure d'insertion dans la liste des séries
 class Series < CommonStruct
   attr_accessor :nom, :image, :idtvdb
+  
+  def to_s
+    "#{nom} - #{idtvdb}"
+  end
 end
 
 # Structure d'insertion dans la Librairie
 class Library < CommonStruct
   attr_accessor :serie, :saison, :status, :URLTVdb, :nbepisodes, :firstep, :lastep, :image, :episodes
+
+  def to_s
+    "#{serie} - #{saison} - #{status} - #{nbepisodes}"
+  end
 end
 
 # Structure d'insertion dans les stats
@@ -58,11 +70,19 @@ end
 # Structure d'insertion dans les sources
 class Sources < CommonStruct
   attr_accessor :source, :image, :active, :rank
+
+  def to_s
+    "#{source} - #{active} - #{rank}"
+  end
 end
 
 # Structure de gestion pour les infos d'une saison
 class InfosSaison < CommonStruct
   attr_accessor :episode, :titre, :diffusion, :telecharge, :soustitre
+  
+  def to_s
+    "#{episode} - #{titre} - #{diffusion}"
+  end
 end
 
 

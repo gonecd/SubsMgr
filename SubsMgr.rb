@@ -655,14 +655,16 @@ class SubsMgr < OSX::NSWindowController
   end
   def AnalyseFichier(chaine)
     begin
-      # On catche
-      if chaine.match(/(.*).[Ss][0-9][0-9][Ee][0-9][0-9].*/)              # Format S01E02 ou s01e02
-        temp = chaine.scan(/(.*).[Ss]([0-9]*[0-9])[Ee]([0-9][0-9]).(.*)-(.*).(avi|mkv|mp4|m4v)/)
-      elsif chaine.match(/(.*).[0-9][0-9][0-9].*/)                # Format 102
-        temp = chaine.scan(/(.*).([0-9]*[0-9])([0-9][0-9]).(.*)-(.*).(avi|mkv|mp4|m4v)/)
-      elsif chaine.match(/(.*).[0-9]x[0-9][0-9].*/)                # Format 1x02
-        temp = chaine.scan(/(.*).([0-9]*[0-9])x([0-9][0-9]).(.*)-(.*).(avi|mkv|mp4|m4v)/)
-      else
+      # dans l'ordre du plus précis au moins précis (en particulier le format 101 se telescope avec les autres infos du type 720p ou x264)
+      
+      # Format s01e02 ou variantes (s1e1, s01e1, s1e01)
+      temp = chaine.match(/(.*?).s([0-9]{1,2})e([0-9]{1,2})(.*?)([^\.-]+)-(.*)\.(avi|mkv|mp4|m4v)/i)
+      # Format 1x02 ou 01x02
+      temp = chaine.match(/(.*?).([0-9]{1,2})x([0-9]{1,2})(.*?)([^\.-]+)-(.*).(avi|mkv|mp4|m4v)/i) unless temp
+      # Format 102
+      temp = chaine.match(/(.*?).([0-9]{1,2})([0-9]{2})(.*?)([^\.-]+)-(.*)\.(avi|mkv|mp4|m4v)/i) unless temp
+      
+      unless temp
         @current.serie = "Error"
         @current.saison = 0
         @current.episode = 0
@@ -673,19 +675,18 @@ class SubsMgr < OSX::NSWindowController
       end
 
       # On range
-      @current.serie = temp[0][0].gsub(/\./, ' ').to_s.strip
-      @current.saison = temp[0][1].to_i
-      @current.episode = temp[0][2].to_i
-      @current.infos = temp[0][3].to_s.strip
-      @current.team = temp[0][4].to_s.strip
+      @current.serie = temp[1].gsub(/\./, ' ').to_s.strip
+      @current.saison = temp[2].to_i
+      @current.episode = temp[3].to_i
+      @current.infos = temp[5].to_s.strip
+      @current.team = temp[6].to_s.strip
 
       # On traite les cas particuliers
       if @current.team.slice(/\[/) == nil
         @current.provider = ""
-      else
-        temp = @current.team.scan(/(.*)\.\[(.*)\]/)
-        @current.team = temp[0][0].to_s
-        @current.provider = temp[0][1].to_s
+      elsif (temp = @current.team.match(/(.*)\.\[(.*)\]/))
+        @current.team = temp[1].to_s
+        @current.provider = temp[1].to_s
       end
 
     rescue Exception=>e
