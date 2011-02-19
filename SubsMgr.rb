@@ -1,9 +1,9 @@
 #
-#  SubsMgr.rb
-#  SubsMgr
+#	 SubsMgr.rb
+#	 SubsMgr
 #
-#  Created by Cyril DELAMARE on 31/01/09.
-#  Copyright (c) 2009 __MyCompanyName__. All rights reserved.
+#	 Created by Cyril DELAMARE on 31/01/09.
+#	 Copyright (c) 2009 __MyCompanyName__. All rights reserved.
 #
 
 $LOAD_PATH << File.join(File.dirname(__FILE__), "common")
@@ -332,7 +332,7 @@ class SubsMgr < OSX::NSWindowController
 		end
 		
 		@allEpisodes.sort! {|x,y| x.fichier <=> y.fichier }
-	end	
+	end 
 	def RelisterEpisodes2
 		# Vider la liste
 		@allEpisodes.clear
@@ -432,7 +432,7 @@ class SubsMgr < OSX::NSWindowController
 #		end
 		
 		@allEpisodes.sort! {|x,y| x.fichier <=> y.fichier }
-	end	
+	end 
 	def RelisterSeries
 		totalEpisodes = @allEpisodes.size
 		@lignesseries.clear
@@ -489,8 +489,8 @@ class SubsMgr < OSX::NSWindowController
 						
 						rescue Exception=>e
 						puts "#### RelisterSeries : Pb d'accès à theTVdb"
-						puts "       Pour "+temp
-						puts "       "+e
+						puts "			 Pour "+temp
+						puts "			 "+e
 					end
 				end
 				
@@ -544,88 +544,88 @@ class SubsMgr < OSX::NSWindowController
 				new_ligne.image = SerieBanner(episode.serie)
 				new_ligne.episodes = []
 				
-				#        # Recherche de la page de la saison sur TheTVdb
-				#        monURL = "http://www.thetvdb.com/?tab=series&id="+SerieId(episode.serie.to_s.downcase).to_s
+				#				 # Recherche de la page de la saison sur TheTVdb
+				#				 monURL = "http://www.thetvdb.com/?tab=series&id="+SerieId(episode.serie.to_s.downcase).to_s
 				#
-				#        doc = FileCache.get_html(monURL)
-				#        doc.search("a.seasonlink").each do |k|
-				#          if k.text.to_s == episode.saison.to_s
-				#            monURL = "http://www.thetvdb.com"+k[:href].to_s
-				#            new_ligne.URLTVdb = monURL
-				#          end
-				#        end
+				#				 doc = FileCache.get_html(monURL)
+				#				 doc.search("a.seasonlink").each do |k|
+				#					 if k.text.to_s == episode.saison.to_s
+				#						 monURL = "http://www.thetvdb.com"+k[:href].to_s
+				#						 new_ligne.URLTVdb = monURL
+				#					 end
+				#				 end
 				#
-				#        # Lecture des épisodes
-				#        tableau = []
-				#        index = 0
-				#        doc = FileCache.get_html(monURL)
-				#        doc.search("table#listtable tr").each do |k|
-				#          k.search("td.odd,td.even").each do |k2|
-				#          #k.search("td.odd,td.even,td.special").each do |k2|
-				#            tableau[index]=k2.text.to_s
-				#            index = index + 1
-				#          end
-				#        end
+				#				 # Lecture des épisodes
+				#				 tableau = []
+				#				 index = 0
+				#				 doc = FileCache.get_html(monURL)
+				#				 doc.search("table#listtable tr").each do |k|
+				#					 k.search("td.odd,td.even").each do |k2|
+				#					 #k.search("td.odd,td.even,td.special").each do |k2|
+				#						 tableau[index]=k2.text.to_s
+				#						 index = index + 1
+				#					 end
+				#				 end
 				#
-				#        new_ligne.firstep = tableau[6].to_s.gsub(/-/, ' ')
-				#        new_ligne.lastep = tableau[(index-1)-1].to_s.gsub(/-/, ' ')
-				#        new_ligne.nbepisodes = 0
-				#        new_ligne.status = Icones.list["Subtitled"]
-				#        new_ligne.episodes = []
+				#				 new_ligne.firstep = tableau[6].to_s.gsub(/-/, ' ')
+				#				 new_ligne.lastep = tableau[(index-1)-1].to_s.gsub(/-/, ' ')
+				#				 new_ligne.nbepisodes = 0
+				#				 new_ligne.status = Icones.list["Subtitled"]
+				#				 new_ligne.episodes = []
 				#
-				#        # Affichage des status par épisode
-				#        for i in (1..(index-1)/4)
-				#          begin
-				#            if tableau[i*4].to_s == "Special"
-				#              #new_ligne.episodes[i]=Icones.list["EpSpecial"]
-				#            else
-				#              if Date.parse(tableau[(i*4)+2]) < Date.today()
-				#                new_ligne.nbepisodes = new_ligne.nbepisodes + 1
-				#                new_ligne.episodes[new_ligne.nbepisodes]=Icones.list["Aired"]
+				#				 # Affichage des status par épisode
+				#				 for i in (1..(index-1)/4)
+				#					 begin
+				#						 if tableau[i*4].to_s == "Special"
+				#							 #new_ligne.episodes[i]=Icones.list["EpSpecial"]
+				#						 else
+				#							 if Date.parse(tableau[(i*4)+2]) < Date.today()
+				#								 new_ligne.nbepisodes = new_ligne.nbepisodes + 1
+				#								 new_ligne.episodes[new_ligne.nbepisodes]=Icones.list["Aired"]
 				#
-				#                subtitled = @allEpisodes.any? do |eps|
-				#                  (eps.serie.downcase.to_s == new_ligne.serie) and (eps.saison == new_ligne.saison) and (eps.episode == new_ligne.nbepisodes) and (eps.status == "Traité")
-				#                end
+				#								 subtitled = @allEpisodes.any? do |eps|
+				#									 (eps.serie.downcase.to_s == new_ligne.serie) and (eps.saison == new_ligne.saison) and (eps.episode == new_ligne.nbepisodes) and (eps.status == "Traité")
+				#								 end
 				#
-				#                vidloaded = @allEpisodes.any? do |eps|
-				#                  (eps.serie.downcase.to_s == new_ligne.serie) and (eps.saison == new_ligne.saison) and (eps.episode == new_ligne.nbepisodes) and (eps.status != "Traité")
-				#                end
+				#								 vidloaded = @allEpisodes.any? do |eps|
+				#									 (eps.serie.downcase.to_s == new_ligne.serie) and (eps.saison == new_ligne.saison) and (eps.episode == new_ligne.nbepisodes) and (eps.status != "Traité")
+				#								 end
 				#
-				#                if subtitled
-				#                  new_ligne.episodes[new_ligne.nbepisodes]=Icones.list["Subtitled"]
-				#                else
-				#                  if vidloaded
-				#                    new_ligne.episodes[new_ligne.nbepisodes]=Icones.list["VideoLoaded"]
-				#                    if new_ligne.status == Icones.list["Subtitled"] then new_ligne.status = Icones.list["VideoLoaded"] end
-				#                  else
-				#                    Dir.foreach(@prefs["Directories"]["Torrents"].to_s) do |file|
-				#                      monPattern1 = sprintf("%s — %02dx%02d", new_ligne.serie, new_ligne.saison, new_ligne.nbepisodes)
-				#                      monPattern2 = sprintf("%s — %dx%d", new_ligne.serie, new_ligne.saison, new_ligne.nbepisodes)
-				#                      if ( file.downcase.match(monPattern1) or file.downcase.match(monPattern2) )
-				#                        new_ligne.episodes[new_ligne.nbepisodes]=Icones.list["TorrentLoaded"]
-				#                        if new_ligne.status == Icones.list["Subtitled"] or new_ligne.status == Icones.list["VideoLoaded"] then new_ligne.status = Icones.list["TorrentLoaded"] end
-				#                      end
-				#                    end
-				#                  end
-				#                end
-				#              else
-				#                new_ligne.nbepisodes = new_ligne.nbepisodes + 1
-				#                new_ligne.episodes[new_ligne.nbepisodes]=Icones.list["NotAired"]
-				#              end
-				#            end
+				#								 if subtitled
+				#									 new_ligne.episodes[new_ligne.nbepisodes]=Icones.list["Subtitled"]
+				#								 else
+				#									 if vidloaded
+				#										 new_ligne.episodes[new_ligne.nbepisodes]=Icones.list["VideoLoaded"]
+				#										 if new_ligne.status == Icones.list["Subtitled"] then new_ligne.status = Icones.list["VideoLoaded"] end
+				#									 else
+				#										 Dir.foreach(@prefs["Directories"]["Torrents"].to_s) do |file|
+				#											 monPattern1 = sprintf("%s — %02dx%02d", new_ligne.serie, new_ligne.saison, new_ligne.nbepisodes)
+				#											 monPattern2 = sprintf("%s — %dx%d", new_ligne.serie, new_ligne.saison, new_ligne.nbepisodes)
+				#											 if ( file.downcase.match(monPattern1) or file.downcase.match(monPattern2) )
+				#												 new_ligne.episodes[new_ligne.nbepisodes]=Icones.list["TorrentLoaded"]
+				#												 if new_ligne.status == Icones.list["Subtitled"] or new_ligne.status == Icones.list["VideoLoaded"] then new_ligne.status = Icones.list["TorrentLoaded"] end
+				#											 end
+				#										 end
+				#									 end
+				#								 end
+				#							 else
+				#								 new_ligne.nbepisodes = new_ligne.nbepisodes + 1
+				#								 new_ligne.episodes[new_ligne.nbepisodes]=Icones.list["NotAired"]
+				#							 end
+				#						 end
 				#
-				#            # Mise à jour du status gobal de la saison
-				#            if new_ligne.episodes[new_ligne.nbepisodes] == Icones.list["VideoLoaded"] and new_ligne.status == Icones.list["Subtitled"] then new_ligne.status = Icones.list["VideoLoaded"] end
-				#            if new_ligne.episodes[new_ligne.nbepisodes] == Icones.list["TorrentLoaded"] and (new_ligne.status == Icones.list["Subtitled"] or new_ligne.status == Icones.list["VideoLoaded"]) then new_ligne.status = Icones.list["TorrentLoaded"] end
-				#            if new_ligne.episodes[new_ligne.nbepisodes] == Icones.list["NotAired"] then new_ligne.status = Icones.list["NotAired"] end
-				#            if new_ligne.episodes[new_ligne.nbepisodes] == Icones.list["Aired"] and ( new_ligne.status == Icones.list["Subtitled"] or new_ligne.status == Icones.list["VideoLoaded"] or new_ligne.status == Icones.list["TorrentLoaded"] ) then new_ligne.status = Icones.list["Aired"] end
+				#						 # Mise à jour du status gobal de la saison
+				#						 if new_ligne.episodes[new_ligne.nbepisodes] == Icones.list["VideoLoaded"] and new_ligne.status == Icones.list["Subtitled"] then new_ligne.status = Icones.list["VideoLoaded"] end
+				#						 if new_ligne.episodes[new_ligne.nbepisodes] == Icones.list["TorrentLoaded"] and (new_ligne.status == Icones.list["Subtitled"] or new_ligne.status == Icones.list["VideoLoaded"]) then new_ligne.status = Icones.list["TorrentLoaded"] end
+				#						 if new_ligne.episodes[new_ligne.nbepisodes] == Icones.list["NotAired"] then new_ligne.status = Icones.list["NotAired"] end
+				#						 if new_ligne.episodes[new_ligne.nbepisodes] == Icones.list["Aired"] and ( new_ligne.status == Icones.list["Subtitled"] or new_ligne.status == Icones.list["VideoLoaded"] or new_ligne.status == Icones.list["TorrentLoaded"] ) then new_ligne.status = Icones.list["Aired"] end
 				#
 				#
-				#          rescue Exception=>e
-				#            new_ligne.nbepisodes = new_ligne.nbepisodes + 1
-				#            new_ligne.episodes[new_ligne.nbepisodes]=Icones.list["NotAired"]
-				#          end
-				#        end
+				#					 rescue Exception=>e
+				#						 new_ligne.nbepisodes = new_ligne.nbepisodes + 1
+				#						 new_ligne.episodes[new_ligne.nbepisodes]=Icones.list["NotAired"]
+				#					 end
+				#				 end
 				@ligneslibrary << new_ligne
 				
 			end
@@ -692,7 +692,7 @@ class SubsMgr < OSX::NSWindowController
 		@bWebSerie.setHidden(true)
 		@bInfoSerie.setHidden(true)
 		
-	    case modeAffichage
+			case modeAffichage
 			when "Episodes"						# Mode Episodes
 				@bSearch.setHidden(false)
 				@bAccept.setHidden(false)
@@ -805,39 +805,39 @@ class SubsMgr < OSX::NSWindowController
 	end
 	def AnalyseFichier(chaine)
 		begin
-     # dans l'ordre du plus précis au moins précis (en particulier le format 101 se telescope avec les autres infos du type 720p ou x264)
-      
-      # Format s01e02 ou variantes (s1e1, s01e1, s1e01)
-      temp = chaine.match(/(.*?).s([0-9]{1,2})e([0-9]{1,2}).(.+)-(.*)\.(avi|mkv|mp4|m4v)/i)
-      # Format 1x02 ou 01x02
-      temp = chaine.match(/(.*?).([0-9]{1,2})x([0-9]{1,2})(.+)-(.*).(avi|mkv|mp4|m4v)/i) unless temp
-      # Format 102
-      temp = chaine.match(/(.*?).([0-9]{1,2})([0-9]{2})(.+)-(.*)\.(avi|mkv|mp4|m4v)/i) unless temp
-      
-      unless temp
-        @current.serie = "Error"
-        @current.saison = 0
-        @current.episode = 0
-        @current.infos = "Error"
-        @current.team = "Error"
-        @current.comment = "Format non reconnu"
-        return
-      end
+		 # dans l'ordre du plus précis au moins précis (en particulier le format 101 se telescope avec les autres infos du type 720p ou x264)
+			
+			# Format s01e02 ou variantes (s1e1, s01e1, s1e01)
+			temp = chaine.match(/(.*?).s([0-9]{1,2})e([0-9]{1,2}).(.+)-(.*)\.(avi|mkv|mp4|m4v)/i)
+			# Format 1x02 ou 01x02
+			temp = chaine.match(/(.*?).([0-9]{1,2})x([0-9]{1,2})(.+)-(.*).(avi|mkv|mp4|m4v)/i) unless temp
+			# Format 102
+			temp = chaine.match(/(.*?).([0-9]{1,2})([0-9]{2})(.+)-(.*)\.(avi|mkv|mp4|m4v)/i) unless temp
+			
+			unless temp
+				@current.serie = "Error"
+				@current.saison = 0
+				@current.episode = 0
+				@current.infos = "Error"
+				@current.team = "Error"
+				@current.comment = "Format non reconnu"
+				return
+			end
 
-      # On range
-      @current.serie = temp[1].gsub(/\./, ' ').to_s.strip
-      @current.saison = temp[2].to_i
-      @current.episode = temp[3].to_i
-      @current.infos = temp[4].to_s.gsub(/(^[^a-z0-9]+|[^a-z0-9]$)/im, '').strip
-      @current.team = temp[5].to_s.strip
+			# On range
+			@current.serie = temp[1].gsub(/\./, ' ').to_s.strip
+			@current.saison = temp[2].to_i
+			@current.episode = temp[3].to_i
+			@current.infos = temp[4].to_s.gsub(/(^[^a-z0-9]+|[^a-z0-9]$)/im, '').strip
+			@current.team = temp[5].to_s.strip
 
-      # On traite les cas particuliers
-      if @current.team.slice(/\[/) == nil
-        @current.provider = ""
-      elsif (temp = @current.team.match(/(.*)\.\[(.*)\]/))
-        @current.team = temp[1].to_s
-        @current.provider = temp[1].to_s
-      end
+			# On traite les cas particuliers
+			if @current.team.slice(/\[/) == nil
+				@current.provider = ""
+			elsif (temp = @current.team.match(/(.*)\.\[(.*)\]/))
+				@current.team = temp[1].to_s
+				@current.provider = temp[1].to_s
+			end
 			
 			rescue Exception=>e
 			puts "# SubsMgr Error # AnalyseFichier ["+@current.fichier+"] : "+e
@@ -849,11 +849,11 @@ class SubsMgr < OSX::NSWindowController
 			@current.comment = "Pb dans l'analyse du fichier"
 			
 		end
-	end	
+	end 
 	def AnalyseTorrent(chaine)
 		begin
 			# On catche
-			if chaine.match(/(.*) — [0-9]x[0-9][0-9].torrent/)                # Format 1x02
+			if chaine.match(/(.*) — [0-9]x[0-9][0-9].torrent/)								# Format 1x02
 				temp = chaine.scan(/(.*) — ([0-9]*[0-9])x([0-9][0-9]).torrent/)
 			else
 				@current.serie = "Error"
@@ -882,11 +882,11 @@ class SubsMgr < OSX::NSWindowController
 			@current.comment = "Pb dans l'analyse du fichier"
 			
 		end
-	end	
+	end 
 	def AnalyseEpisode(chaine)
 		begin
 			# On catche
-			if chaine.match(/(.*).[Ss][0-9][0-9][Ee][0-9][0-9].*/)              # Format S01E02 ou s01e02
+			if chaine.match(/(.*).[Ss][0-9][0-9][Ee][0-9][0-9].*/)							# Format S01E02 ou s01e02
 				temp = chaine.scan(/(.*).[Ss]([0-9]*[0-9])[Ee]([0-9][0-9]).(avi|mkv|mp4|m4v)/)
 			else
 				@current.serie = "Error"
@@ -915,7 +915,7 @@ class SubsMgr < OSX::NSWindowController
 			@current.comment = "Pb dans l'analyse du fichier"
 			
 		end
-	end	
+	end 
 	
 	# Méthodes des boutons de gestion des versions de sous-titres
 	def ChangeInstance (sender)
@@ -970,7 +970,7 @@ class SubsMgr < OSX::NSWindowController
 			temp1 = sprintf("s%02de%02d", @current.saison, @current.episode)
 			temp2 = sprintf("%d%02d", @current.saison, @current.episode)
 			temp3 = sprintf("%dx%02d", @current.saison, @current.episode)
-			if ((sousTitre.match(temp1)) or (sousTitre.match(temp2))  or (sousTitre.match(temp3))) == nil
+			if ((sousTitre.match(temp1)) or (sousTitre.match(temp2))	or (sousTitre.match(temp3))) == nil
 				maConfiance = maConfiance - 2
 				@errSaison.setHidden(false)
 				@errEpisode.setHidden(false)
