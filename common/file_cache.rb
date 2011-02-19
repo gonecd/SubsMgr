@@ -30,16 +30,26 @@ module FileCache
       @current.comment = "Pb dans la récupération du zip"
     end
   end
-  
-  def recursive_unzip(zip_path)
-    if `zipinfo -1 /tmp/test.zip |grep ".zip"|wc -l`.strip.to_i>0
+
+  #FIXME: inclure la gestion des fichiers rar pour les convertir en fichier zip car parfois, on recupère des rar
+  def flatten_archive(archive_path)
+    if `zipinfo -1 #{archive_path} |grep ".zip"|wc -l`.strip.to_i>0
       tmp = Tempfile.new("unzip")
       path = tmp.path
       File.unlink(path)
-      system("mkdir -p #{path}; /usr/bin/unzip -j -o -qq #{zip_path} -d #{path}/; find #{path} -name \"*.zip\" -exec unzip -j -o {} -d #{path}/ \\; -exec rm {} \\; ; cd #{path}; zip -rj #{zip_path}.new .; mv #{zip_path}.new #{zip_path}")
+      # unzip
+      cmd <<-EOF
+      mkdir -p #{path};
+      unzip -j -o -qq #{archive_path} -d #{path}/; 
+      find #{path} -name \"*.zip\" -exec unzip -j -o {} -d #{path}/ \\; -exec rm {} \\; ;
+      cd #{path}; 
+      zip -rj #{archive_path}.new .; 
+      mv #{archive_path}.new #{archive_path}
+      EOF
+      system cmd.strip.gsub(/\n+/im, ' ')
       FileUtils.rm_rf(path)
     end
-    zip_path
+    archive_path
   end
 
   # recuperer un fichier quelconque
@@ -54,9 +64,12 @@ module FileCache
     full_path = options[:path] || File.join(CACHE_PATH, crc)
 
     unless (File.exists?(full_path) && File.size(full_path)>0)
+      $stderr.puts("# SubsMgr info - Get #{source}")
       file = BROWSER.get(source, :referer => options[:referer])
       File.open(full_path, "w") {|f| f.write(file.body)}
-      recursive_unzip if options[:zip]
+      flatten_archive(full_path) if options[:zip]
+    else
+      $stderr.puts("# SubsMgr info - Load #{source} from cache")
     end
     return full_path
   end

@@ -658,11 +658,11 @@ class SubsMgr < OSX::NSWindowController
       # dans l'ordre du plus précis au moins précis (en particulier le format 101 se telescope avec les autres infos du type 720p ou x264)
       
       # Format s01e02 ou variantes (s1e1, s01e1, s1e01)
-      temp = chaine.match(/(.*?).s([0-9]{1,2})e([0-9]{1,2})(.*?)([^\.-]+)-(.*)\.(avi|mkv|mp4|m4v)/i)
+      temp = chaine.match(/(.*?).s([0-9]{1,2})e([0-9]{1,2}).(.+)-(.*)\.(avi|mkv|mp4|m4v)/i)
       # Format 1x02 ou 01x02
-      temp = chaine.match(/(.*?).([0-9]{1,2})x([0-9]{1,2})(.*?)([^\.-]+)-(.*).(avi|mkv|mp4|m4v)/i) unless temp
+      temp = chaine.match(/(.*?).([0-9]{1,2})x([0-9]{1,2})(.+)-(.*).(avi|mkv|mp4|m4v)/i) unless temp
       # Format 102
-      temp = chaine.match(/(.*?).([0-9]{1,2})([0-9]{2})(.*?)([^\.-]+)-(.*)\.(avi|mkv|mp4|m4v)/i) unless temp
+      temp = chaine.match(/(.*?).([0-9]{1,2})([0-9]{2})(.+)-(.*)\.(avi|mkv|mp4|m4v)/i) unless temp
       
       unless temp
         @current.serie = "Error"
@@ -678,8 +678,8 @@ class SubsMgr < OSX::NSWindowController
       @current.serie = temp[1].gsub(/\./, ' ').to_s.strip
       @current.saison = temp[2].to_i
       @current.episode = temp[3].to_i
-      @current.infos = temp[5].to_s.strip
-      @current.team = temp[6].to_s.strip
+      @current.infos = temp[4].to_s.gsub(/(^[^a-z0-9]+|[^a-z0-9]$)/im, '').strip
+      @current.team = temp[5].to_s.strip
 
       # On traite les cas particuliers
       if @current.team.slice(/\[/) == nil
