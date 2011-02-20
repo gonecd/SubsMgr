@@ -99,7 +99,7 @@ class SubsMgr < OSX::NSWindowController
 		PrefCancel(self)
 
 		# Initialisations spécifiques pour les plugins
-		Plugin::Forom.forom_key = @pForomKey.stringValue().to_s
+		Plugin::Forom.forom_key = @prefs["Automatism"]["Forom key"]
 		Plugin::Local.local_path = @prefs["Directories"]["Subtitles"]
 
 		# Initialisation des banières de séries
@@ -185,7 +185,7 @@ class SubsMgr < OSX::NSWindowController
 	def serieSelected(sender)
 
 		selectedLigne = @listeseries.selectedRow()
-		@serieSelectionnee = "^"+@ligneslibrary[selectedLigne].serie
+		@serieSelectionnee = @ligneslibrary[selectedLigne].serie
 		@saisonSelectionnee = @ligneslibrary[selectedLigne].saison
 		@URLTVdb = @ligneslibrary[selectedLigne].URLTVdb
 		RaffraichirListe()
@@ -406,12 +406,16 @@ class SubsMgr < OSX::NSWindowController
 			end
 		end
 
-		#		# Récupération des fichiers traités
-		#		File.open("/Library/Application\ Support/SubsMgr/SubsMgrHistory.csv").each do |line|
-		#			begin
-		#				row = CSV.parse_line(line,';')
-		#				raise CSV::IllegalFormatError unless (row && row.size == 8)
-		#				new_ligne = Ligne.new
+		# Récupération des données d'historique
+		File.open("/Library/Application\ Support/SubsMgr/SubsMgrHistory.csv").each do |line|
+		begin
+			row = CSV.parse_line(line,';')
+			raise CSV::IllegalFormatError unless (row && row.size == 8)
+		
+			# On parse la liste des épisodes
+			puts row[0]+" - "+row[1]+" - "+row[2]
+			
+			
 		#				new_ligne.fichier = row[3]
 		#				new_ligne.date = row[5]
 		#				new_ligne.conf = 0
@@ -436,10 +440,11 @@ class SubsMgr < OSX::NSWindowController
 		#				buildTargets()
 		#				@current.candidats[0].confiant = CalculeConfiance(@current.candidats[0].fichier.downcase)
 		#				@current.conf = @current.candidats[0].confiant
-		#				rescue CSV::IllegalFormatError => err
-		#				$stderr.puts "# SubsMgr Error # Invalid CSV history line skipped:\n#{line}"
-		#			end
-		#		end
+		
+			rescue CSV::IllegalFormatError => err
+				$stderr.puts "# SubsMgr Error # Invalid CSV history line skipped:\n#{line}"
+			end
+		end
 
 		@allEpisodes.sort! {|x,y| x.fichier <=> y.fichier }
 	end
@@ -761,7 +766,7 @@ class SubsMgr < OSX::NSWindowController
 		end
 
 		if !connue
-		# Recherche sur TheTVdb
+			# Recherche sur TheTVdb
 			monURL = "http://www.thetvdb.com/api/GetSeries.php?seriesname="+myserie.gsub(/ /, '+')
 			doc = FileCache.get_html(monURL, :xml => true)
 			found = 0
@@ -769,10 +774,7 @@ class SubsMgr < OSX::NSWindowController
 			doc.search("Series").each do |k|
 				if k.search("SeriesName").inner_html.downcase.to_s == myserie.downcase.to_s
 					@series[myserie] = Hash.new()
-					@series[myserie]["Id"] = Hash.new()
-					@series[myserie]["Banner"] = Hash.new()
-					@series[myserie]["Id"] = k.search("seriesid").inner_html.downcase.to_s
-					@series[myserie]["Banner"] = myserie+".jpg"
+					@series[myserie] = Hash["Id" => k.search("seriesid").inner_html.downcase.to_s, "Banner" => myserie+".jpg"]
 					linkBanner = k.search("banner").inner_html.downcase.to_s
 					@series.save_plist("/Library/Application\ Support/SubsMgr/SubsMgrSeries.plist")
 					found = 1
@@ -1026,7 +1028,7 @@ class SubsMgr < OSX::NSWindowController
 			@liste.selectRowIndexes_byExtendingSelection_(OSX::NSIndexSet.indexSetWithIndex(i), false)
 			rowSelected
 			if @current.status != "Traité"
-				if @current.conf >= (@pConfiance.selectedColumn()+1)
+				if @current.conf >= (@prefs["Automatism"]["Min confidence"]+1)
 					AcceptSub(@team)
 					text = text+@current.fileTarget+"\n"
 				end
@@ -1114,7 +1116,7 @@ class SubsMgr < OSX::NSWindowController
 
 			# Déplacement du film
 			ext = @current.fichier.split('.').last
-			if (@pMove.selectedColumn() == 0)
+			if (@prefs["Subs management"]["Move"] == 0)
 				FileUtils.cp(@prefs["Directories"]["Download"]+@current.fichier, @current.repTarget+@current.fileTarget+".#{ext}")
 			else
 				FileUtils.mv(@prefs["Directories"]["Download"]+@current.fichier, @current.repTarget+@current.fileTarget+".#{ext}")
@@ -1398,7 +1400,7 @@ class SubsMgr < OSX::NSWindowController
 
 			# Déplacement du film
 			ext = @current.fichier.split('.').last
-			if (@pMove.selectedColumn() == 0)
+			if (@prefs["Subs management"]["Move"] == 0)
 				FileUtils.cp(@prefs["Directories"]["Download"]+@current.fichier, @current.repTarget+@current.fileTarget+".#{ext}")
 			else
 				FileUtils.mv(@prefs["Directories"]["Download"]+@current.fichier, @current.repTarget+@current.fileTarget+".#{ext}")
@@ -1493,7 +1495,7 @@ class SubsMgr < OSX::NSWindowController
 
 		# Déplacement du film
 		ext = @current.fichier.split('.').last
-		if (@pMove.selectedColumn() == 0)
+		if (@prefs["Subs management"]["Move"] == 0)
 			FileUtils.cp(@prefs["Directories"]["Download"]+@current.fichier, @current.repTarget+@current.fileTarget+".#{ext}")
 		else
 			FileUtils.mv(@prefs["Directories"]["Download"]+@current.fichier, @current.repTarget+@current.fileTarget+".#{ext}")
@@ -1531,7 +1533,7 @@ class SubsMgr < OSX::NSWindowController
 		# Post Traitements
 		if @bSupprCrochets.state() == 1 then system('sed -e "s/\<[^\>]*\>//g" /tmp/Sub.srt > /tmp/Sub2.srt'); FileUtils.mv("/tmp/Sub2.srt", "/tmp/Sub.srt") end
 		if @bSupprAccolades.state() == 1 then system('sed -e "s/{[^}]*}//g" /tmp/Sub.srt > /tmp/Sub2.srt'); FileUtils.mv("/tmp/Sub2.srt", "/tmp/Sub.srt") end
-		if @bCommande.state() == 1 then system(@pCommande.stringValue().to_s) end
+		if @bCommande.state() == 1 then system(@prefs["Subs management"]["Commande"]) end
 	end
 
 
