@@ -114,7 +114,7 @@ class SubsMgr < OSX::NSWindowController
 		# Construction des listes de series et d'episodes
 		RelisterEpisodes()
 		RelisterSeries()
-		#RelisterInfos()
+		RelisterInfos()
 		RaffraichirListe()
 		@fenWait.close()
 
@@ -191,7 +191,7 @@ class SubsMgr < OSX::NSWindowController
 		RaffraichirListe()
 		@image.setImage(@ligneslibrary[selectedLigne].image)
 
-		manageButtons("Clear")
+		manageButtons("Library")
 	end
 	ib_action :serieSelected
 
@@ -447,118 +447,100 @@ class SubsMgr < OSX::NSWindowController
 		@listeseries.reloadData()
 	end
 	def RelisterInfos()
-		@ligneslibrary.clear
 
-		new_ligne = Library.new
-		new_ligne.image = OSX::NSImage.alloc.initWithContentsOfFile_(@prefs["Directories"]["Banners"]+"00 - All series.jpg")
-		new_ligne.serie = "."
-		new_ligne.saison = ""
-		new_ligne.URLTVdb = "http://www.thetvdb.com/"
-		new_ligne.nbepisodes = ""
-		new_ligne.episodes = []
-		@ligneslibrary << new_ligne
-
-		@allEpisodes.each do |episode|
-			# La série est-elle déjà listée ?
-			dejaListee = @ligneslibrary.any? do |libitem|
-				(episode.serie.to_s == "Error") or ( (libitem.serie == episode.serie.to_s.downcase) and (libitem.saison == episode.saison) )
+		@ligneslibrary.each do |maserie|
+			if maserie.serie == "." or maserie.serie == "Error" then next end
+if maserie.serie != "chuck" then next end
+			
+			# Recherche de la page de la saison sur TheTVdb
+			monURL = "http://www.thetvdb.com/?tab=series&id="+SerieId(maserie.serie.to_s.downcase).to_s
+			if monURL == "http://www.thetvdb.com/?tab=series&id=0" then next end
+			doc = FileCache.get_html(monURL)
+			doc.search("a.seasonlink").each do |k|
+				if k.text.to_s == maserie.saison.to_s
+					monURL = "http://www.thetvdb.com"+k[:href].to_s
+					maserie.URLTVdb = monURL
+				end
+			end
+			
+			# Lecture des épisodes
+			maserie.episodes = {}
+			
+			index = 0
+			doc = FileCache.get_html(monURL)
+			doc.search("table#listtable tr td.odd,td.even").each do |k|
+				if index == 0 then numero = k.text end
+				if index == 1 then titre = k.text end
+				if index == 2 then diffusion = k.text end
+				if index == 3 
+					maserie.episodes << {"Episode" => numero, "Titre" => titre, "Diffusion" => diffusion}
+					index = -1 
+				end
+				index = index + 1
 			end
 
-			# Ajout de la série dans la liste
-			unless dejaListee
-				new_ligne = Library.new
-				new_ligne.serie = episode.serie.to_s.downcase
-				new_ligne.saison = episode.saison
-				new_ligne.image = SerieBanner(episode.serie)
-				new_ligne.episodes = []
-
-				#				 # Recherche de la page de la saison sur TheTVdb
-				#				 monURL = "http://www.thetvdb.com/?tab=series&id="+SerieId(episode.serie.to_s.downcase).to_s
-				#
-				#				 doc = FileCache.get_html(monURL)
-				#				 doc.search("a.seasonlink").each do |k|
-				#					 if k.text.to_s == episode.saison.to_s
-				#						 monURL = "http://www.thetvdb.com"+k[:href].to_s
-				#						 new_ligne.URLTVdb = monURL
-				#					 end
-				#				 end
-				#
-				#				 # Lecture des épisodes
-				#				 tableau = []
-				#				 index = 0
-				#				 doc = FileCache.get_html(monURL)
-				#				 doc.search("table#listtable tr").each do |k|
-				#					 k.search("td.odd,td.even").each do |k2|
-				#					 #k.search("td.odd,td.even,td.special").each do |k2|
-				#						 tableau[index]=k2.text.to_s
-				#						 index = index + 1
-				#					 end
-				#				 end
-				#
-				#				 new_ligne.firstep = tableau[6].to_s.gsub(/-/, ' ')
-				#				 new_ligne.lastep = tableau[(index-1)-1].to_s.gsub(/-/, ' ')
-				#				 new_ligne.nbepisodes = 0
-				#				 new_ligne.status = Icones.list["Subtitled"]
-				#				 new_ligne.episodes = []
-				#
-				#				 # Affichage des status par épisode
-				#				 for i in (1..(index-1)/4)
-				#					 begin
-				#						 if tableau[i*4].to_s == "Special"
-				#							 #new_ligne.episodes[i]=Icones.list["EpSpecial"]
-				#						 else
-				#							 if Date.parse(tableau[(i*4)+2]) < Date.today()
-				#								 new_ligne.nbepisodes = new_ligne.nbepisodes + 1
-				#								 new_ligne.episodes[new_ligne.nbepisodes]=Icones.list["Aired"]
-				#
-				#								 subtitled = @allEpisodes.any? do |eps|
-				#									 (eps.serie.downcase.to_s == new_ligne.serie) and (eps.saison == new_ligne.saison) and (eps.episode == new_ligne.nbepisodes) and (eps.status == "Traité")
-				#								 end
-				#
-				#								 vidloaded = @allEpisodes.any? do |eps|
-				#									 (eps.serie.downcase.to_s == new_ligne.serie) and (eps.saison == new_ligne.saison) and (eps.episode == new_ligne.nbepisodes) and (eps.status != "Traité")
-				#								 end
-				#
-				#								 if subtitled
-				#									 new_ligne.episodes[new_ligne.nbepisodes]=Icones.list["Subtitled"]
-				#								 else
-				#									 if vidloaded
-				#										 new_ligne.episodes[new_ligne.nbepisodes]=Icones.list["VideoLoaded"]
-				#										 if new_ligne.status == Icones.list["Subtitled"] then new_ligne.status = Icones.list["VideoLoaded"] end
-				#									 else
-				#										 Dir.foreach(@prefs["Directories"]["Torrents"].to_s) do |file|
-				#											 monPattern1 = sprintf("%s — %02dx%02d", new_ligne.serie, new_ligne.saison, new_ligne.nbepisodes)
-				#											 monPattern2 = sprintf("%s — %dx%d", new_ligne.serie, new_ligne.saison, new_ligne.nbepisodes)
-				#											 if ( file.downcase.match(monPattern1) or file.downcase.match(monPattern2) )
-				#												 new_ligne.episodes[new_ligne.nbepisodes]=Icones.list["TorrentLoaded"]
-				#												 if new_ligne.status == Icones.list["Subtitled"] or new_ligne.status == Icones.list["VideoLoaded"] then new_ligne.status = Icones.list["TorrentLoaded"] end
-				#											 end
-				#										 end
-				#									 end
-				#								 end
-				#							 else
-				#								 new_ligne.nbepisodes = new_ligne.nbepisodes + 1
-				#								 new_ligne.episodes[new_ligne.nbepisodes]=Icones.list["NotAired"]
-				#							 end
-				#						 end
-				#
-				#						 # Mise à jour du status gobal de la saison
-				#						 if new_ligne.episodes[new_ligne.nbepisodes] == Icones.list["VideoLoaded"] and new_ligne.status == Icones.list["Subtitled"] then new_ligne.status = Icones.list["VideoLoaded"] end
-				#						 if new_ligne.episodes[new_ligne.nbepisodes] == Icones.list["TorrentLoaded"] and (new_ligne.status == Icones.list["Subtitled"] or new_ligne.status == Icones.list["VideoLoaded"]) then new_ligne.status = Icones.list["TorrentLoaded"] end
-				#						 if new_ligne.episodes[new_ligne.nbepisodes] == Icones.list["NotAired"] then new_ligne.status = Icones.list["NotAired"] end
-				#						 if new_ligne.episodes[new_ligne.nbepisodes] == Icones.list["Aired"] and ( new_ligne.status == Icones.list["Subtitled"] or new_ligne.status == Icones.list["VideoLoaded"] or new_ligne.status == Icones.list["TorrentLoaded"] ) then new_ligne.status = Icones.list["Aired"] end
-				#
-				#
-				#					 rescue Exception=>e
-				#						 new_ligne.nbepisodes = new_ligne.nbepisodes + 1
-				#						 new_ligne.episodes[new_ligne.nbepisodes]=Icones.list["NotAired"]
-				#					 end
-				#				 end
-				@ligneslibrary << new_ligne
-
-			end
+			puts maserie.episodes
+			
+#			maserie.firstep = tableau[6].to_s.gsub(/-/, ' ')
+#			maserie.lastep = tableau[(index-1)-1].to_s.gsub(/-/, ' ')
+#			maserie.nbepisodes = 0
+#			maserie.status = Icones.list["Subtitled"]
+#			maserie.episodes = []
+			
+			# Affichage des status par épisode
+#			for i in (1..(index-1)/4)
+#				begin
+#					if tableau[i*4].to_s == "Special"
+#						 #maserie.episodes[i]=Icones.list["EpSpecial"]
+#					else
+#						if Date.parse(tableau[(i*4)+2]) < Date.today()
+#							maserie.nbepisodes = maserie.nbepisodes + 1
+#							maserie.episodes[maserie.nbepisodes]=Icones.list["Aired"]
+#				
+#							subtitled = @allEpisodes.any? do |eps|
+#								(eps.serie.downcase.to_s == maserie.serie) and (eps.saison == maserie.saison) and (eps.episode == maserie.nbepisodes) and (eps.status == "Traité")
+#							end
+#				
+#							vidloaded = @allEpisodes.any? do |eps|
+#								(eps.serie.downcase.to_s == maserie.serie) and (eps.saison == maserie.saison) and (eps.episode == maserie.nbepisodes) and (eps.status != "Traité")
+#							end
+#				
+#							if subtitled
+#								maserie.episodes[maserie.nbepisodes]=Icones.list["Subtitled"]
+#							else
+#								if vidloaded
+#									maserie.episodes[new_ligne.nbepisodes]=Icones.list["VideoLoaded"]
+#									if maserie.status == Icones.list["Subtitled"] then maserie.status = Icones.list["VideoLoaded"] end
+#								else
+#									Dir.foreach(@prefs["Directories"]["Torrents"].to_s) do |file|
+#										monPattern1 = sprintf("%s — %02dx%02d", maserie.serie, maserie.saison, maserie.nbepisodes)
+#										monPattern2 = sprintf("%s — %dx%d", maserie.serie, maserie.saison, maserie.nbepisodes)
+#										if ( file.downcase.match(monPattern1) or file.downcase.match(monPattern2) )
+#											maserie.episodes[maserie.nbepisodes]=Icones.list["TorrentLoaded"]
+#											if maserie.status == Icones.list["Subtitled"] or maserie.status == Icones.list["VideoLoaded"] then maserie.status = Icones.list["TorrentLoaded"] end
+#										end
+#									end
+#								end
+#							end
+#						else
+#							maserie.nbepisodes = maserie.nbepisodes + 1
+#							maserie.episodes[maserie.nbepisodes]=Icones.list["NotAired"]
+#						end
+#					end
+#				
+#					# Mise à jour du status gobal de la saison
+#					if maserie.episodes[maserie.nbepisodes] == Icones.list["VideoLoaded"] and maserie.status == Icones.list["Subtitled"] then maserie.status = Icones.list["VideoLoaded"] end
+#					if maserie.episodes[maserie.nbepisodes] == Icones.list["TorrentLoaded"] and (maserie.status == Icones.list["Subtitled"] or maserie.status == Icones.list["VideoLoaded"]) then maserie.status = Icones.list["TorrentLoaded"] end
+#					if maserie.episodes[maserie.nbepisodes] == Icones.list["NotAired"] then maserie.status = Icones.list["NotAired"] end
+#					if maserie.episodes[maserie.nbepisodes] == Icones.list["Aired"] and ( maserie.status == Icones.list["Subtitled"] or maserie.status == Icones.list["VideoLoaded"] or maserie.status == Icones.list["TorrentLoaded"] ) then maserie.status = Icones.list["Aired"] end
+#				
+#				
+#					rescue Exception=>e
+#						maserie.nbepisodes = maserie.nbepisodes + 1
+#						maserie.episodes[maserie.nbepisodes]=Icones.list["NotAired"]
+#				end
+#			end
 		end
-		@ligneslibrary.sort! {|x,y| x.serie+x.saison.to_s <=> y.serie+y.saison.to_s }
 		@listeseries.reloadData()
 	end
 	def RaffraichirListe
@@ -717,6 +699,7 @@ class SubsMgr < OSX::NSWindowController
 
 		end
 	end
+	
 	def initBanners()
 		@series.each() do |serie|
 			@seriesBanners[serie[0]] = OSX::NSImage.alloc.initWithContentsOfFile_(@prefs["Directories"]["Banners"]+@series[serie[0]]["Banner"])
@@ -757,19 +740,18 @@ class SubsMgr < OSX::NSWindowController
 		end
 	end
 	def SerieId(myserie)
-		puts "Id de "+myserie+" ?"
 		# Connait-on la série ?
 		connue = @series.any? do |serie|
 			(serie[0] == myserie)
 		end
 
 		if connue
-			puts "Id de "+myserie+" : "+@series[myserie]["Id"]
 			return @series[myserie]["Id"]
 		else
 			return 0
 		end
 	end
+	
 	def AnalyseFichier(chaine)
 		begin
 			# dans l'ordre du plus précis au moins précis (en particulier le format 101 se telescope avec les autres infos du type 720p ou x264)
