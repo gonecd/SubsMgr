@@ -246,7 +246,7 @@ class SubsMgr < OSX::NSWindowController
 			ligne = @ligneslibrary[index]
 			case column.identifier
 			when 'serie': ligne.image
-			when /ep[0-9]+/im : ligne.episodes[column.identifier.gsub(/ep/im, '').to_i]
+			when /ep[0-9]+/im : if ligne.episodes[column.identifier.gsub(/ep/im, '').to_i-1] then ligne.episodes[column.identifier.gsub(/ep/im, '').to_i-1]["Statut"] else nil end
 			else
 				field = column.identifier.downcase
 				ligne.send(field) if ligne.respond_to?(field)
@@ -450,7 +450,6 @@ class SubsMgr < OSX::NSWindowController
 
 		@ligneslibrary.each do |maserie|
 			if maserie.serie == "." or maserie.serie == "Error" then next end
-if maserie.serie != "chuck" then next end
 			
 			# Recherche de la page de la saison sur TheTVdb
 			monURL = "http://www.thetvdb.com/?tab=series&id="+SerieId(maserie.serie.to_s.downcase).to_s
@@ -464,28 +463,26 @@ if maserie.serie != "chuck" then next end
 			end
 			
 			# Lecture des épisodes
-			maserie.episodes = {}
+			maserie.episodes = []
+			numero = titre = diffusion = nil
 			
-			index = 0
 			doc = FileCache.get_html(monURL)
-			doc.search("table#listtable tr td.odd,td.even").each do |k|
-				if index == 0 then numero = k.text end
-				if index == 1 then titre = k.text end
-				if index == 2 then diffusion = k.text end
-				if index == 3 
-					maserie.episodes << {"Episode" => numero, "Titre" => titre, "Diffusion" => diffusion}
-					index = -1 
+			doc.search("table#listtable tr td").each_with_index do |k, index|
+				next unless k['class'].match(/odd|even/im)
+				case index.modulo(4)
+				when 0: numero = k.text
+				when 1: titre = k.text
+				when 2: diffusion = k.text
+				when 3: maserie.episodes << {"Episode" => numero, "Titre" => titre, "Diffusion" => diffusion, "Statut" => Icones.list["EpSpecial"]}
 				end
-				index = index + 1
 			end
-
-			puts maserie.episodes
 			
-#			maserie.firstep = tableau[6].to_s.gsub(/-/, ' ')
-#			maserie.lastep = tableau[(index-1)-1].to_s.gsub(/-/, ' ')
-#			maserie.nbepisodes = 0
-#			maserie.status = Icones.list["Subtitled"]
-#			maserie.episodes = []
+			maserie.nbepisodes = maserie.episodes.size()
+#			maserie.episodes.each() do |episode|
+#				puts episode["Episode"]+" : "+episode["Titre"]
+#			end
+			
+			maserie.status = Icones.list["EpSpecial"]
 			
 			# Affichage des status par épisode
 #			for i in (1..(index-1)/4)
@@ -812,7 +809,6 @@ if maserie.serie != "chuck" then next end
 		end
 		@current
 	end
-
 	def AnalyseTorrent(chaine)
 		begin
 			# On catche
@@ -836,7 +832,7 @@ if maserie.serie != "chuck" then next end
 			@current.team = ""
 
 		rescue Exception=>e
-			puts "# SubsMgr Error # AnalyseTorrent ["+@current.fichier+"] : "+e
+			puts "# SubsMgr Error # AnalyseTorrent [#{@current.fichier}] : #{e}\n#{e.backtrace.join("\n")}"
 			@current.serie = "Error"
 			@current.saison = 0
 			@current.episode = 0
@@ -869,7 +865,7 @@ if maserie.serie != "chuck" then next end
 			@current.team = ""
 
 		rescue Exception=>e
-			puts "# SubsMgr Error # AnalyseTorrent ["+@current.fichier+"] : "+e
+			puts "# SubsMgr Error # AnalyseEpisode ["+@current.fichier+"] : "+e
 			@current.serie = "Error"
 			@current.saison = 0
 			@current.episode = 0
