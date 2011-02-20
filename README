@@ -10,3 +10,11 @@ bundle install --path vendor/bundle
 Pour faire une montée de version des gems
 bundle update
 bundle install --path vendor/bundle
+
+
+h2. Préparation des gems pour les inclures dans l'appli finale
+
+Après une mise à jour des gems (ou une réinstallation), il faut au préalable lancer la commande
+./scripts/relink_nokogiri.rb
+
+Ce script permet de changer les chemins des différentes lib nécessaires à Nokogiri afin d'utiliser celles inclusent dans l'appli plutôt que les libs système
