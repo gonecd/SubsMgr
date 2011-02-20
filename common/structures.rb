@@ -50,7 +50,7 @@ end
 
 # Structure d'insertion dans la Librairie
 class Library < CommonStruct
-	attr_accessor :serie, :saison, :status, :URLTVdb, :nbepisodes, :firstep, :lastep, :image, :episodes
+	attr_accessor :serie, :saison, :status, :URLTVdb, :nbepisodes, :image, :episodes
 
 	def to_s
 		"<Library serie:#{serie} - saison:#{saison} - status:#{status} - nbepisodes:#{nbepisodes}>"

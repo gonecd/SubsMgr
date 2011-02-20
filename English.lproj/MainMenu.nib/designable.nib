@@ -11,7 +11,7 @@
 			<string key="com.apple.QTKitIBPlugin">1756</string>
 		</dictionary>
 		<array class="NSMutableArray" key="IBDocument.EditedObjectIDs">
-			<integer value="977"/>
+			<integer value="367"/>
 		</array>
 		<array key="IBDocument.PluginDependencies">
 			<string>com.apple.QTKitIBPlugin</string>
@@ -1444,7 +1444,6 @@
 														</object>
 													</array>
 													<string key="NSFrame">{{0, 17}, {815, 559}}</string>
-													<string key="NSBounds">{{29, 0}, {815, 559}}</string>
 													<reference key="NSSuperview" ref="503546602"/>
 													<reference key="NSNextKeyView" ref="772647950"/>
 													<reference key="NSDocView" ref="772647950"/>
@@ -1470,7 +1469,6 @@
 													<int key="NSsFlags">1</int>
 													<reference key="NSTarget" ref="503546602"/>
 													<string key="NSAction">_doScroller:</string>
-													<double key="NSCurValue">1</double>
 													<double key="NSPercent">0.73394499999999996</double>
 												</object>
 												<object class="NSClipView" id="69864663">
@@ -1480,7 +1478,6 @@
 														<reference ref="529798273"/>
 													</array>
 													<string key="NSFrameSize">{815, 17}</string>
-													<string key="NSBounds">{{29, 0}, {815, 17}}</string>
 													<reference key="NSSuperview" ref="503546602"/>
 													<reference key="NSNextKeyView" ref="529798273"/>
 													<reference key="NSDocView" ref="529798273"/>
@@ -1857,6 +1854,7 @@
 																	<int key="NSsFlags">1</int>
 																	<reference key="NSTarget" ref="269135155"/>
 																	<string key="NSAction">_doScroller:</string>
+																	<double key="NSCurValue">0.17376681614349776</double>
 																	<double key="NSPercent">0.99214659999999999</double>
 																</object>
 																<object class="NSClipView" id="750480073">

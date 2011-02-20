@@ -35,6 +35,7 @@
 		62997BAD1053D3C60080F479 /* database.png in Resources */ = {isa = PBXBuildFile; fileRef = 62997BAC1053D3C60080F479 /* database.png */; };
 		62A6D4FC12FDF6750096C03E /* flag.png in Resources */ = {isa = PBXBuildFile; fileRef = 623FDED40F519351006D7138 /* flag.png */; };
 		62AAFA410F69BBF2007F8151 /* QTKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 62AAFA400F69BBF2007F8151 /* QTKit.framework */; };
+		62ABEB5613106DE200CA1E9A /* SubsMgrSeries.plist in Resources */ = {isa = PBXBuildFile; fileRef = 62ABEB5513106DE200CA1E9A /* SubsMgrSeries.plist */; };
 		62F37E4312BD1DEF00561B37 /* toggle.png in Resources */ = {isa = PBXBuildFile; fileRef = 62F37E4212BD1DEF00561B37 /* toggle.png */; };
 /* End PBXBuildFile section */
 
@@ -89,6 +90,7 @@
 		62997BAA1053D28F0080F479 /* kchart.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = kchart.png; path = Icones/kchart.png; sourceTree = "<group>"; };
 		62997BAC1053D3C60080F479 /* database.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = database.png; path = Icones/database.png; sourceTree = "<group>"; };
 		62AAFA400F69BBF2007F8151 /* QTKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QTKit.framework; path = /System/Library/Frameworks/QTKit.framework; sourceTree = "<absolute>"; };
+		62ABEB5513106DE200CA1E9A /* SubsMgrSeries.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = SubsMgrSeries.plist; sourceTree = "<group>"; };
 		62F37E4212BD1DEF00561B37 /* toggle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = toggle.png; path = Icones/toggle.png; sourceTree = "<group>"; };
 		E8F5E24E03AEB6EC03A81C6F /* RubyCocoa.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; name = RubyCocoa.framework; path = /System/Library/Frameworks/RubyCocoa.framework; sourceTree = "<absolute>"; };
 		E8F5E25803AEB7C803A81C6F /* rb_main.rb */ = {isa = PBXFileReference; lastKnownFileType = text.script.ruby; path = rb_main.rb; sourceTree = "<group>"; };
@@ -177,6 +179,7 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				62ABEB5513106DE200CA1E9A /* SubsMgrSeries.plist */,
 				0982F90C12FF3D0400A3CD47 /* SubsMgr.icns */,
 				094CC5F912FF1B8B00D21AA2 /* Icones */,
 				62F37E4212BD1DEF00561B37 /* toggle.png */,
@@ -306,6 +309,7 @@
 				62A6D4FC12FDF6750096C03E /* flag.png in Resources */,
 				094CC61D12FF1B8B00D21AA2 /* Icones in Resources */,
 				0982F90D12FF3D0400A3CD47 /* SubsMgr.icns in Resources */,
+				62ABEB5613106DE200CA1E9A /* SubsMgrSeries.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
