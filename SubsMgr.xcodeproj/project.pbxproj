@@ -8,8 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		094CC61D12FF1B8B00D21AA2 /* Icones in Resources */ = {isa = PBXBuildFile; fileRef = 094CC5F912FF1B8B00D21AA2 /* Icones */; };
-		097F98BF12FF167E002F004B /* plugin in Resources */ = {isa = PBXBuildFile; fileRef = 097F98B312FF167E002F004B /* plugin */; };
-		097F98C712FF1694002F004B /* common in Resources */ = {isa = PBXBuildFile; fileRef = 097F98C012FF1694002F004B /* common */; };
 		0982F90D12FF3D0400A3CD47 /* SubsMgr.icns in Resources */ = {isa = PBXBuildFile; fileRef = 0982F90C12FF3D0400A3CD47 /* SubsMgr.icns */; };
 		4DDCA7060ACC9A6100E082CE /* MainMenu.nib in Resources */ = {isa = PBXBuildFile; fileRef = 29B97318FDCFA39411CA2CEA /* MainMenu.nib */; };
 		4DDCA7070ACC9A6100E082CE /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C165CFE840E0CC02AAC07 /* InfoPlist.strings */; };
@@ -41,6 +39,7 @@
 		097F98B312FF167E002F004B /* plugin */ = {isa = PBXFileReference; lastKnownFileType = folder; path = plugin; sourceTree = "<group>"; };
 		097F98C012FF1694002F004B /* common */ = {isa = PBXFileReference; lastKnownFileType = folder; path = common; sourceTree = "<group>"; };
 		0982F90C12FF3D0400A3CD47 /* SubsMgr.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; name = SubsMgr.icns; path = Icones/SubsMgr.icns; sourceTree = "<group>"; };
+		09D5D2D41311323D005DCEAC /* gems */ = {isa = PBXFileReference; lastKnownFileType = folder; name = gems; path = vendor/bundle/ruby/1.8/gems; sourceTree = "<group>"; };
 		1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		29B97319FDCFA39411CA2CEA /* English */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = English; path = English.lproj/MainMenu.nib; sourceTree = "<group>"; };
@@ -85,8 +84,6 @@
 		080E96DDFE201D6D7F000001 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				097F98C012FF1694002F004B /* common */,
-				097F98B312FF167E002F004B /* plugin */,
 				622D82210F349470008F05CD /* SubsMgr.rb */,
 			);
 			name = Classes;
@@ -135,6 +132,9 @@
 		29B97315FDCFA39411CA2CEA /* Other Sources */ = {
 			isa = PBXGroup;
 			children = (
+				09D5D2D41311323D005DCEAC /* gems */,
+				097F98C012FF1694002F004B /* common */,
+				097F98B312FF167E002F004B /* plugin */,
 				62578A4F127DBCEF00779F2E /* lib */,
 				29B97316FDCFA39411CA2CEA /* main.m */,
 				E8F5E25803AEB7C803A81C6F /* rb_main.rb */,
@@ -212,6 +212,7 @@
 				4DDCA7050ACC9A6100E082CE /* Resources */,
 				4DDCA7090ACC9A6100E082CE /* Sources */,
 				4DDCA70B0ACC9A6100E082CE /* Frameworks */,
+				09D5D2DF1311382A005DCEAC /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -270,14 +271,28 @@
 				62578BFF127F110500779F2E /* Release Notes in Resources */,
 				62F37E4312BD1DEF00561B37 /* toggle.png in Resources */,
 				62A6D4FC12FDF6750096C03E /* flag.png in Resources */,
-				097F98BF12FF167E002F004B /* plugin in Resources */,
-				097F98C712FF1694002F004B /* common in Resources */,
 				094CC61D12FF1B8B00D21AA2 /* Icones in Resources */,
 				0982F90D12FF3D0400A3CD47 /* SubsMgr.icns in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		09D5D2DF1311382A005DCEAC /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "echo \"copy external ruby files\"\ncp -r ${SRCROOT}/vendor ${TARGET_BUILD_DIR}/${TARGET_NAME}.app/Contents/Resources\ncp -r ${SRCROOT}/plugin ${TARGET_BUILD_DIR}/${TARGET_NAME}.app/Contents/Resources\ncp -r ${SRCROOT}/common ${TARGET_BUILD_DIR}/${TARGET_NAME}.app/Contents/Resources\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		4DDCA7090ACC9A6100E082CE /* Sources */ = {

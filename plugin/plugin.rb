@@ -130,7 +130,7 @@ module Plugin
 		# on verifie si +txt+ est une chaine qui correspond à l'épisode +episode+ de la saison +saison+
 		def self.valid_episode?(txt, saison, episode)
 			txt = txt.to_s.strip
-			return false if txt == ''
+			return false if txt.blank?
 			return false unless txt.match(/\.srt/im)
 			return false if txt.match(/\.(EN|VO)\./im)
 

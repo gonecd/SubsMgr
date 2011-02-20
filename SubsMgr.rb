@@ -8,6 +8,7 @@
 
 $LOAD_PATH << File.join(File.dirname(__FILE__), "common")
 $LOAD_PATH << File.join(File.dirname(__FILE__), "plugin")
+
 ENV['RUBYCOCOA_THREAD_HOOK_DISABLE'] = '1' # disable thread warning
 
 require 'osx/cocoa'

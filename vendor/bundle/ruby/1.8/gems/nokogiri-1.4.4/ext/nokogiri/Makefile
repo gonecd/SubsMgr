@@ -4,11 +4,11 @@ SHELL = /bin/sh
 #### Start of system configuration section. ####
 
 srcdir = .
-topdir = /Users/olivier/.rvm/rubies/ree-1.8.7-2010.02/lib/ruby/1.8/i686-darwin10.6.0
+topdir = /Users/olivier/.rvm/rubies/ree-1.8.7-2011.01/lib/ruby/1.8/i686-darwin10.6.0
 hdrdir = $(topdir)
 VPATH = $(srcdir):$(topdir):$(hdrdir)
 exec_prefix = $(prefix)
-prefix = $(DESTDIR)/Users/olivier/.rvm/rubies/ree-1.8.7-2010.02
+prefix = $(DESTDIR)/Users/olivier/.rvm/rubies/ree-1.8.7-2011.01
 sharedstatedir = $(prefix)/com
 mandir = $(datarootdir)/man
 psdir = $(docdir)
@@ -45,9 +45,9 @@ LIBRUBYARG_STATIC = -l$(RUBY_SO_NAME)-static
 
 RUBY_EXTCONF_H = 
 CFLAGS   =  -fno-common -g -O2   -fno-common -pipe -fno-common $(cflags)  -g -DXP_UNIX -O3 -Wall -Wcast-qual -Wwrite-strings -Wconversion -Wmissing-noreturn -Winline 
-INCFLAGS = -I. -I. -I/Users/olivier/.rvm/rubies/ree-1.8.7-2010.02/lib/ruby/1.8/i686-darwin10.6.0 -I.
+INCFLAGS = -I. -I. -I/Users/olivier/.rvm/rubies/ree-1.8.7-2011.01/lib/ruby/1.8/i686-darwin10.6.0 -I.
 DEFS     = 
-CPPFLAGS = -DHAVE_XMLFIRSTELEMENTCHILD -DHAVE_XMLRELAXNGSETPARSERSTRUCTUREDERRORS -DHAVE_XMLRELAXNGSETPARSERSTRUCTUREDERRORS -DHAVE_XMLRELAXNGSETVALIDSTRUCTUREDERRORS -DHAVE_XMLSCHEMASETVALIDSTRUCTUREDERRORS -DHAVE_XMLSCHEMASETPARSERSTRUCTUREDERRORS -I-I-I/opt/local/include -I-I-I/usr/local/include -I-I-I/Users/olivier/.rvm/rubies/ree-1.8.7-2010.02/include -I-I-I/usr/include -I-I-I/usr/include/libxml2 -I/opt/local/include/libxml2 -I/usr/local/include/libxml2 -I/Users/olivier/.rvm/rubies/ree-1.8.7-2010.02/include/libxml2 -I-I/opt/local/include -I-I/usr/local/include -I-I/Users/olivier/.rvm/rubies/ree-1.8.7-2010.02/include -I-I/usr/include -I-I/usr/include/libxml2 -I/opt/local/include -I/usr/local/include -I/Users/olivier/.rvm/rubies/ree-1.8.7-2010.02/include -I/usr/include -I/usr/include/libxml2  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE  
+CPPFLAGS = -DHAVE_XMLFIRSTELEMENTCHILD -DHAVE_XMLRELAXNGSETPARSERSTRUCTUREDERRORS -DHAVE_XMLRELAXNGSETPARSERSTRUCTUREDERRORS -DHAVE_XMLRELAXNGSETVALIDSTRUCTUREDERRORS -DHAVE_XMLSCHEMASETVALIDSTRUCTUREDERRORS -DHAVE_XMLSCHEMASETPARSERSTRUCTUREDERRORS -I-I-I/opt/local/include -I-I-I/usr/local/include -I-I-I/Users/olivier/.rvm/rubies/ree-1.8.7-2011.01/include -I-I-I/usr/include -I-I-I/usr/include/libxml2 -I/opt/local/include/libxml2 -I/usr/local/include/libxml2 -I/Users/olivier/.rvm/rubies/ree-1.8.7-2011.01/include/libxml2 -I-I/opt/local/include -I-I/usr/local/include -I-I/Users/olivier/.rvm/rubies/ree-1.8.7-2011.01/include -I-I/usr/include -I-I/usr/include/libxml2 -I/opt/local/include -I/usr/local/include -I/Users/olivier/.rvm/rubies/ree-1.8.7-2011.01/include -I/usr/include -I/usr/include/libxml2  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE  
 CXXFLAGS = $(CFLAGS) 
 ldflags  = -L. 
 dldflags = 
@@ -62,7 +62,7 @@ RUBY_SO_NAME = ruby
 arch = i686-darwin10.6.0
 sitearch = i686-darwin10.6.0
 ruby_version = 1.8
-ruby = /Users/olivier/.rvm/rubies/ree-1.8.7-2010.02/bin/ruby
+ruby = /Users/olivier/.rvm/rubies/ree-1.8.7-2011.01/bin/ruby
 RUBY = $(ruby)
 RM = rm -f
 MAKEDIRS = mkdir -p
@@ -75,8 +75,8 @@ COPY = cp
 
 preload = 
 
-libpath = . $(libdir) /opt/local/lib /usr/local/lib /Users/olivier/.rvm/rubies/ree-1.8.7-2010.02/lib /usr/lib
-LIBPATH =  -L. -L$(libdir) -L/opt/local/lib -L/usr/local/lib -L/Users/olivier/.rvm/rubies/ree-1.8.7-2010.02/lib -L/usr/lib
+libpath = . $(libdir) /opt/local/lib /usr/local/lib /Users/olivier/.rvm/rubies/ree-1.8.7-2011.01/lib /usr/lib
+LIBPATH =  -L. -L$(libdir) -L/opt/local/lib -L/usr/local/lib -L/Users/olivier/.rvm/rubies/ree-1.8.7-2011.01/lib -L/usr/lib
 DEFFILE = 
 
 CLEANFILES = mkmf.log
