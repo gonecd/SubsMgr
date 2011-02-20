@@ -14,6 +14,8 @@ ENV['RUBYCOCOA_THREAD_HOOK_DISABLE'] = '1' # disable thread warning
 require 'osx/cocoa'
 require 'common'
 
+Tools.logger.level = 0 
+
 class SubsMgr < OSX::NSWindowController
 	# ------------------------------------------
 	# Pointeurs sur les objets de l'IHM

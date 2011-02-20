@@ -61,7 +61,7 @@ module Plugin
 				marks = list.inject(0) { |sum, e| sum += e.confiant.to_f}
 				self.current.candidats = self.current.candidats.concat(list)
 			rescue Exception => e
-				$stderr.puts "# SubsMgr Error # search_sub #{self.class.name} [#{current.fichier}]: #{e.inspect}\n#{e.backtrace.join("\n")}"
+				Tools.logger.error "# SubsMgr Error # search_sub #{self.class.name} [#{current.fichier}]: #{e.inspect}\n#{e.backtrace.join("\n")}"
 				self.current.comment = "Pb dans le parsing #{self.class.name}"
 			end
 			self.current.send("#{self.class::NAME}=", count)
@@ -121,7 +121,7 @@ module Plugin
 				return [maConfiance, errors]
 
 			rescue Exception => e
-				$stderr.puts "# SubsMgr Error # calcul_confiance [#{current.fichier}] : #{e}\n#{e.backtrace.join("\n")}"
+				Tools.logger.error "# SubsMgr Error # calcul_confiance [#{current.fichier}] : #{e}\n#{e.backtrace.join("\n")}"
 				current.comment = "Pb dans l'analyse du fichier"
 				return [0, errors]
 			end
@@ -140,7 +140,7 @@ module Plugin
 			when txt.match(/#{saison}#{sprintf('%02d',episode)}/im): true		# format 101
 			else false
 			end
-			# $stderr.puts "... match for #{entry}!" if ok
+			Tools.logger.debug("... match for #{txt}!") if ok
 			ok
 		end
 

@@ -28,6 +28,7 @@ require 'structures.rb'
 require 'file_cache'
 require 'icones'
 require 'statistics'
+require 'tools'
 
 # ------------------------------------------
 # Sources managers

@@ -8,6 +8,7 @@
 *.perspective
 *.perspectivev3
 *.pbxuser
+*.tm_build_errors
 
 # Generated files
 VersionX-revision.h

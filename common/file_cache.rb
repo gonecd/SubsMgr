@@ -1,7 +1,41 @@
 require 'tempfile'
 
+class CacheSub
+	attr_accessor :root_path
+	
+	def initialize(root_path)
+		self.root_path = root_path
+		FileUtils.mkdir_p(root_path) unless root_path.blank?
+		self
+	end
+	
+	def write(entry, content)
+		path = full_path(entry)
+		File.open(path, "w") {|f| f.write(content)}
+	end
+	
+	def read(entry)
+		open(full_path(entry)).read if exists?(entry)
+	end
+	
+	def key(source)
+		Digest::MD5.hexdigest("#{source}-#{Time.now.strftime('%Y-%m-%d')}")
+	end
+
+	def exists?(entry)
+		path = full_path(entry)
+		File.exists?(path) && File.size(path)>0 && File.ctime(path)>=1.days.ago
+	end
+
+	def full_path(entry)
+		File.join(root_path, entry)
+	end
+
+end
+
 module FileCache
 	CACHE_PATH = "/tmp/subsmgr"
+
 	BROWSER = Mechanize.new { |agent|
 		agent.user_agent_alias = 'Mac Safari'
 		agent.follow_meta_refresh = false
@@ -9,9 +43,13 @@ module FileCache
 
 	module_function
 
+	def cache
+		@cache_store ||= CacheSub.new(CACHE_PATH)
+	end
+	
 	# recuperer un sous titre non compressé
 	def get_srt(link, referer = nil)
-		path = FileCache.get_srt(link, referer)
+		path = get_file(link, :referer => referer)
 		FileUtils.cp(path, "/tmp/Sub.srt")
 	end
 
@@ -64,18 +102,17 @@ module FileCache
 	def get_file(source, options = {})
 		FileUtils.mkdir_p(CACHE_PATH)
 		# on fabrique un nom de fichier unique pour le garder en cache pendant toute la journée
-		crc = Digest::MD5.hexdigest("#{source}-#{Time.now.strftime('%Y-%m-%d')}")
-		full_path = options[:path] || File.join(CACHE_PATH, crc)
-
-		unless (File.exists?(full_path) && File.size(full_path)>0)
-			$stderr.puts("# SubsMgr info - Get #{source}")
-			file = BROWSER.get(source, :referer => options[:referer])
-			File.open(full_path, "w") {|f| f.write(file.body)}
-			flatten_archive(full_path) if options[:zip]
+		crc = cache.key(source)
+		path = cache.full_path(crc)
+		if cache.exists?(crc)
+			Tools.logger.debug("# SubsMgr info - Load #{source} from cache")
 		else
-			$stderr.puts("# SubsMgr info - Load #{source} from cache")
+			Tools.logger.debug("# SubsMgr info - Get #{source}")
+			file = BROWSER.get(source, :referer => options[:referer])
+			cache.write(crc, file.body)
+			flatten_archive(path) if options[:zip]
 		end
-		return full_path
+		path
 	end
 
 	def get_html(source, options = {})
@@ -84,23 +121,13 @@ module FileCache
 		# +xml+: ajouter :xml => true si la page demandée est une page XML
 		FileUtils.mkdir_p(CACHE_PATH)
 		# on fabrique un nom de fichier unique pour le garder en cache pendant toute la journée
-		crc = Digest::MD5.hexdigest("#{source}-#{Time.now.strftime('%Y-%m-%d')}")
-		full_path = File.join(CACHE_PATH, crc)
-
-		if (File.exists?(full_path) && File.size(full_path)>0)
-			if options[:xml]
-				Nokogiri::XML(open(full_path).read).root
-			else
-				Nokogiri::HTML(open(full_path).read).root
-			end
+		crc = cache.key(source)
+		if cache.exists?(crc)
+			options[:xml] ? Nokogiri::XML(cache.read(crc)).root : Nokogiri::HTML(cache.read(crc)).root
 		else
 			file = BROWSER.get(source, :referer => options[:refered])
-			File.open(full_path, "w") {|f| f.write(file.body.to_s)}
-			if options[:xml]
-				file = Nokogiri::XML(file.body).root
-			else
-				file.root
-			end
+			cache.write(crc, file.body.to_s)
+			options[:xml] ? Nokogiri::XML(file.body.to_s).root : file.root
 		end
 	end
 
