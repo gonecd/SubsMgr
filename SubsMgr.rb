@@ -335,6 +335,7 @@ class SubsMgr < OSX::NSWindowController
 
 		@allEpisodes.sort! {|x,y| x.fichier <=> y.fichier }
 	end
+	
 	def RelisterEpisodes2
 		# Vider la liste
 		@allEpisodes.clear
@@ -830,7 +831,7 @@ class SubsMgr < OSX::NSWindowController
 			@current.serie = temp[1].gsub(/\./, ' ').to_s.strip
 			@current.saison = temp[2].to_i
 			@current.episode = temp[3].to_i
-			
+
 			# et on traite les infos correctement pour eliminer l'eventuel titre d'épisode
 			infos = temp[4].split('-')
 
@@ -853,7 +854,7 @@ class SubsMgr < OSX::NSWindowController
 				# dans les sous-titres, ils ne reprécisent pas hdtv si c'est du 720p, cela va de soit a priori
 				@current.infos.gsub!(/720p.hdtv/im, '720p')
 			end
-			
+
 		rescue Exception=>e
 			puts "# SubsMgr Error # AnalyseFichier [#{@current.fichier}] : #{e}"
 			@current.serie = "Error"
