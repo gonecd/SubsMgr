@@ -14,6 +14,8 @@ ENV['RUBYCOCOA_THREAD_HOOK_DISABLE'] = '1' # disable thread warning
 require 'osx/cocoa'
 require 'common'
 
+Tools.logger.level = 0 
+
 class SubsMgr < OSX::NSWindowController
 	# ------------------------------------------
 	# Pointeurs sur les objets de l'IHM
@@ -314,7 +316,7 @@ class SubsMgr < OSX::NSWindowController
 								"FichierSRT" => row[4], 
 								"Date" => row[5], 
 								"AutoManuel" => row[6], 
-								"Source" => row[7]}	
+								"Source" => row[7]} 
 			
 			rescue CSV::IllegalFormatError => err
 				$stderr.puts "# SubsMgr Error # Invalid CSV history line skipped:\n#{line}"
