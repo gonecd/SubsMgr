@@ -60,10 +60,10 @@ class SubsMgr < OSX::NSWindowController
 		# Initialisation des variables globales
 		@allEpisodes = []
 		@lignes = []
-		@lignesseries = []
 		@lignesinfos = []
 		@lignessources = []
 		@ligneslibrary = []
+		@seriesBanners = {}
 		@liste.dataSource = self
 		@ovliste.dataSource = self
 		@listeseries.dataSource = self
@@ -73,7 +73,7 @@ class SubsMgr < OSX::NSWindowController
 		@spotFilter = ""
 		@appPath = OSX::NSBundle.mainBundle.resourcePath.fileSystemRepresentation
 		Icones.path = File.join(@appPath, "Icones")
-
+		
 		# First run ? Fichier manquants ?
 		unless File.exist?("/Library/Application\ Support/SubsMgr/")
 			FileUtils.makedirs("/Library/Application\ Support/SubsMgr/")
@@ -83,6 +83,9 @@ class SubsMgr < OSX::NSWindowController
 		end
 		unless File.exist?("/Library/Application\ Support/SubsMgr/SubsMgrPrefs.plist")
 			FileUtils.cp(File.join(@appPath, "SubsMgrPrefs.plist"), "/Library/Application\ Support/SubsMgr/SubsMgrPrefs.plist")
+		end
+		unless File.exist?("/Library/Application\ Support/SubsMgr/SubsMgrSeries.plist")
+			FileUtils.cp(File.join(@appPath, "SubsMgrSeries.plist"), "/Library/Application\ Support/SubsMgr/SubsMgrSeries.plist")
 		end
 
 		# Initialisations des sources dans la fenêtre de préférences
@@ -97,7 +100,11 @@ class SubsMgr < OSX::NSWindowController
 
 		# Initialisations spécifiques pour les plugins
 		Plugin::Forom.forom_key = @pForomKey.stringValue().to_s
-		Plugin::Local.local_path = @pDirSubs.stringValue().to_s
+		Plugin::Local.local_path = @prefs["Directories"]["Subtitles"]
+
+		# Initialisation des banières de séries
+		@series = Plist::parse_xml("/Library/Application\ Support/SubsMgr/SubsMgrSeries.plist")
+		initBanners()
 
 		# Initialisation des Statistiques
 		StatsRAZ(self) unless File.exist?("/Library/Application\ Support/SubsMgr/SubsMgrStats.plist")
@@ -107,7 +114,7 @@ class SubsMgr < OSX::NSWindowController
 		# Construction des listes de series et d'episodes
 		RelisterEpisodes()
 		RelisterSeries()
-		RelisterInfos()
+		#RelisterInfos()
 		RaffraichirListe()
 		@fenWait.close()
 
@@ -178,7 +185,7 @@ class SubsMgr < OSX::NSWindowController
 	def serieSelected(sender)
 
 		selectedLigne = @listeseries.selectedRow()
-		@serieSelectionnee = @ligneslibrary[selectedLigne].serie
+		@serieSelectionnee = "^"+@ligneslibrary[selectedLigne].serie
 		@saisonSelectionnee = @ligneslibrary[selectedLigne].saison
 		@URLTVdb = @ligneslibrary[selectedLigne].URLTVdb
 		RaffraichirListe()
@@ -279,8 +286,8 @@ class SubsMgr < OSX::NSWindowController
 		@allEpisodes.clear
 
 		# Récupération des fichiers en attente de traitement
-		if File.exist?(@pDirTorrent.stringValue().to_s)
-			Dir.chdir(@pDirTorrent.stringValue().to_s)
+		if File.exist?(@prefs["Directories"]["Download"])
+			Dir.chdir(@prefs["Directories"]["Download"])
 			Dir.glob("*.{avi,mkv,mp4,m4v}").each do |x|
 				new_ligne = Ligne.new
 				new_ligne.fichier = x
@@ -437,88 +444,38 @@ class SubsMgr < OSX::NSWindowController
 		@allEpisodes.sort! {|x,y| x.fichier <=> y.fichier }
 	end
 	def RelisterSeries
-		totalEpisodes = @allEpisodes.size
-		@lignesseries.clear
+		@ligneslibrary.clear
 
-		# Image pour le "All series" dans la liste de droite
-		new_ligne = Series.new
-		new_ligne.image = OSX::NSImage.alloc.initWithContentsOfFile_(@prefs["Directories"]["Banners"]+"00 - All series.jpg")
-		new_ligne.nom = "."
-		@lignesseries << new_ligne
+		# On ajoute la ligne "All series"
+		new_ligne = Library.new
+		new_ligne.image = @seriesBanners["."]
+		new_ligne.serie = "."
+		new_ligne.saison = ""
+		new_ligne.URLTVdb = "http://www.thetvdb.com/"
+		new_ligne.nbepisodes = ""
+		new_ligne.episodes = []
+		@ligneslibrary << new_ligne
 
-
-		# Mise à jour de la liste des series
+		# On parse tous les épisodes pour construire la liste des séries
 		@allEpisodes.each do |episode|
 			# La série est-elle déjà listée ?
-			dejaListee = @lignesseries.any? do |serie|
-				val = episode.serie.to_s
-				(val == "Error") or (serie.nom == val.downcase)
+			dejaListee = @ligneslibrary.any? do |libitem|
+				(episode.serie.to_s == "Error") or ( (libitem.serie == episode.serie.to_s.downcase) and (libitem.saison == episode.saison) )
 			end
 
 			# Ajout de la série dans la liste
 			unless dejaListee
-				temp = episode.serie.to_s.downcase
-				imageFile = ""
-				new_ligne = Series.new
-
-				# Recherche d'une bannière en local
-				Dir.chdir(@prefs["Directories"]["Banners"])
-				Dir[temp+"-*.jpg"].each do |x|
-					imageFile = @prefs["Directories"]["Banners"]+x
-					new_ligne.idtvdb = x.scan(/.*-([0-9]*).jpg/)[0][0]
-				end
-
-				# Recherche de la série sur theTVdb
-				if imageFile == ""
-					begin
-						monURL = "http://www.thetvdb.com/api/GetSeries.php?seriesname="+temp.gsub(/ /, '+')
-						doc = FileCache.get_html(monURL, :xml => true)
-						monindex = 0
-						compteur = 0
-						doc.search("SeriesName").each do |k|
-							if k.inner_html.downcase.to_s == temp.downcase.to_s then monindex = compteur end
-							compteur = compteur + 1
-						end
-						compteur = 0
-						doc.search("seriesid").each do |k|
-							if compteur == monindex then new_ligne.idtvdb = k.inner_html.to_s end
-							compteur = compteur + 1
-						end
-						if compteur == 0
-							imageFile = ""
-						else
-							imageFile = @prefs["Directories"]["Banners"]+temp+"-"+new_ligne.idtvdb+".jpg"
-						end
-
-					rescue Exception=>e
-						puts "#### RelisterSeries : Pb d'accès à theTVdb"
-						puts "			 Pour "+temp
-						puts "			 "+e
-					end
-				end
-
-				# Récupération de la banière (locale ou sur tvdb)
-				if File.exist?(imageFile)
-					new_ligne.image = OSX::NSImage.alloc.initWithContentsOfFile_(imageFile)
-				else
-					monURL = ""
-					compteur = 0
-					doc.search("//banner").each do |k|
-						if compteur == monindex then monURL = "http://www.thetvdb.com/banners/"+k.inner_html.to_s end
-						compteur = compteur + 1
-					end
-					if monURL == ""
-						new_ligne.image = OSX::NSImage.alloc.initWithContentsOfFile_(@prefs["Directories"]["Banners"]+"00 - All series.jpg")
-					else
-						FileUtils.cp(FileCache.get_file(monURL), imageFile)
-						new_ligne.image = OSX::NSImage.alloc.initWithContentsOfFile_(imageFile)
-					end
-				end
-				new_ligne.nom = temp
-				@lignesseries << new_ligne
-			end
+				new_ligne = Library.new
+				new_ligne.serie = episode.serie.to_s.downcase
+				new_ligne.saison = episode.saison
+				new_ligne.image = SerieBanner(episode.serie.downcase)
+				new_ligne.episodes = []
+		
+				@ligneslibrary << new_ligne
+			end		
 		end
-		@lignesseries.sort! {|x,y| x.nom <=> y.nom }
+
+		@ligneslibrary.sort! {|x,y| x.serie <=> y.serie }
 		@listeseries.reloadData()
 	end
 	def RelisterInfos()
@@ -757,26 +714,26 @@ class SubsMgr < OSX::NSWindowController
 		@fileTarg.setStringValue_("")
 		@repTarg.setStringValue_("")
 		@confiance.setIntValue(0)
-		@image.setImage(@lignesseries[0].image)
+		@image.setImage(@ligneslibrary[0].image)
 	end
 	def buildTargets()
 		begin
 			# Définition du répertoire cible
-			case @pDirRule.selectedRow()
-			when 0 then @current.repTarget = @pDirSerie.stringValue().to_s+@current.serie+"/Saison "+@current.saison.to_s+"/"
-			when 1 then @current.repTarget = @pDirSerie.stringValue().to_s+@current.serie+"/"
-			when 2 then @current.repTarget = @pDirSerie.stringValue().to_s
+			case @prefs["Naming Rules"]["Directories"]
+			when 0 then @current.repTarget = @prefs["Directories"]["Series"]+@current.serie+"/Saison "+@current.saison.to_s+"/"
+			when 1 then @current.repTarget = @prefs["Directories"]["Series"]+@current.serie+"/"
+			when 2 then @current.repTarget = @prefs["Directories"]["Series"]
 			end
 
 			# Définition du fichier cible
-			case @pSepRule.selectedColumn()
+			case @prefs["Naming Rules"]["Separator"]
 			when 0 then sep = "."
 			when 1 then sep = " "
 			when 2 then sep = "-"
 			when 3 then sep = " - "
 			end
 
-			case @pFileRule.selectedRow()
+			case @prefs["Naming Rules"]["Episodes"]
 			when 0 then masque = "%s%ss%02de%02d"
 			when 1 then masque = "%s%s%dx%02d"
 			when 2 then masque = "%s%sS%02dE%02d"
@@ -792,19 +749,62 @@ class SubsMgr < OSX::NSWindowController
 
 		end
 	end
-	def SerieBanner(serie)
-		for i in (0..@lignesseries.size-1)
-			if @lignesseries[i].nom == serie.downcase
-				return @lignesseries[i].image
-			end
+	def initBanners()
+		@series.each() do |serie|
+			@seriesBanners[serie[0]] = OSX::NSImage.alloc.initWithContentsOfFile_(@prefs["Directories"]["Banners"]+@series[serie[0]]["Banner"])
 		end
-		return @lignesseries[0].image
 	end
-	def SerieId(serie)
-		for i in (0..@lignesseries.size-1)
-			if @lignesseries[i].nom == serie.downcase then return @lignesseries[i].idtvdb end
+	def SerieBanner(myserie)
+		# Connait-on la série ?
+		connue = @series.any? do |serie|
+			(serie[0] == myserie)
 		end
-		return 0
+
+		if !connue
+		# Recherche sur TheTVdb
+			monURL = "http://www.thetvdb.com/api/GetSeries.php?seriesname="+myserie.gsub(/ /, '+')
+			doc = FileCache.get_html(monURL, :xml => true)
+			found = 0
+			linkBanner = " "
+			doc.search("Series").each do |k|
+				if k.search("SeriesName").inner_html.downcase.to_s == myserie.downcase.to_s
+					@series[myserie] = Hash.new()
+					@series[myserie]["Id"] = Hash.new()
+					@series[myserie]["Banner"] = Hash.new()
+					@series[myserie]["Id"] = k.search("seriesid").inner_html.downcase.to_s
+					@series[myserie]["Banner"] = myserie+".jpg"
+					linkBanner = k.search("banner").inner_html.downcase.to_s
+					@series.save_plist("/Library/Application\ Support/SubsMgr/SubsMgrSeries.plist")
+					found = 1
+					break 
+				end
+			end
+			
+			if found == 1
+				# On loade la bannière sur theTVdb
+				FileUtils.cp(FileCache.get_file("http://www.thetvdb.com/banners/"+linkBanner), @prefs["Directories"]["Banners"]+@series[myserie]["Banner"])
+				@seriesBanners[myserie] = OSX::NSImage.alloc.initWithContentsOfFile_(@prefs["Directories"]["Banners"]+@series[myserie]["Banner"])
+				return @seriesBanners[myserie]
+			else
+				return @seriesBanners["."]
+			end
+		else
+			return @seriesBanners[myserie]
+		end
+	end
+	def SerieId(myserie)
+		puts "Id de "+myserie+" ?"
+		# Connait-on la série ?
+		connue = @series.any? do |serie|
+			(serie[0] == myserie)
+		end
+
+		if connue
+			puts "Id de "+myserie+" : "+@series[myserie]["Id"]
+			return @series[myserie]["Id"]
+		else
+			return 0
+		end
 	end
 	def AnalyseFichier(chaine)
 		begin
@@ -1115,9 +1115,9 @@ class SubsMgr < OSX::NSWindowController
 			# Déplacement du film
 			ext = @current.fichier.split('.').last
 			if (@pMove.selectedColumn() == 0)
-				FileUtils.cp(@pDirTorrent.stringValue().to_s+@current.fichier, @current.repTarget+@current.fileTarget+".#{ext}")
+				FileUtils.cp(@prefs["Directories"]["Download"]+@current.fichier, @current.repTarget+@current.fileTarget+".#{ext}")
 			else
-				FileUtils.mv(@pDirTorrent.stringValue().to_s+@current.fichier, @current.repTarget+@current.fileTarget+".#{ext}")
+				FileUtils.mv(@prefs["Directories"]["Download"]+@current.fichier, @current.repTarget+@current.fileTarget+".#{ext}")
 			end
 
 			# Déplacement du sous titre
@@ -1260,7 +1260,7 @@ class SubsMgr < OSX::NSWindowController
 		begin
 			# Déplacer les fichiers
 			ext = @current.fichier.split('.').last
-			FileUtils.mv(@current.repTarget+@current.fileTarget+".#{ext}", @pDirTorrent.stringValue().to_s+@current.fichier)
+			FileUtils.mv(@current.repTarget+@current.fileTarget+".#{ext}", @prefs["Directories"]["Download"]+@current.fichier)
 			FileUtils.rm(@current.repTarget+@current.fileTarget+".srt")
 
 		rescue Exception=>e
@@ -1378,8 +1378,8 @@ class SubsMgr < OSX::NSWindowController
 			GetSub()
 
 			if File.exist?("/tmp/Sub.srt")
-				FileUtils.mv("/tmp/Sub.srt", @pDirTorrent.stringValue().to_s+@current.fichier+".srt")
-				@cinema.setMovie_(OSX::QTMovie.movieWithFile(@pDirTorrent.stringValue().to_s+@current.fichier))
+				FileUtils.mv("/tmp/Sub.srt", @prefs["Directories"]["Download"]+@current.fichier+".srt")
+				@cinema.setMovie_(OSX::QTMovie.movieWithFile(@prefs["Directories"]["Download"]+@current.fichier))
 				@cinema.play(self)
 			else
 				@fenMovie.close()
@@ -1392,20 +1392,20 @@ class SubsMgr < OSX::NSWindowController
 
 		@cinema.pause(self)
 
-		if File.exist?(@pDirTorrent.stringValue().to_s+@current.fichier+".srt")
+		if File.exist?(@prefs["Directories"]["Download"]+@current.fichier+".srt")
 			# Créer l'arbo si nécessaire
 			CheckArbo()
 
 			# Déplacement du film
 			ext = @current.fichier.split('.').last
 			if (@pMove.selectedColumn() == 0)
-				FileUtils.cp(@pDirTorrent.stringValue().to_s+@current.fichier, @current.repTarget+@current.fileTarget+".#{ext}")
+				FileUtils.cp(@prefs["Directories"]["Download"]+@current.fichier, @current.repTarget+@current.fileTarget+".#{ext}")
 			else
-				FileUtils.mv(@pDirTorrent.stringValue().to_s+@current.fichier, @current.repTarget+@current.fileTarget+".#{ext}")
+				FileUtils.mv(@prefs["Directories"]["Download"]+@current.fichier, @current.repTarget+@current.fileTarget+".#{ext}")
 			end
 
 			# Déplacement du sous titre
-			FileUtils.mv(@pDirTorrent.stringValue().to_s+@current.fichier+".srt", @current.repTarget+@current.fileTarget+".srt")
+			FileUtils.mv(@prefs["Directories"]["Download"]+@current.fichier+".srt", @current.repTarget+@current.fileTarget+".srt")
 
 			# Mise à jour du fichier de suivi
 			updateHistory(sender)
@@ -1428,8 +1428,8 @@ class SubsMgr < OSX::NSWindowController
 
 	def TestKO(sender)
 		@cinema.pause(self)
-		if File.exist?(@pDirTorrent.stringValue().to_s+@current.fichier+".srt")
-			FileUtils.rm(@pDirTorrent.stringValue().to_s+@current.fichier+".srt")
+		if File.exist?(@prefs["Directories"]["Download"]+@current.fichier+".srt")
+			FileUtils.rm(@prefs["Directories"]["Download"]+@current.fichier+".srt")
 		end
 		@fenMovie.close()
 	end
@@ -1465,7 +1465,7 @@ class SubsMgr < OSX::NSWindowController
 
 			# Déplacement du fichier dans le répertoire de sous titres
 			if File.exist?("/tmp/Sub.srt")
-				FileUtils.mv("/tmp/Sub.srt", @pDirSubs.stringValue().to_s+@current.candidats[@plusmoins.intValue-1].fichier+".srt")
+				FileUtils.mv("/tmp/Sub.srt", @prefs["Directories"]["Subtitles"]+@current.candidats[@plusmoins.intValue-1].fichier+".srt")
 			else
 				puts "Problem dans LoadSub"
 			end
@@ -1494,9 +1494,9 @@ class SubsMgr < OSX::NSWindowController
 		# Déplacement du film
 		ext = @current.fichier.split('.').last
 		if (@pMove.selectedColumn() == 0)
-			FileUtils.cp(@pDirTorrent.stringValue().to_s+@current.fichier, @current.repTarget+@current.fileTarget+".#{ext}")
+			FileUtils.cp(@prefs["Directories"]["Download"]+@current.fichier, @current.repTarget+@current.fileTarget+".#{ext}")
 		else
-			FileUtils.mv(@pDirTorrent.stringValue().to_s+@current.fichier, @current.repTarget+@current.fileTarget+".#{ext}")
+			FileUtils.mv(@prefs["Directories"]["Download"]+@current.fichier, @current.repTarget+@current.fileTarget+".#{ext}")
 		end
 
 		# Mise à jour du fichier de suivi
