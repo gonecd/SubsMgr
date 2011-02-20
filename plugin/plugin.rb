@@ -72,40 +72,48 @@ module Plugin
 
 		def self.calcul_confiance(sousTitre, current)
 			errors = {}
-			$stderr.puts "CUR : #{current}"
 			begin
 				maConfiance = 3
 
 				# Check du nom de la série
-				if sousTitre.match(current.serie.downcase.gsub(/ /, '.')) == nil
-					maConfiance = maConfiance - 2
+				unless sousTitre.match(%r{#{current.serie.gsub(/\s+/, '.+')}}i)
+					maConfiance -= 2
 					errors[:serie] = true
 				end
 
 				# Check du nom de la team
-				if sousTitre.match(current.team.downcase) == nil
-					maConfiance = maConfiance - 2
+				# FIXME, il faudrait aussi verifier uniquement sur les 3 premières lettres de la team quand le nom de la team est supérieur à 3 ou 4 lettres
+				# car souvent le nom est raccourci
+				unless sousTitre.match(%r{#{current.team}}i)
+					maConfiance -=	2
 					errors[:team] = true
 				end
 
-				# Check des infos supplémentaires
-				if sousTitre.match(current.infos.downcase) == nil
-					maConfiance = maConfiance - 1
+				# Check des infos supplémentaires, mais sans tenir compte de l'ordre qui peut varier
+				ok = true
+				current.infos.split(/\./).each do |key|
+					if key != '' && !sousTitre.match(%r{\.#{key}}i)
+						ok = false
+						break
+					end
+				end
+				unless ok
+					maConfiance -= 1
 					errors[:infos] = true
 				end
 
-				# un pouilleme de plus pour les version tag vs notag
-				if sousTitre.match(/tag/im) && !sousTitre.match(/notag/im)
-					maConfiance += 1
-				end
-				
 				# Check de la saison et l'épisode
 				unless valid_episode?(sousTitre, current.saison, current.episode)
-					maConfiance = maConfiance - 2
+					maConfiance -= 2
 					errors[:saison] = true
 					errors[:episode] = true
 				end
-				
+
+				# on préfère les version tag vs notag
+				if sousTitre.match(/tag/im) && !sousTitre.match(/notag/im)
+					maConfiance += 0.1
+				end
+
 				if (maConfiance<1) and (sousTitre != "")
 					maConfiance = 1
 				end

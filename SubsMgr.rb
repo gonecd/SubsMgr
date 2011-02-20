@@ -103,7 +103,7 @@ class SubsMgr < OSX::NSWindowController
 		StatsRefresh(self)
 
 		# Construction des listes de series et d'episodes
-		RelisterEpisodes2()
+		RelisterEpisodes()
 		RelisterSeries()
 		RelisterInfos()
 		RaffraichirListe()
@@ -808,11 +808,11 @@ class SubsMgr < OSX::NSWindowController
 			# dans l'ordre du plus précis au moins précis (en particulier le format 101 se telescope avec les autres infos du type 720p ou x264)
 
 			# Format s01e02 ou variantes (s1e1, s01e1, s1e01)
-			temp = chaine.match(/(.*?).s([0-9]{1,2})e([0-9]{1,2}).(.+)-(.*)\.(avi|mkv|mp4|m4v)/i)
+			temp = chaine.match(/(.*?).s([0-9]{1,2})e([0-9]{1,2})(.*)\.(avi|mkv|mp4|m4v)/i)
 			# Format 1x02 ou 01x02
-			temp = chaine.match(/(.*?).([0-9]{1,2})x([0-9]{1,2})(.+)-(.*).(avi|mkv|mp4|m4v)/i) unless temp
+			temp = chaine.match(/(.*?).([0-9]{1,2})x([0-9]{1,2})(.*)\.(avi|mkv|mp4|m4v)/i) unless temp
 			# Format 102
-			temp = chaine.match(/(.*?).([0-9]{1,2})([0-9]{2})(.+)-(.*)\.(avi|mkv|mp4|m4v)/i) unless temp
+			temp = chaine.match(/(.*?).([0-9]{1,2})([0-9]{2})[^p](.*)\.(avi|mkv|mp4|m4v)/i) unless temp
 
 			unless temp
 				@current.serie = "Error"
@@ -828,28 +828,42 @@ class SubsMgr < OSX::NSWindowController
 			@current.serie = temp[1].gsub(/\./, ' ').to_s.strip
 			@current.saison = temp[2].to_i
 			@current.episode = temp[3].to_i
-			@current.infos = temp[4].to_s.gsub(/(^[^a-z0-9]+|[^a-z0-9]$)/im, '').strip
-			@current.team = temp[5].to_s.strip
+			
+			# et on traite les infos correctement pour eliminer l'eventuel titre d'épisode
+			infos = temp[4].split('-')
 
-			# On traite les cas particuliers
-			if @current.team.slice(/\[/) == nil
-				@current.provider = ""
-			elsif (temp = @current.team.match(/(.*)\.\[(.*)\]/))
-				@current.team = temp[1].to_s
-				@current.provider = temp[1].to_s
+			# la team est toujours après le dernier tiret, suivi eventuellement d'un provider)
+			(team, provider) = infos.pop.to_s.split(/\./, 2)
+			@current.team = team.to_s
+			@current.provider = provider.to_s.gsub(/[\[\]]+/im, '')
+
+			# on peut maintenant récupérer les vrais infos
+			infos = infos.join("-").to_s
+			if (m = infos.match(/^.*?((REPACK|PROPER|720p|HDTV|PDTV|WSR)\.(.+))/im))
+				@current.infos = m[1].gsub(/((xvid|x264|divx).+)/im, '').gsub(/(^[^a-z0-9]+|[^a-z0-9]$)/im, '').strip
+			else
+				@current.infos = infos.gsub(/(^[^a-z0-9]+|[^a-z0-9]$)/im, '').strip
 			end
+			@current.infos << ".#{@current.provider}" if (@current.provider != '')
 
+			if chaine.match(/720p/im)
+				@current.format = '720p'
+				# dans les sous-titres, ils ne reprécisent pas hdtv si c'est du 720p, cela va de soit a priori
+				@current.infos.gsub!(/720p.hdtv/im, '720p')
+			end
+			
 		rescue Exception=>e
-			puts "# SubsMgr Error # AnalyseFichier ["+@current.fichier+"] : "+e
+			puts "# SubsMgr Error # AnalyseFichier [#{@current.fichier}] : #{e}"
 			@current.serie = "Error"
 			@current.saison = 0
 			@current.episode = 0
 			@current.infos = "Error"
 			@current.team = "Error"
 			@current.comment = "Pb dans l'analyse du fichier"
-
 		end
+		@current
 	end
+
 	def AnalyseTorrent(chaine)
 		begin
 			# On catche

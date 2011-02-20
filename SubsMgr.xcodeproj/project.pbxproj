@@ -64,7 +64,7 @@
 		62997BAC1053D3C60080F479 /* database.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = database.png; path = Icones/database.png; sourceTree = "<group>"; };
 		62AAFA400F69BBF2007F8151 /* QTKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QTKit.framework; path = /System/Library/Frameworks/QTKit.framework; sourceTree = "<absolute>"; };
 		62F37E4212BD1DEF00561B37 /* toggle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = toggle.png; path = Icones/toggle.png; sourceTree = "<group>"; };
-		E8F5E24E03AEB6EC03A81C6F /* RubyCocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RubyCocoa.framework; path = /System/Library/Frameworks/RubyCocoa.framework; sourceTree = "<absolute>"; };
+		E8F5E24E03AEB6EC03A81C6F /* RubyCocoa.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; name = RubyCocoa.framework; path = /System/Library/Frameworks/RubyCocoa.framework; sourceTree = "<absolute>"; };
 		E8F5E25803AEB7C803A81C6F /* rb_main.rb */ = {isa = PBXFileReference; lastKnownFileType = text.script.ruby; path = rb_main.rb; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 

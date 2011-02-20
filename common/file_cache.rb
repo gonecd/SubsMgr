@@ -2,6 +2,10 @@ require 'tempfile'
 
 module FileCache
 	CACHE_PATH = "/tmp/subsmgr"
+	BROWSER = Mechanize.new { |agent|
+		agent.user_agent_alias = 'Mac Safari'
+		agent.follow_meta_refresh = false
+	}
 
 	module_function
 

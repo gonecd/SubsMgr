@@ -1,12 +1,4 @@
 # ------------------------------------------
-# Constantes
-# ------------------------------------------
-BROWSER = Mechanize.new { |agent|
-	agent.user_agent_alias = 'Mac Safari'
-	agent.follow_meta_refresh = false
-}
-
-# ------------------------------------------
 # Structures de gestion
 # ------------------------------------------
 
@@ -34,7 +26,7 @@ class Ligne < CommonStruct
 	attr_accessor :status, :candidats
 	
 	def to_s
-		"<Ligne serie:#{serie} - saison: #{saison} - episode: #{episode} - team:#{team} - format: #{format} - high_def: #{high_def}>"
+		"<Ligne serie:#{serie} - saison: #{saison} - episode: #{episode} - team:#{team} - format: #{format}>"
 	end
 end
 
