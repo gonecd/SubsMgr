@@ -1,1 +1,12 @@
-SubsMgr
+h1. Gestion des gems
+
+Si nécessaire, installer bundler s'il n'est pas déjà présent sur la machine via:
+gem install bundler
+
+Pour ajouter/supprimer des gems, éditer le fichier "Gemfile"
+Ensuite, faire une mise à jour du cache local via la commande:
+bundle install --path vendor/bundle
+
+Pour faire une montée de version des gems
+bundle update
+bundle install --path vendor/bundle

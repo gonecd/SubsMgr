@@ -1,14 +1,15 @@
 # ------------------------------------------
 # External libs
 # ------------------------------------------
-if (rvm = `$HOME/.rvm/bin/rvm gemdir`.strip) != ''
-  # lorsqu'on utilise rvm, les gems ne sont pas forcement trouvé donc on force le chemin des gems
-  ENV['GEM_HOME'] = rvm
-  require 'rubygems'
-  Gem.clear_paths
+if (rvm = `$HOME/.rvm/bin/rvm gemdir 2>/dev/null`.strip) != ''
+	# lorsqu'on utilise rvm, les gems ne sont pas forcement trouvé donc on force le chemin des gems
+	ENV['GEM_HOME'] = rvm
+	require 'rubygems'
+	Gem.clear_paths
 else
-  require 'rubygems'
+	require 'rubygems'
 end
+require "bundler/setup"
 
 require 'open-uri'
 require 'cgi'
@@ -42,9 +43,9 @@ require 'tv_subtitles'
 # Common tools
 # ------------------------------------------
 module Common
-  
-  module_function
-  def strip_tags(txt)
-    txt.gsub(/<\/?[^>]+>/im, '')
-  end
+	
+	module_function
+	def strip_tags(txt)
+		txt.gsub(/<\/?[^>]+>/im, '')
+	end
 end
