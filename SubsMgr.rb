@@ -1488,55 +1488,29 @@ class SubsMgr < OSX::NSWindowController
 	ib_action :ViewDir
 
 	def SerieInfos(sender)
-
-		@roue.startAnimation(self)
-
-		ovserie = @current.serie
-		@ovimage.setImage(SerieBanner(ovserie))
-
-		tableau = []
-		index = 0
-
-		if ovserie != ""
-			# Recherche de la page de la saison
-			monURL = "http://www.thetvdb.com/?tab=series&id="+SerieId(ovserie)
-			doc = FileCache.get_html(monURL)
-			doc.search("//a.seasonlink").each do |k|
-				if k.text.to_s == @current.saison.to_s
-					monURL = "http://www.thetvdb.com"+k[:href].to_s
-				end
-			end
-
-			# Lecture des épisodes
-			doc = FileCache.get_html(monURL)
-			doc.search("table#listtable tr").each do |k|
-				k.search("td[@class='odd'|'even']").each do |k2|
-					tableau[index]=k2.text.to_s
-					index = index + 1
-				end
-			end
-		end
-
-
+		
+		@ovserie = @ligneslibrary[@listeseries.selectedRow()]
+		@ovimage.setImage(@ovserie.image)
+		
 		# Remplissage du tableau et vérification du status
 		@lignesinfos.clear()
 		subsok = 0
 		chargeok = 0
-		for i in (1..((index-1)/4))
+		for i in (0..@ovserie.nbepisodes-1)
 			new_ligne = InfosSaison.new
-			new_ligne.episode = tableau[i*4]
-			new_ligne.titre = tableau[(i*4)+1]
-			new_ligne.diffusion = tableau[(i*4)+2]
+			new_ligne.episode = @ovserie.episodes[i]["Episode"]
+			new_ligne.titre = @ovserie.episodes[i]["Titre"]
+			new_ligne.diffusion = @ovserie.episodes[i]["Diffusion"]
 			new_ligne.telecharge = 0
 			new_ligne.soustitre = 0
 
-			temp1 = sprintf("s%02de%02d", @current.saison, new_ligne.episode.to_i)
-			temp2 = sprintf("%d%02d", @current.saison, new_ligne.episode.to_i)
-			temp3 = sprintf("%dx%02d", @current.saison, new_ligne.episode.to_i)
+			temp1 = sprintf("s%02de%02d", @ovserie.saison, new_ligne.episode.to_i)
+			temp2 = sprintf("%d%02d", @ovserie.saison, new_ligne.episode.to_i)
+			temp3 = sprintf("%dx%02d", @ovserie.saison, new_ligne.episode.to_i)
 
 			# Recherche de l'épisode
 			for j in (0..@allEpisodes.size()-1)
-				if @allEpisodes[j].fichier.downcase.match(ovserie.downcase) or @allEpisodes[j].fichier.downcase.match(ovserie.downcase.gsub(/ /, '.'))
+				if @allEpisodes[j].fichier.downcase.match(@ovserie.serie.downcase) or @allEpisodes[j].fichier.downcase.match(@ovserie.serie.downcase.gsub(/ /, '.'))
 					if @allEpisodes[j].fichier.downcase.match(temp1) or @allEpisodes[j].fichier.downcase.match(temp2) or @allEpisodes[j].fichier.downcase.match(temp3)
 						new_ligne.telecharge = 1
 						chargeok = chargeok + 1
@@ -1558,9 +1532,6 @@ class SubsMgr < OSX::NSWindowController
 		@ovsubs.setStringValue_(temp)
 
 		@ovliste.reloadData
-
-		@roue.stopAnimation(self)
-
 		@fenInfos.makeKeyAndOrderFront_(sender)
 
 	end
