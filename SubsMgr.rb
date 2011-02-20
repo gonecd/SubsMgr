@@ -285,69 +285,43 @@ class SubsMgr < OSX::NSWindowController
 		# Vider la liste
 		@allEpisodes.clear
 
-		# Récupération des fichiers en attente de traitement
-		if File.exist?(@prefs["Directories"]["Download"])
-			Dir.chdir(@prefs["Directories"]["Download"])
-			Dir.glob("*.{avi,mkv,mp4,m4v}").each do |x|
-				new_ligne = Ligne.new
-				new_ligne.fichier = x
-				new_ligne.date = File.mtime(x)
-				new_ligne.conf = 0
-				new_ligne.comment = ""
-				new_ligne.status = "Attente"
-				new_ligne.candidats = []
-				@allEpisodes << new_ligne
-
-				# Mise à jour des infos calculées
-				@current = new_ligne
-				AnalyseFichier(@current.fichier)
-				buildTargets()
-			end
+		# Préparation des variables de traitement
+		libCSV = {}
+		case @prefs["Naming Rules"]["Separator"]
+			when 0 then sep = "."
+			when 1 then sep = " "
+			when 2 then sep = "-"
+			when 3 then sep = " - "
 		end
-
-		# Récupération des fichiers traités
+		case @prefs["Naming Rules"]["Episodes"]
+			when 0 then masque = "%s%ss%02de%02d"
+			when 1 then masque = "%s%s%dx%02d"
+			when 2 then masque = "%s%sS%02dE%02d"
+			when 3 then masque = "%s%s%d%02d"
+			when 4 then masque = "%s%sSaison %d Episode %02d.avi"
+		end
+		
+		# Récupération des données dans le fichier CSV
 		File.open("/Library/Application\ Support/SubsMgr/SubsMgrHistory.csv").each do |line|
-			begin
-				row = CSV.parse_line(line,';')
-				raise CSV::IllegalFormatError unless (row && row.size == 8)
-				new_ligne = Ligne.new
-				new_ligne.fichier = row[3]
-				new_ligne.date = row[5]
-				new_ligne.conf = 0
-				new_ligne.status = "Traité"
-				new_ligne.comment = "Traité en "+row[6].to_s+" sur "+row[7].to_s
-
-				new_ligne.candidats = []
-				new_candid = WebSub.new
-				new_candid.fichier = row[4]
-				new_candid.date = row[6]
-				new_candid.lien = row[5]
-				new_candid.confiant = 0
-				new_candid.source = row[7]
-				new_candid.referer = "None"
-				new_ligne.candidats << new_candid
-
-				@allEpisodes << new_ligne
-
-				# Mise à jour des infos calculées
-				@current = new_ligne
-				AnalyseFichier(@current.fichier)
-				buildTargets()
-				@current.candidats[0].confiant = CalculeConfiance(@current.candidats[0].fichier.downcase)
-				@current.conf = @current.candidats[0].confiant
+		begin
+			row = CSV.parse_line(line,';')
+			raise CSV::IllegalFormatError unless (row && row.size == 8)
+		
+			# On parse la liste des épisodes
+			ext = row[3].split('.').last
+			balise = sprintf(masque+"."+ext, row[0], sep, row[1], row[2])
+			libCSV[balise] = {	"FichierSource" => row[3], 
+								"FichierSRT" => row[4], 
+								"Date" => row[5], 
+								"AutoManuel" => row[6], 
+								"Source" => row[7]}	
+			
 			rescue CSV::IllegalFormatError => err
 				$stderr.puts "# SubsMgr Error # Invalid CSV history line skipped:\n#{line}"
 			end
 		end
-
-		@allEpisodes.sort! {|x,y| x.fichier <=> y.fichier }
-	end
-	
-	def RelisterEpisodes2
-		# Vider la liste
-		@allEpisodes.clear
-
-		# Récupération des torrents en attente
+				
+		# Récupération des torrents en attente de download
 		if File.exist?(@prefs["Directories"]["Torrents"])
 			Dir.chdir(@prefs["Directories"]["Torrents"])
 			Dir.glob("*.torrent").each do |x|
@@ -403,46 +377,23 @@ class SubsMgr < OSX::NSWindowController
 				@current = new_ligne
 				AnalyseEpisode(@current.fichier)
 				buildTargets()
-			end
-		end
-
-		# Récupération des données d'historique
-		File.open("/Library/Application\ Support/SubsMgr/SubsMgrHistory.csv").each do |line|
-		begin
-			row = CSV.parse_line(line,';')
-			raise CSV::IllegalFormatError unless (row && row.size == 8)
-		
-			# On parse la liste des épisodes
-			puts row[0]+" - "+row[1]+" - "+row[2]
-			
-			
-		#				new_ligne.fichier = row[3]
-		#				new_ligne.date = row[5]
-		#				new_ligne.conf = 0
-		#				new_ligne.status = "Traité"
-		#				new_ligne.comment = "Traité en "+row[6].to_s+" sur "+row[7].to_s
-		#
-		#				new_ligne.candidats = []
-		#				new_candid = WebSub.new
-		#				new_candid.fichier = row[4]
-		#				new_candid.date = row[6]
-		#				new_candid.lien = row[5]
-		#				new_candid.confiant = 0
-		#				new_candid.source = row[7]
-		#				new_candid.referer = "None"
-		#				new_ligne.candidats << new_candid
-		#
-		#				@allEpisodes << new_ligne
-		#
-		#				# Mise à jour des infos calculées
-		#				@current = new_ligne
-		#				AnalyseFichier(@current.fichier)
-		#				buildTargets()
-		#				@current.candidats[0].confiant = CalculeConfiance(@current.candidats[0].fichier.downcase)
-		#				@current.conf = @current.candidats[0].confiant
-		
-			rescue CSV::IllegalFormatError => err
-				$stderr.puts "# SubsMgr Error # Invalid CSV history line skipped:\n#{line}"
+				
+				# Mise à jour des infos d'historique si elle existent
+				if libCSV[new_ligne.fichier] != nil
+					new_candid = WebSub.new
+					new_candid.fichier = libCSV[new_ligne.fichier]["FichierSRT"]
+					new_candid.date = libCSV[new_ligne.fichier]["AutoManuel"]
+					new_candid.lien = libCSV[new_ligne.fichier]["Date"]
+					new_candid.confiant = 0
+					new_candid.source = libCSV[new_ligne.fichier]["Source"]
+					new_candid.referer = "None"
+					
+					@current.candidats << new_candid
+					@current.fichier = libCSV[new_ligne.fichier]["FichierSource"]
+					AnalyseFichier(@current.fichier)
+					@current.candidats[0].confiant = CalculeConfiance(@current.candidats[0].fichier.downcase)
+					@current.conf = @current.candidats[0].confiant
+				end
 			end
 		end
 
@@ -455,7 +406,7 @@ class SubsMgr < OSX::NSWindowController
 		new_ligne = Library.new
 		new_ligne.image = @seriesBanners["."]
 		new_ligne.serie = "."
-		new_ligne.saison = ""
+		new_ligne.saison = 0
 		new_ligne.URLTVdb = "http://www.thetvdb.com/"
 		new_ligne.nbepisodes = ""
 		new_ligne.episodes = []
@@ -480,7 +431,19 @@ class SubsMgr < OSX::NSWindowController
 			end		
 		end
 
-		@ligneslibrary.sort! {|x,y| x.serie <=> y.serie }
+		@ligneslibrary.sort! {|x,y| x.serie+x.saison.to_s <=> y.serie+y.saison.to_s }
+
+
+		# On ajoute la ligne "Errors"
+		new_ligne = Library.new
+		new_ligne.image = @seriesBanners["."]
+		new_ligne.serie = "Error"
+		new_ligne.saison = 0
+		new_ligne.URLTVdb = "http://www.thetvdb.com/"
+		new_ligne.nbepisodes = ""
+		new_ligne.episodes = []
+		@ligneslibrary << new_ligne
+
 		@listeseries.reloadData()
 	end
 	def RelisterInfos()
@@ -620,7 +583,7 @@ class SubsMgr < OSX::NSWindowController
 					end
 				end
 			else
-				if episode.fichier.to_s.downcase.match(@serieSelectionnee.gsub(/ /, '.')) and episode.fichier.to_s.downcase.match(@spotFilter.downcase) and episode.saison == @saisonSelectionnee
+				if episode.serie.downcase.match(@serieSelectionnee.downcase) and episode.serie.downcase.match(@spotFilter.downcase) and episode.saison == @saisonSelectionnee
 					if (@bAll.state == 1)
 						@lignes << episode
 					elsif (@bTraites.state == 1) and (episode.status == "Traité")
@@ -773,8 +736,7 @@ class SubsMgr < OSX::NSWindowController
 			linkBanner = " "
 			doc.search("Series").each do |k|
 				if k.search("SeriesName").inner_html.downcase.to_s == myserie.downcase.to_s
-					@series[myserie] = Hash.new()
-					@series[myserie] = Hash["Id" => k.search("seriesid").inner_html.downcase.to_s, "Banner" => myserie+".jpg"]
+					@series[myserie] = {"Id" => k.search("seriesid").inner_html.downcase.to_s, "Banner" => myserie+".jpg"}
 					linkBanner = k.search("banner").inner_html.downcase.to_s
 					@series.save_plist("/Library/Application\ Support/SubsMgr/SubsMgrSeries.plist")
 					found = 1
