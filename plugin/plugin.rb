@@ -134,14 +134,12 @@ module Plugin
 			return false unless txt.match(/\.srt/im)
 			return false if txt.match(/\.(EN|VO)\./im)
 
-			ok = case
+			case
 			when txt.match(/s0?#{saison}e0?#{episode}/im): true # format S01E01 et variantes
 			when txt.match(/0?#{saison}x0?#{episode}/im): true # format 01X01 et variantes
 			when txt.match(/#{saison}#{sprintf('%02d',episode)}/im): true		# format 101
 			else false
 			end
-			Tools.logger.debug("... match for #{txt}!") if ok
-			ok
 		end
 
 
