@@ -25,7 +25,8 @@ class SubsMgr < OSX::NSWindowController
 	ib_outlets :subs, :release, :subsNb, :subsTot, :roue, :barre, :confiance, :plusmoins, :source
 	ib_outlets :bFiltre, :listestats, :bSupprCrochets, :bSupprAccolades, :bCommande
 	ib_outlets :source1, :source2, :source3
-
+	ib_outlets :refreshItem
+	
 	# Petits drapeaux d'erreurs
 	ib_outlets :errSaison, :errEpisode, :errTeam, :errInfos, :errSerie
 
@@ -276,13 +277,29 @@ class SubsMgr < OSX::NSWindowController
 		end
 	end
 
-	def Relister (sender)
-		# Construction des listes de series et d'episodes
-		RelisterEpisodes()
-		RelisterSeries()
-		RaffraichirListe()
+	def Refresh (sender)
+		case @refreshItem.indexOfSelectedItem()
+		when 0
+			RelisterEpisodes()
+			RelisterSeries()
+			RelisterInfos()
+			AnalyseInfosSaison()
+			RaffraichirListe()
+		when 2
+			RelisterEpisodes()
+			RaffraichirListe()
+		when 3
+			RelisterSeries()
+			AnalyseInfosSaison()
+		when 4
+			RelisterInfos()
+			AnalyseInfosSaison()
+		else
+			puts "Refresh : cas non implémenté"
+		end
 	end
-	ib_action :Relister
+	ib_action :Refresh
+
 
 	def RelisterEpisodes
 		# Vider la liste
@@ -873,67 +890,6 @@ class SubsMgr < OSX::NSWindowController
 			if notaired then maserie.status = Icones.list["NotAired"] end
 		end
 		
-		
-#			maserie.episodes.each() do |episode|
-#				puts episode["Episode"]+" : "+episode["Titre"]
-#			end
-			
-			#maserie.status = Icones.list["EpSpecial"]
-			
-			# Affichage des status par épisode
-#			for i in (1..(index-1)/4)
-#				begin
-#					if tableau[i*4].to_s == "Special"
-#						 #maserie.episodes[i]=Icones.list["EpSpecial"]
-#					else
-#						if Date.parse(tableau[(i*4)+2]) < Date.today()
-#							maserie.nbepisodes = maserie.nbepisodes + 1
-#							maserie.episodes[maserie.nbepisodes]=Icones.list["Aired"]
-#				
-#							subtitled = @allEpisodes.any? do |eps|
-#								(eps.serie.downcase.to_s == maserie.serie) and (eps.saison == maserie.saison) and (eps.episode == maserie.nbepisodes) and (eps.status == "Traité")
-#							end
-#				
-#							vidloaded = @allEpisodes.any? do |eps|
-#								(eps.serie.downcase.to_s == maserie.serie) and (eps.saison == maserie.saison) and (eps.episode == maserie.nbepisodes) and (eps.status != "Traité")
-#							end
-#				
-#							if subtitled
-#								maserie.episodes[maserie.nbepisodes]=Icones.list["Subtitled"]
-#							else
-#								if vidloaded
-#									maserie.episodes[new_ligne.nbepisodes]=Icones.list["VideoLoaded"]
-#									if maserie.status == Icones.list["Subtitled"] then maserie.status = Icones.list["VideoLoaded"] end
-#								else
-#									Dir.foreach(@prefs["Directories"]["Torrents"].to_s) do |file|
-#										monPattern1 = sprintf("%s — %02dx%02d", maserie.serie, maserie.saison, maserie.nbepisodes)
-#										monPattern2 = sprintf("%s — %dx%d", maserie.serie, maserie.saison, maserie.nbepisodes)
-#										if ( file.downcase.match(monPattern1) or file.downcase.match(monPattern2) )
-#											maserie.episodes[maserie.nbepisodes]=Icones.list["TorrentLoaded"]
-#											if maserie.status == Icones.list["Subtitled"] or maserie.status == Icones.list["VideoLoaded"] then maserie.status = Icones.list["TorrentLoaded"] end
-#										end
-#									end
-#								end
-#							end
-#						else
-#							maserie.nbepisodes = maserie.nbepisodes + 1
-#							maserie.episodes[maserie.nbepisodes]=Icones.list["NotAired"]
-#						end
-#					end
-#				
-#					# Mise à jour du status gobal de la saison
-#					if maserie.episodes[maserie.nbepisodes] == Icones.list["VideoLoaded"] and maserie.status == Icones.list["Subtitled"] then maserie.status = Icones.list["VideoLoaded"] end
-#					if maserie.episodes[maserie.nbepisodes] == Icones.list["TorrentLoaded"] and (maserie.status == Icones.list["Subtitled"] or maserie.status == Icones.list["VideoLoaded"]) then maserie.status = Icones.list["TorrentLoaded"] end
-#					if maserie.episodes[maserie.nbepisodes] == Icones.list["NotAired"] then maserie.status = Icones.list["NotAired"] end
-#					if maserie.episodes[maserie.nbepisodes] == Icones.list["Aired"] and ( maserie.status == Icones.list["Subtitled"] or maserie.status == Icones.list["VideoLoaded"] or maserie.status == Icones.list["TorrentLoaded"] ) then maserie.status = Icones.list["Aired"] end
-#				
-#				
-#					rescue Exception=>e
-#						maserie.nbepisodes = maserie.nbepisodes + 1
-#						maserie.episodes[maserie.nbepisodes]=Icones.list["NotAired"]
-#				end
-#			end
-	
 	end
 
 	# Méthodes des boutons de gestion des versions de sous-titres
