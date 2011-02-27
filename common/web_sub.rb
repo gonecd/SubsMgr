@@ -3,11 +3,18 @@ class WebSub < CommonStruct
 	attr_accessor :fichier, :date, :lien, :source, :referer
 	attr_accessor :errors, :score, :confiant
 
+<<<<<<< HEAD
 	def initialize(*args)
 		self.score = 12
 		self.confiant = 0
 		self.errors ||= {}
 		super
+=======
+	def initialize
+		self.score = 12
+		self.confiant = 0
+		self.errors ||= {}
+>>>>>>> 2871e748a519fbbd03f4d54c7e8d155f2036c5af
 	end
 
 	def valid_serie?
@@ -27,7 +34,11 @@ class WebSub < CommonStruct
 	end
 
 	def valid_info?
+<<<<<<< HEAD
 		!errors[:infos]
+=======
+		!errors[:inos]
+>>>>>>> 2871e748a519fbbd03f4d54c7e8d155f2036c5af
 	end
 
 	def calcul_confiance(ligne, rank = 0)
@@ -98,8 +109,11 @@ class WebSub < CommonStruct
 		end
 	end
 
+<<<<<<< HEAD
 	# FIXME: il faut en cas d'egalité totale prendre le plus récent en premier
 	# nécessite au préalable de repasser sur tous les parsing de date
+=======
+>>>>>>> 2871e748a519fbbd03f4d54c7e8d155f2036c5af
 	def <=>(other)
 		# meilleure confiance en premier
 		result = (other.score <=> self.score)
