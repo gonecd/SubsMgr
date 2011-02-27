@@ -25,7 +25,8 @@ class SubsMgr < OSX::NSWindowController
 	ib_outlets :subs, :release, :subsNb, :subsTot, :roue, :barre, :confiance, :plusmoins, :source
 	ib_outlets :bFiltre, :listestats, :bSupprCrochets, :bSupprAccolades, :bCommande
 	ib_outlets :source1, :source2, :source3
-
+	ib_outlets :refreshItem
+	
 	# Petits drapeaux d'erreurs
 	ib_outlets :errSaison, :errEpisode, :errTeam, :errInfos, :errSerie
 
@@ -117,6 +118,7 @@ class SubsMgr < OSX::NSWindowController
 		RelisterEpisodes()
 		RelisterSeries()
 		RelisterInfos()
+		AnalyseInfosSaison()
 		RaffraichirListe()
 		@fenWait.close()
 
@@ -275,13 +277,29 @@ class SubsMgr < OSX::NSWindowController
 		end
 	end
 
-	def Relister (sender)
-		# Construction des listes de series et d'episodes
-		RelisterEpisodes()
-		RelisterSeries()
-		RaffraichirListe()
+	def Refresh (sender)
+		case @refreshItem.indexOfSelectedItem()
+		when 0
+			RelisterEpisodes()
+			RelisterSeries()
+			RelisterInfos()
+			AnalyseInfosSaison()
+			RaffraichirListe()
+		when 2
+			RelisterEpisodes()
+			RaffraichirListe()
+		when 3
+			RelisterSeries()
+			AnalyseInfosSaison()
+		when 4
+			RelisterInfos()
+			AnalyseInfosSaison()
+		else
+			puts "Refresh : cas non implémenté"
+		end
 	end
-	ib_action :Relister
+	ib_action :Refresh
+
 
 	def RelisterEpisodes
 		# Vider la liste
@@ -472,73 +490,14 @@ class SubsMgr < OSX::NSWindowController
 			doc.search("table#listtable tr td").each_with_index do |k, index|
 				next unless k['class'].match(/odd|even/im)
 				case index.modulo(4)
-				when 0: numero = k.text
+				when 0: numero = k.text.to_i
 				when 1: titre = k.text
 				when 2: diffusion = k.text
-				when 3: maserie.episodes << {"Episode" => numero, "Titre" => titre, "Diffusion" => diffusion, "Statut" => Icones.list["EpSpecial"]}
+				when 3: maserie.episodes << {"Episode" => numero, "Titre" => titre, "Diffusion" => diffusion, "Statut" => nil}
 				end
 			end
 			
 			maserie.nbepisodes = maserie.episodes.size()
-#			maserie.episodes.each() do |episode|
-#				puts episode["Episode"]+" : "+episode["Titre"]
-#			end
-			
-			maserie.status = Icones.list["EpSpecial"]
-			
-			# Affichage des status par épisode
-#			for i in (1..(index-1)/4)
-#				begin
-#					if tableau[i*4].to_s == "Special"
-#						 #maserie.episodes[i]=Icones.list["EpSpecial"]
-#					else
-#						if Date.parse(tableau[(i*4)+2]) < Date.today()
-#							maserie.nbepisodes = maserie.nbepisodes + 1
-#							maserie.episodes[maserie.nbepisodes]=Icones.list["Aired"]
-#				
-#							subtitled = @allEpisodes.any? do |eps|
-#								(eps.serie.downcase.to_s == maserie.serie) and (eps.saison == maserie.saison) and (eps.episode == maserie.nbepisodes) and (eps.status == "Traité")
-#							end
-#				
-#							vidloaded = @allEpisodes.any? do |eps|
-#								(eps.serie.downcase.to_s == maserie.serie) and (eps.saison == maserie.saison) and (eps.episode == maserie.nbepisodes) and (eps.status != "Traité")
-#							end
-#				
-#							if subtitled
-#								maserie.episodes[maserie.nbepisodes]=Icones.list["Subtitled"]
-#							else
-#								if vidloaded
-#									maserie.episodes[new_ligne.nbepisodes]=Icones.list["VideoLoaded"]
-#									if maserie.status == Icones.list["Subtitled"] then maserie.status = Icones.list["VideoLoaded"] end
-#								else
-#									Dir.foreach(@prefs["Directories"]["Torrents"].to_s) do |file|
-#										monPattern1 = sprintf("%s — %02dx%02d", maserie.serie, maserie.saison, maserie.nbepisodes)
-#										monPattern2 = sprintf("%s — %dx%d", maserie.serie, maserie.saison, maserie.nbepisodes)
-#										if ( file.downcase.match(monPattern1) or file.downcase.match(monPattern2) )
-#											maserie.episodes[maserie.nbepisodes]=Icones.list["TorrentLoaded"]
-#											if maserie.status == Icones.list["Subtitled"] or maserie.status == Icones.list["VideoLoaded"] then maserie.status = Icones.list["TorrentLoaded"] end
-#										end
-#									end
-#								end
-#							end
-#						else
-#							maserie.nbepisodes = maserie.nbepisodes + 1
-#							maserie.episodes[maserie.nbepisodes]=Icones.list["NotAired"]
-#						end
-#					end
-#				
-#					# Mise à jour du status gobal de la saison
-#					if maserie.episodes[maserie.nbepisodes] == Icones.list["VideoLoaded"] and maserie.status == Icones.list["Subtitled"] then maserie.status = Icones.list["VideoLoaded"] end
-#					if maserie.episodes[maserie.nbepisodes] == Icones.list["TorrentLoaded"] and (maserie.status == Icones.list["Subtitled"] or maserie.status == Icones.list["VideoLoaded"]) then maserie.status = Icones.list["TorrentLoaded"] end
-#					if maserie.episodes[maserie.nbepisodes] == Icones.list["NotAired"] then maserie.status = Icones.list["NotAired"] end
-#					if maserie.episodes[maserie.nbepisodes] == Icones.list["Aired"] and ( maserie.status == Icones.list["Subtitled"] or maserie.status == Icones.list["VideoLoaded"] or maserie.status == Icones.list["TorrentLoaded"] ) then maserie.status = Icones.list["Aired"] end
-#				
-#				
-#					rescue Exception=>e
-#						maserie.nbepisodes = maserie.nbepisodes + 1
-#						maserie.episodes[maserie.nbepisodes]=Icones.list["NotAired"]
-#				end
-#			end
 		end
 		@listeseries.reloadData()
 	end
@@ -876,6 +835,61 @@ class SubsMgr < OSX::NSWindowController
 			@current.comment = "Pb dans l'analyse du fichier"
 
 		end
+	end
+	
+	def AnalyseInfosSaison()
+
+		@ligneslibrary.each do |maserie|
+			if maserie.serie == "." or maserie.serie == "Error" then next end
+			
+			# Analyse des épisodes de la saison
+			maserie.episodes.each do |myepisode|
+				begin
+					if Date.parse(myepisode["Diffusion"]) < Date.today()
+						myepisode["Statut"] = Icones.list["Aired"]
+					
+						subtitled = @allEpisodes.any? do |eps|
+							(eps.serie.downcase.to_s == maserie.serie) and (eps.saison == maserie.saison) and (eps.episode == myepisode["Episode"]) and (eps.status == "Traité")
+						end
+				
+						vidloaded = @allEpisodes.any? do |eps|
+							(eps.serie.downcase.to_s == maserie.serie) and (eps.saison == maserie.saison) and (eps.episode == myepisode["Episode"]) and (eps.status == "Attente")
+						end
+
+						torrentloaded = @allEpisodes.any? do |eps|
+							(eps.serie.downcase.to_s == maserie.serie) and (eps.saison == maserie.saison) and (eps.episode == myepisode["Episode"]) and (eps.status == "Unloaded")
+						end
+
+						if subtitled then myepisode["Statut"] = Icones.list["Subtitled"] end
+						if vidloaded then myepisode["Statut"] = Icones.list["VideoLoaded"] end
+						if torrentloaded then myepisode["Statut"] = Icones.list["TorrentLoaded"] end
+					else
+						myepisode["Statut"] = Icones.list["NotAired"]
+						maserie.status = Icones.list["NotAired"]
+					end
+				
+				rescue Exception=>e
+					myepisode["Statut"] = Icones.list["NotAired"]
+					maserie.status = Icones.list["NotAired"]
+				end
+			end
+			
+			# Calcul du statut global de la saison
+			maserie.status = Icones.list["Subtitled"]
+			
+			vidloaded = maserie.episodes.any? do |eps| (eps["Statut"] == Icones.list["VideoLoaded"]) end
+			if vidloaded then maserie.status = Icones.list["VideoLoaded"] end
+			
+			torrentloaded = maserie.episodes.any? do |eps| (eps["Statut"] == Icones.list["TorrentLoaded"]) end
+			if torrentloaded then maserie.status = Icones.list["TorrentLoaded"] end
+			
+			aired = maserie.episodes.any? do |eps| (eps["Statut"] == Icones.list["Aired"]) end
+			if aired then maserie.status = Icones.list["Aired"] end
+			
+			notaired = maserie.episodes.any? do |eps| (eps["Statut"] == Icones.list["NotAired"]) end
+			if notaired then maserie.status = Icones.list["NotAired"] end
+		end
+		
 	end
 
 	# Méthodes des boutons de gestion des versions de sous-titres
@@ -1490,55 +1504,29 @@ class SubsMgr < OSX::NSWindowController
 	ib_action :ViewDir
 
 	def SerieInfos(sender)
-
-		@roue.startAnimation(self)
-
-		ovserie = @current.serie
-		@ovimage.setImage(SerieBanner(ovserie))
-
-		tableau = []
-		index = 0
-
-		if ovserie != ""
-			# Recherche de la page de la saison
-			monURL = "http://www.thetvdb.com/?tab=series&id="+SerieId(ovserie)
-			doc = FileCache.get_html(monURL)
-			doc.search("//a.seasonlink").each do |k|
-				if k.text.to_s == @current.saison.to_s
-					monURL = "http://www.thetvdb.com"+k[:href].to_s
-				end
-			end
-
-			# Lecture des épisodes
-			doc = FileCache.get_html(monURL)
-			doc.search("table#listtable tr").each do |k|
-				k.search("td[@class='odd'|'even']").each do |k2|
-					tableau[index]=k2.text.to_s
-					index = index + 1
-				end
-			end
-		end
-
-
+		
+		@ovserie = @ligneslibrary[@listeseries.selectedRow()]
+		@ovimage.setImage(@ovserie.image)
+		
 		# Remplissage du tableau et vérification du status
 		@lignesinfos.clear()
 		subsok = 0
 		chargeok = 0
-		for i in (1..((index-1)/4))
+		for i in (0..@ovserie.nbepisodes-1)
 			new_ligne = InfosSaison.new
-			new_ligne.episode = tableau[i*4]
-			new_ligne.titre = tableau[(i*4)+1]
-			new_ligne.diffusion = tableau[(i*4)+2]
+			new_ligne.episode = @ovserie.episodes[i]["Episode"]
+			new_ligne.titre = @ovserie.episodes[i]["Titre"]
+			new_ligne.diffusion = @ovserie.episodes[i]["Diffusion"]
 			new_ligne.telecharge = 0
 			new_ligne.soustitre = 0
 
-			temp1 = sprintf("s%02de%02d", @current.saison, new_ligne.episode.to_i)
-			temp2 = sprintf("%d%02d", @current.saison, new_ligne.episode.to_i)
-			temp3 = sprintf("%dx%02d", @current.saison, new_ligne.episode.to_i)
+			temp1 = sprintf("s%02de%02d", @ovserie.saison, new_ligne.episode.to_i)
+			temp2 = sprintf("%d%02d", @ovserie.saison, new_ligne.episode.to_i)
+			temp3 = sprintf("%dx%02d", @ovserie.saison, new_ligne.episode.to_i)
 
 			# Recherche de l'épisode
 			for j in (0..@allEpisodes.size()-1)
-				if @allEpisodes[j].fichier.downcase.match(ovserie.downcase) or @allEpisodes[j].fichier.downcase.match(ovserie.downcase.gsub(/ /, '.'))
+				if @allEpisodes[j].fichier.downcase.match(@ovserie.serie.downcase) or @allEpisodes[j].fichier.downcase.match(@ovserie.serie.downcase.gsub(/ /, '.'))
 					if @allEpisodes[j].fichier.downcase.match(temp1) or @allEpisodes[j].fichier.downcase.match(temp2) or @allEpisodes[j].fichier.downcase.match(temp3)
 						new_ligne.telecharge = 1
 						chargeok = chargeok + 1
@@ -1560,9 +1548,6 @@ class SubsMgr < OSX::NSWindowController
 		@ovsubs.setStringValue_(temp)
 
 		@ovliste.reloadData
-
-		@roue.stopAnimation(self)
-
 		@fenInfos.makeKeyAndOrderFront_(sender)
 
 	end
