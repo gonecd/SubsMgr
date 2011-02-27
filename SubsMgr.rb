@@ -115,11 +115,7 @@ class SubsMgr < OSX::NSWindowController
 		StatsRefresh(self)
 
 		# Construction des listes de series et d'episodes
-		RelisterEpisodes()
-		RelisterSeries()
-		RelisterInfos()
-		AnalyseInfosSaison()
-		RaffraichirListe()
+		Refresh(self)
 		@fenWait.close()
 
 		manageButtons("Clear")
@@ -287,6 +283,7 @@ class SubsMgr < OSX::NSWindowController
 			RaffraichirListe()
 		when 2
 			RelisterEpisodes()
+			AnalyseInfosSaison()
 			RaffraichirListe()
 		when 3
 			RelisterSeries()
