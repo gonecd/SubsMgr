@@ -347,10 +347,7 @@ class SubsMgr < OSX::NSWindowController
 				new_ligne = Ligne.new
 				new_ligne.fichier = x
 				new_ligne.date = File.mtime(x)
-				new_ligne.conf = 0
-				new_ligne.comment = ""
 				new_ligne.status = "Unloaded"
-				new_ligne.candidats = []
 				@allEpisodes << new_ligne
 
 				# Mise à jour des infos calculées
@@ -366,10 +363,7 @@ class SubsMgr < OSX::NSWindowController
 				new_ligne = Ligne.new
 				new_ligne.fichier = x
 				new_ligne.date = File.mtime(x)
-				new_ligne.conf = 0
-				new_ligne.comment = ""
 				new_ligne.status = "Attente"
-				new_ligne.candidats = []
 				@allEpisodes << new_ligne
 
 				# Mise à jour des infos calculées
@@ -386,10 +380,7 @@ class SubsMgr < OSX::NSWindowController
 				new_ligne = Ligne.new
 				new_ligne.fichier = File.basename(x)
 				new_ligne.date = File.mtime(x)
-				new_ligne.conf = 0
-				new_ligne.comment = ""
 				new_ligne.status = "Traité"
-				new_ligne.candidats = []
 				@allEpisodes << new_ligne
 
 				# Mise à jour des infos calculées
@@ -400,17 +391,16 @@ class SubsMgr < OSX::NSWindowController
 				# Mise à jour des infos d'historique si elle existent
 				if libCSV[new_ligne.fichier] != nil
 					new_candid = WebSub.new
-					new_candid.fichier = libCSV[new_ligne.fichier]["FichierSRT"]
+					new_candid.fichier = libCSV[new_ligne.fichier]["FichierSRT"].to_s
 					new_candid.date = libCSV[new_ligne.fichier]["AutoManuel"]
 					new_candid.lien = libCSV[new_ligne.fichier]["Date"]
-					new_candid.confiant = 0
 					new_candid.source = libCSV[new_ligne.fichier]["Source"]
 					new_candid.referer = "None"
+					new_candid.calcul_confiance(@current)
 					
 					@current.candidats << new_candid
 					@current.fichier = libCSV[new_ligne.fichier]["FichierSource"]
 					AnalyseFichier(@current.fichier)
-					@current.candidats[0].confiant = CalculeConfiance(@current.candidats[0].fichier.downcase)
 					@current.conf = @current.candidats[0].confiant
 				end
 			end
@@ -899,73 +889,21 @@ class SubsMgr < OSX::NSWindowController
 			@plusmoins.setIntValue(1)
 		else
 			# Changer le sous titre affiché
+			candidat = @current.candidats[@plusmoins.intValue-1]
+			
 			@subsNb.setIntValue(@plusmoins.intValue)
-			@subs.setStringValue(@current.candidats[@plusmoins.intValue-1].fichier)
-			@release.setStringValue(@current.candidats[@plusmoins.intValue-1].date)
-			@confiance.setIntValue(@current.candidats[@plusmoins.intValue-1].confiant)
-			@source.setStringValue(@current.candidats[@plusmoins.intValue-1].source)
-
-			# Mise à jour des petits drapeaux ...
-			CalculeConfiance(@current.candidats[@plusmoins.intValue-1].fichier.downcase)
+			@subs.setStringValue(candidat.fichier)
+			@release.setStringValue(candidat.date)
+			@confiance.setIntValue(candidat.confiant)
+			@source.setStringValue(candidat.source)
+			@errSerie.setHidden(candidat.valid_serie?)
+			@errSaison.setHidden(candidat.valid_saison?)
+			@errEpisode.setHidden(candidat.valid_episode?)
+			@errTeam.setHidden(candidat.valid_team?)
+			@errInfos.setHidden(candidat.valid_info?)
 		end
 	end
 	ib_action :ChangeInstance
-
-	def CalculeConfiance(sousTitre)
-		begin
-			# Effacer tous les drapeaux
-			@errSerie.setHidden(true)
-			@errSaison.setHidden(true)
-			@errEpisode.setHidden(true)
-			@errTeam.setHidden(true)
-			@errInfos.setHidden(true)
-
-			maConfiance = 3
-
-			# Check du nom de la série
-			if sousTitre.match(@current.serie.downcase.gsub(/ /, '.')) == nil
-				maConfiance = maConfiance - 2
-				@errSerie.setHidden(false)
-			end
-
-			# Check du nom de la team
-			if sousTitre.match(@current.team.downcase) == nil
-				maConfiance = maConfiance - 2
-				@errTeam.setHidden(false)
-			end
-
-			# Check des infos supplémentaires
-			if sousTitre.match(@current.infos.downcase) == nil
-				maConfiance = maConfiance - 1
-				@errInfos.setHidden(false)
-			end
-
-			# Check de la saison et l'épisode
-			temp1 = sprintf("s%02de%02d", @current.saison, @current.episode)
-			temp2 = sprintf("%d%02d", @current.saison, @current.episode)
-			temp3 = sprintf("%dx%02d", @current.saison, @current.episode)
-			if ((sousTitre.match(temp1)) or (sousTitre.match(temp2))	or (sousTitre.match(temp3))) == nil
-				maConfiance = maConfiance - 2
-				@errSaison.setHidden(false)
-				@errEpisode.setHidden(false)
-			end
-
-			if (maConfiance<1) and (sousTitre != "")
-				maConfiance = 1
-			end
-
-			return maConfiance
-
-		rescue Exception=>e
-			puts "# SubsMgr Error # CalculeConfiance ["+@current.fichier+"] : "+e
-			@current.comment = "Pb dans l'analyse du fichier"
-
-		end
-	end
-
-
-
-
 
 	# ------------------------------------------
 	# Methodes de traitement des sous titres
@@ -1013,15 +951,7 @@ class SubsMgr < OSX::NSWindowController
 		if (@current.repTarget == "") or (@current.fileTarget == "") then return end
 
 		# Mettre à jour la liste
-		@current.status = "Traité"
-		@current.seriessub = ""
-		@current.tvsubtitles = ""
-		@current.mysource = ""
-		@current.soustitreseu = ""
-		@current.tvsubs = ""
-		@current.local = ""
-		@current.forom = ""
-		@current.podnapisi = ""
+		@current.processed!
 
 		start = Time.now
 		if @current.candidats[@plusmoins.intValue-1].lien != ""
@@ -1092,44 +1022,33 @@ class SubsMgr < OSX::NSWindowController
 	end
 
 
-
-
-
 	# ------------------------------------------
 	# Fonctions de recherche des SousTitres
 	# ------------------------------------------
 	def SearchAll(sender)
-		totalEpisodes=numberOfRowsInTableView(@liste)
+		totalEpisodes = numberOfRowsInTableView(@liste)
 		@barre.setMinValue(0)
 		@barre.setMaxValue(totalEpisodes)
 		@barre.setIntValue(0)
 		@barre.setHidden(false)
 		@barre.displayIfNeeded
 
-		for i in (1..totalEpisodes-1)
+		for i in (0..totalEpisodes-1)
 			@liste.selectRowIndexes_byExtendingSelection_(OSX::NSIndexSet.indexSetWithIndex(i), false)
-			rowSelected()
+			rowSelected
 			if @current.status != "Traité"
 				SearchSub(sender)
 			end
 
 			# Raffraichissement de la fenêtre
-			@liste.displayIfNeeded()
+			@liste.displayIfNeeded
 			@barre.setIntValue(i)
 			@barre.displayIfNeeded
 		end
 
-		@liste.selectRowIndexes_byExtendingSelection_(OSX::NSIndexSet.indexSetWithIndex(0), false)
-		rowSelected()
-		if @current.status != "Traité"
-			SearchSub(sender)
-		end
-
 		# Raffraichissement des statistiques
 		StatsRefresh(self)
-
 		@barre.setHidden(true)
-
 	end
 	ib_action :SearchAll
 
@@ -1137,17 +1056,7 @@ class SubsMgr < OSX::NSWindowController
 		return if @current.serie == "Error"
 
 		@roue.startAnimation(self)
-
-		@current.forom = "-"
-		@current.seriessub = "-"
-		@current.podnapisi = "-"
-		@current.tvsubs = "-"
-		@current.tvsubtitles = "-"
-		@current.soustitreseu = "-"
-		@current.mysource = "-"
-		@current.local = "-"
-		@current.comment = ""
-		@current.candidats.clear()
+		@current.reset!
 
 		# Recherche pour les sources actives en // (enfin si ruby supporte les threads !)
 		threads = []
@@ -1436,16 +1345,8 @@ class SubsMgr < OSX::NSWindowController
 		if (@current.repTarget == "") or (@current.fileTarget == "") then return end
 
 		# Mettre à jour la liste
-		@current.status = "Traité"
-		@current.seriessub = ""
-		@current.tvsubtitles = ""
-		@current.tvsubs = ""
-		@current.local = ""
-		@current.forom = ""
-		@current.podnapisi = ""
-		@current.mysource = ""
-		@current.soustitreseu = ""
-
+		@current.processed!
+		
 		# Rangement des fichiers
 		CheckArbo()
 

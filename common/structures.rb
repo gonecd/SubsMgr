@@ -25,120 +25,34 @@ class Ligne < CommonStruct
 	attr_accessor :forom, :seriessub, :podnapisi, :tvsubs, :tvsubtitles, :local, :mysource, :soustitreseu
 	attr_accessor :status, :candidats
 	
+	def initialize
+		self.comment = ""
+		self.conf = 0
+		self.candidats = []
+		reset!
+	end
+	
 	def to_s
 		"<Ligne serie:#{serie} - saison: #{saison} - episode: #{episode} - team:#{team} - format: #{format}>"
 	end
-end
-
-# Structure de gestion des sous titres trouvés (candidats)
-class WebSub < CommonStruct
-	attr_accessor :fichier, :date, :lien, :source, :referer
-	attr_accessor :errors, :score, :confiant
-
-	def calcul_confiance(ligne, rank = 0)
-		return 0 if fichier.blank?
-		
-		self.errors = {}
-		begin
-			self.score = 12
-
-			# Check du nom de la série
-			unless fichier.match(%r{#{ligne.serie.gsub(/\s+/, '.+')}}i)
-				self.score -= 3
-				self.errors[:serie] = true
-			end
-
-			# Check du nom de la team
-			# on verifie le nom complet, mais aussi les formes du type .3LETTRES. et .4LETTRES.
-			unless fichier.match(%r{(#{ligne.team}|[\.-]#{ligne.team.to_s[0..3]}?[\.-])}i)
-				self.score -=	 3
-				self.errors[:team] = true
-			end
-
-			# Check des infos supplémentaires, mais sans tenir compte de l'ordre qui peut varier
-			ok = true
-			ligne.infos.split(/\./).each do |key|
-				if key != '' && !fichier.match(%r{\.#{key}}i)
-					ok = false
-					break
-				end
-			end
-			unless ok
-				self.score -= 3
-				self.errors[:infos] = true
-			end
-
-			# Check de la saison et l'épisode
-			unless WebSub.valid_episode?(fichier, ligne.saison, ligne.episode)
-				self.score -= 3
-				self.errors[:saison] = true
-				self.errors[:episode] = true
-			end
-
-			# on préfère les version tag vs notag
-			if fichier.match(/tag/im) && !fichier.match(/notag/im)
-				self.score += 1 # avec tag c'est mieux que sans tag
-			end
-
-			# check du format 720p
-			if fichier.match(/720p/im) && ligne.format == '720p'
-				self.score += 1
-			end
-			
-			self.confiant = (self.score.to_f / 4).round + rank
-			self.score += rank
-
-			if self.confiant >=3
-				if self.errors.size>0
-					self.confiant = 2 # on peut pas avoir totalement confiance s'il y a une erreur
-				else
-					self.confiant = 3
-				end
-			elsif self.confiant<1
-				self.confiant = 1
-			end
-			return self.confiant
-		rescue StandardError => e
-			Tools.logger.error "# SubsMgr Error # calcul_confiance [#{ligne.fichier}] : #{e}\n#{e.backtrace.join("\n")}"
-			ligne.comment = "Pb dans l'analyse du fichier"
-			return 0
-		end
-	end
-
-	def <=>(other)
-		# meilleure confiance en premier
-		result = (other.score <=> self.score)
-		
-		# en cas d'egalite, celui qui a le moins d'erreurs gagne
-		result = (self.errors.size <=> other.errors.size) if result == 0
-		result
+	
+	def reset!
+		self.candidats.clear if self.candidats.size>0 
+		self.forom = self.seriessub = self.podnapisi = self.tvsubs = self.tvsubtitles = self.soustitreseu = self.mysource = self.local = "-"
 	end
 	
-	def to_s
-		"<WebSub fichier:{fichier} - date:#{date} - lien:#{lien} - confiant:#{confiant}>"
+	def processed!
+		self.status = "Traité"
+		self.seriessub = ""
+		self.tvsubtitles = ""
+		self.tvsubs = ""
+		self.local = ""
+		self.forom = ""
+		self.podnapisi = ""
+		self.mysource = ""
+		self.soustitreseu = ""
 	end
 
-	# on verifie si +txt+ est une chaine qui correspond à l'épisode +episode+ de la saison +saison+
-	def self.valid_episode?(txt, saison, episode)
-		txt = txt.to_s.strip
-		return false if txt.blank?
-		return false unless french?(txt)
-
-		case
-		when txt.match(/s0?#{saison}e0?#{episode}([^0-9]|$)/im): true # format S01E01 et variantes
-		when txt.match(/0?#{saison}x0?#{episode}([^0-9]|$)/im): true # format 01X01 et variantes
-		when txt.match(/#{saison}#{sprintf('%02d',episode)}([^0-9]|$)/im): true		# format 101
-		else false
-		end
-	end
-	
-	# verifie si le fichier name ressemble a un nom de fichier "français" (ie pas VO ou EN) et exploitable (srt/zip/rar)
-	def self.french?(txt)
-		return false unless txt.match(/\.(srt|rar|zip)$/im)
-		return false if txt.match(/[\.\s_-](EN|VO)[\.\s_-]/im)
-		return true
-	end
-	
 end
 
 # Structure d'insertion dans la liste des séries

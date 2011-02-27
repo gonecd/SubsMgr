@@ -24,7 +24,8 @@ require 'active_support/all'
 # ------------------------------------------
 # Common definitions
 # ------------------------------------------
-require 'structures.rb'
+require 'structures'
+require 'web_sub'
 require 'file_cache'
 require 'icones'
 require 'statistics'
