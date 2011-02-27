@@ -48,7 +48,6 @@ class Plugin::SeriesSub < Plugin::Base
 							new_ligne.fichier = entry.to_s.strip
 							new_ligne.date = rel.to_s
 							new_ligne.lien = vers.to_s
-							new_ligne.confiant = get_confiance(new_ligne.fichier.downcase)
 							new_ligne.source = "SeriesSub"
 							new_ligne.referer = monURL
 							new_ligne
@@ -61,7 +60,6 @@ class Plugin::SeriesSub < Plugin::Base
 					new_ligne.fichier = fichierCible.to_s
 					new_ligne.date = " "+rel.to_s+" "
 					new_ligne.lien = vers.to_s
-					new_ligne.confiant = get_confiance(new_ligne.fichier.downcase)
 					new_ligne.source = "SeriesSub"
 					new_ligne.referer = monURL
 					new_ligne

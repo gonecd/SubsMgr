@@ -22,13 +22,13 @@ class Plugin::SousTitresEU < Plugin::Base
 			rel = k.search("td.update").text.to_s
 
 			# Cas du zip par episode
-			if self.class.valid_episode?(fichierCible, current.saison, current.episode)
+			if WebSub.valid_episode?(fichierCible, current.saison, current.episode)
 				# Récupération du zip
 				path = FileCache.get_file("http://www.sous-titres.eu/series/#{vers}", :zip => true)
 
 				# Exploration du zip
 				`zipinfo -1 #{path}`.collect do |entry|
-					if entry.to_s.match(/\.srt/im) && !entry.to_s.match(/\.(EN|VO)\./im)
+					if WebSub.french?(entry)
 						new_ligne = WebSub.new
 						new_ligne.fichier = entry.to_s.strip
 						new_ligne.date = rel.to_s
@@ -40,18 +40,17 @@ class Plugin::SousTitresEU < Plugin::Base
 				# Cas du zip par saison
 			elsif k.text.downcase.match(/#{rec_saison}/im)
 				# on zappe les zips de saison uniquement en anglais
-				next if fichierCible.match(/\.(EN|VO)\./)
+				next unless WebSub.french?(fichierCible)
 				# Récupération du zip
 				path = FileCache.get_file("http://www.sous-titres.eu/series/#{vers}", :zip => true)
 
 				# Exploration du zip
 				`zipinfo -1 #{path}`.collect do |entry|
-					next unless self.class.valid_episode?(entry, current.saison, current.episode)
+					next unless WebSub.valid_episode?(entry, current.saison, current.episode)
 					new_ligne = WebSub.new
 					new_ligne.fichier = entry.to_s.strip
 					new_ligne.date = rel.to_s
 					new_ligne.lien = vers.to_s
-					new_ligne.confiant = get_confiance(new_ligne.fichier.downcase)
 					new_ligne.source = "SousTitresEU"
 					new_ligne.referer = monURL
 					new_ligne

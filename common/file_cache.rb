@@ -105,9 +105,9 @@ module FileCache
 		crc = cache.key(source)
 		path = cache.full_path(crc)
 		if cache.exists?(crc)
-			Tools.logger.debug("# SubsMgr info - Load #{source} from cache")
+			Tools.logger.debug("# SubsMgr cache - Load #{source}")
 		else
-			Tools.logger.debug("# SubsMgr info - Get #{source}")
+			Tools.logger.debug("# SubsMgr cache - Live request #{source}")
 			file = BROWSER.get(source, :referer => options[:referer])
 			cache.write(crc, file.body)
 			flatten_archive(path) if options[:zip]

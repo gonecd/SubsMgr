@@ -53,13 +53,13 @@ module Plugin
 				# a toutes les entrées plutot que de le faire au moment du parsing (cela donne du code
 				# un peu plus "basique" pour les plugins)
 				list = (do_search || []).flatten.compact.collect do |item|
-					item.confiant = get_confiance(item.fichier.downcase)
+					item.calcul_confiance(self.current, self.rank)
 					item.source = kls
 					item
 				end
 				count = list.size
-				marks = list.inject(0) { |sum, e| sum += e.confiant.to_f}
-				self.current.candidats = self.current.candidats.concat(list)
+				marks = list.inject(0) { |sum, e| sum += e.confiant}
+				self.current.candidats = self.current.candidats.concat(list).sort
 			rescue Exception => e
 				Tools.logger.error "# SubsMgr Error # search_sub #{self.class.name} [#{current.fichier}]: #{e.inspect}\n#{e.backtrace.join("\n")}"
 				self.current.comment = "Pb dans le parsing #{self.class.name}"
@@ -68,86 +68,6 @@ module Plugin
 			# Mise à jour des stats
 			# FIXME: remettre en place une fonction independante de l'UI
 			Statistics.update_stats_search(self.class::INDEX, start, marks, count) if count > -1
-		end
-
-		def self.calcul_confiance(sousTitre, current)
-			errors = {}
-			begin
-				maConfiance = 3
-
-				# Check du nom de la série
-				unless sousTitre.match(%r{#{current.serie.gsub(/\s+/, '.+')}}i)
-					maConfiance -= 2
-					errors[:serie] = true
-				end
-
-				# Check du nom de la team
-				# FIXME, il faudrait aussi verifier uniquement sur les 3 premières lettres de la team quand le nom de la team est supérieur à 3 ou 4 lettres
-				# car souvent le nom est raccourci
-				unless sousTitre.match(%r{#{current.team}}i)
-					maConfiance -=	2
-					errors[:team] = true
-				end
-
-				# Check des infos supplémentaires, mais sans tenir compte de l'ordre qui peut varier
-				ok = true
-				current.infos.split(/\./).each do |key|
-					if key != '' && !sousTitre.match(%r{\.#{key}}i)
-						ok = false
-						break
-					end
-				end
-				unless ok
-					maConfiance -= 1
-					errors[:infos] = true
-				end
-
-				# Check de la saison et l'épisode
-				unless valid_episode?(sousTitre, current.saison, current.episode)
-					maConfiance -= 2
-					errors[:saison] = true
-					errors[:episode] = true
-				end
-
-				# on préfère les version tag vs notag
-				if sousTitre.match(/tag/im) && !sousTitre.match(/notag/im)
-					maConfiance += 0.1
-				end
-
-				if (maConfiance<1) and (sousTitre != "")
-					maConfiance = 1
-				end
-
-				return [maConfiance, errors]
-
-			rescue Exception => e
-				Tools.logger.error "# SubsMgr Error # calcul_confiance [#{current.fichier}] : #{e}\n#{e.backtrace.join("\n")}"
-				current.comment = "Pb dans l'analyse du fichier"
-				return [0, errors]
-			end
-		end
-
-		# on verifie si +txt+ est une chaine qui correspond à l'épisode +episode+ de la saison +saison+
-		def self.valid_episode?(txt, saison, episode)
-			txt = txt.to_s.strip
-			return false if txt.blank?
-			return false unless txt.match(/\.srt/im)
-			return false if txt.match(/\.(EN|VO)\./im)
-
-			case
-			when txt.match(/s0?#{saison}e0?#{episode}/im): true # format S01E01 et variantes
-			when txt.match(/0?#{saison}x0?#{episode}/im): true # format 01X01 et variantes
-			when txt.match(/#{saison}#{sprintf('%02d',episode)}/im): true		# format 101
-			else false
-			end
-		end
-
-
-		protected
-
-		def get_confiance(sousTitre)
-			(val, foo) = self.class.calcul_confiance(sousTitre, self.current)
-			val.to_f + self.rank
 		end
 
 	end
