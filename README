@@ -18,3 +18,11 @@ Après une mise à jour des gems (ou une réinstallation), il faut au préalable
 ./scripts/relink_nokogiri.rb
 
 Ce script permet de changer les chemins des différentes lib nécessaires à Nokogiri afin d'utiliser celles inclusent dans l'appli plutôt que les libs système
+
+
+h1. Playground
+
+Pour installer un jeu de test, utiliser le script:
+./script/playground.rb
+
+Ce script copie une serie de fichiers avi "vides" pour tester ensuite la récupération des sous-titres

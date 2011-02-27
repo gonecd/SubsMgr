@@ -50,6 +50,7 @@ require 'tv_subtitles'
 # Common tools
 # ------------------------------------------
 module Common
+	PREF_PATH = File.join(ENV['HOME'], "Library/Application\ Support/SubsMgr")
 	
 	module_function
 	def strip_tags(txt)

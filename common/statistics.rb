@@ -5,7 +5,7 @@ module Statistics
 	end
 
 	def load
-		@stats = Plist::parse_xml("/Library/Application Support/SubsMgr/SubsMgrStats.plist")
+		@stats = Plist::parse_xml("#{Common::PREF_PATH}/SubsMgrStats.plist")
 		@lignesstats = []
 
 		for i in Plugin::LIST
@@ -37,7 +37,7 @@ module Statistics
 			@stats[i]["Pauto"] = @lignesstats[j].NbAuto
 			j = j+1
 		end
-		@stats.save_plist("/Library/Application Support/SubsMgr/SubsMgrStats.plist")
+		@stats.save_plist("#{Common::PREF_PATH}/SubsMgrStats.plist")
 	end
 
 	def update_stats_search(index, start, marks, count)

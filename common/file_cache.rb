@@ -80,7 +80,7 @@ module FileCache
 			path = tmp.path
 			File.unlink(path)
 			# unzip
-			cmd <<-EOF
+			cmd = <<-EOF
 			mkdir -p #{path};
 			unzip -j -o -qq #{archive_path} -d #{path}/; 
 			find #{path} -name \"*.zip\" -exec unzip -j -o {} -d #{path}/ \\; -exec rm {} \\; ;

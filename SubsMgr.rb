@@ -78,17 +78,13 @@ class SubsMgr < OSX::NSWindowController
 		Icones.path = File.join(@appPath, "Icones")
 		
 		# First run ? Fichier manquants ?
-		unless File.exist?("/Library/Application\ Support/SubsMgr/")
-			FileUtils.makedirs("/Library/Application\ Support/SubsMgr/")
+		FileUtils.makedirs(Common::PREF_PATH) unless File.exist?(Common::PREF_PATH)
+		FileUtils.touch("#{Common::PREF_PATH}/SubsMgrHistory.csv") unless File.exist?("#{Common::PREF_PATH}/SubsMgrHistory.csv")
+		unless File.exist?("#{Common::PREF_PATH}/SubsMgrPrefs.plist")
+			FileUtils.cp(File.join(@appPath, "SubsMgrPrefs.plist"), "#{Common::PREF_PATH}/SubsMgrPrefs.plist")
 		end
-		unless File.exist?("/Library/Application\ Support/SubsMgr/SubsMgrHistory.csv")
-			FileUtils.touch("/Library/Application\ Support/SubsMgr/SubsMgrHistory.csv")
-		end
-		unless File.exist?("/Library/Application\ Support/SubsMgr/SubsMgrPrefs.plist")
-			FileUtils.cp(File.join(@appPath, "SubsMgrPrefs.plist"), "/Library/Application\ Support/SubsMgr/SubsMgrPrefs.plist")
-		end
-		unless File.exist?("/Library/Application\ Support/SubsMgr/SubsMgrSeries.plist")
-			FileUtils.cp(File.join(@appPath, "SubsMgrSeries.plist"), "/Library/Application\ Support/SubsMgr/SubsMgrSeries.plist")
+		unless File.exist?("#{Common::PREF_PATH}/SubsMgrSeries.plist")
+			FileUtils.cp(File.join(@appPath, "SubsMgrSeries.plist"), "#{Common::PREF_PATH}/SubsMgrSeries.plist")
 		end
 
 		# Initialisations des sources dans la fenêtre de préférences
@@ -106,11 +102,11 @@ class SubsMgr < OSX::NSWindowController
 		Plugin::Local.local_path = @prefs["Directories"]["Subtitles"]
 
 		# Initialisation des banières de séries
-		@series = Plist::parse_xml("/Library/Application\ Support/SubsMgr/SubsMgrSeries.plist")
+		@series = Plist::parse_xml("#{Common::PREF_PATH}/SubsMgrSeries.plist")
 		initBanners()
 
 		# Initialisation des Statistiques
-		StatsRAZ(self) unless File.exist?("/Library/Application\ Support/SubsMgr/SubsMgrStats.plist")
+		StatsRAZ(self) unless File.exist?("#{Common::PREF_PATH}/SubsMgrStats.plist")
 		StatsLoad()
 		StatsRefresh(self)
 
@@ -167,7 +163,7 @@ class SubsMgr < OSX::NSWindowController
 			end
 
 		rescue Exception=>e
-			puts "# SubsMgr Error # rowSelected ["+@current.fichier+"] : "+e
+			Tools.logger.error "# SubsMgr Error # rowSelected ["+@current.fichier+"] : "+e
 			@current.comment = "Pb dans l'analyse du fichier"
 		end
 
@@ -312,7 +308,7 @@ class SubsMgr < OSX::NSWindowController
 		end
 		
 		# Récupération des données dans le fichier CSV
-		File.open("/Library/Application\ Support/SubsMgr/SubsMgrHistory.csv").each do |line|
+		File.open("#{Common::PREF_PATH}/SubsMgrHistory.csv").each do |line|
 		begin
 			row = CSV.parse_line(line,';')
 			raise CSV::IllegalFormatError unless (row && row.size == 8)
@@ -632,7 +628,7 @@ class SubsMgr < OSX::NSWindowController
 			@current.fileTarget = sprintf(masque, @current.serie, sep, @current.saison, @current.episode)
 
 		rescue Exception=>e
-			puts "# SubsMgr Error # buildTargets ["+@current.fichier+"] : "+e
+			Tools.logger.error "# SubsMgr Error # buildTargets ["+@current.fichier+"] : "+e
 			@current.comment = "Pb dans l'analyse du fichier"
 
 		end
@@ -659,7 +655,7 @@ class SubsMgr < OSX::NSWindowController
 				if k.search("SeriesName").inner_html.downcase.to_s == myserie.downcase.to_s
 					@series[myserie] = {"Id" => k.search("seriesid").inner_html.downcase.to_s, "Banner" => myserie+".jpg"}
 					linkBanner = k.search("banner").inner_html.downcase.to_s
-					@series.save_plist("/Library/Application\ Support/SubsMgr/SubsMgrSeries.plist")
+					@series.save_plist("#{Common::PREF_PATH}/SubsMgrSeries.plist")
 					found = 1
 					break 
 				end
@@ -705,9 +701,13 @@ class SubsMgr < OSX::NSWindowController
 				@current.serie = "Error"
 				@current.saison = 0
 				@current.episode = 0
-				@current.infos = "Error"
 				@current.team = "Error"
-				@current.comment = "Format non reconnu"
+				@current.infos = "Error"
+				if chaine.match(/vost|vostf|vostfr/im)
+					@current.comment = "Les sous-titres sont codés en dur!"
+				else
+					@current.comment = "Format non reconnu"
+				end
 				return
 			end
 
@@ -727,9 +727,9 @@ class SubsMgr < OSX::NSWindowController
 			# on peut maintenant récupérer les vrais infos
 			infos = infos.join("-").to_s
 			if (m = infos.match(/^.*?((REPACK|PROPER|720p|HDTV|PDTV|WSR)\.(.+))/im))
-				@current.infos = m[1].gsub(/((xvid|x264|divx).+)/im, '').gsub(/(^[^a-z0-9]+|[^a-z0-9]$)/im, '').strip
+				@current.infos = m[1].gsub(/(xvid|divx|x264).*/im, '').gsub(/(^[^a-z0-9]+|[^a-z0-9]$)/im, '').strip
 			else
-				@current.infos = infos.gsub(/(^[^a-z0-9]+|[^a-z0-9]$)/im, '').strip
+				@current.infos = infos.gsub(/(^[^a-z0-9]+|[^a-z0-9]$)/im, '').gsub(/([\. -]?(xvid|divx|x264)[\. -]?)/im, '').strip
 			end
 			@current.infos << ".#{@current.provider}" if (@current.provider != '')
 
@@ -740,7 +740,7 @@ class SubsMgr < OSX::NSWindowController
 			end
 
 		rescue Exception=>e
-			puts "# SubsMgr Error # AnalyseFichier [#{@current.fichier}] : #{e}"
+			Tools.logger.error "# SubsMgr Error # AnalyseFichier [#{@current.fichier}] : #{e.inspect}\n#{e.backtrace[0..10].join("\n")}"
 			@current.serie = "Error"
 			@current.saison = 0
 			@current.episode = 0
@@ -1133,7 +1133,7 @@ class SubsMgr < OSX::NSWindowController
 
 		begin
 			outfile = File.open('/tmp/csvout', 'wb')
-			CSV::Reader.parse(File.open("/Library/Application\ Support/SubsMgr/SubsMgrHistory.csv"),';') do |row|
+			CSV::Reader.parse(File.open("#{Common::PREF_PATH}/SubsMgrHistory.csv"),';') do |row|
 				if row[3] != @current.fichier
 					CSV::Writer.generate(outfile, ';') do |csv|
 						csv << row
@@ -1141,7 +1141,7 @@ class SubsMgr < OSX::NSWindowController
 				end
 			end
 			outfile.close
-			FileUtils.mv('/tmp/csvout', "/Library/Application\ Support/SubsMgr/SubsMgrHistory.csv")
+			FileUtils.mv('/tmp/csvout', "#{Common::PREF_PATH}/SubsMgrHistory.csv")
 
 		rescue Exception=>e
 			puts "# SubsMgr Error # HistoClean ["+@current.fichier+"] : "+e
@@ -1161,7 +1161,7 @@ class SubsMgr < OSX::NSWindowController
 			typeGestion = "Automatique"
 		elsif sender == @bLoadSub
 			toFichier = @current.serie+";"+@current.saison.to_s+";"+@current.episode.to_s+";"+@current.fichier+";None;None;Manuel;None\n"
-			fichierCSV = File.open("/Library/Application\ Support/SubsMgr/SubsMgrHistory.csv",'a+')
+			fichierCSV = File.open("#{Common::PREF_PATH}/SubsMgrHistory.csv",'a+')
 			fichierCSV << toFichier
 			fichierCSV.close
 			return
@@ -1171,7 +1171,7 @@ class SubsMgr < OSX::NSWindowController
 
 		# Mise à jour du fichier de suivi
 		toFichier = @current.serie+";"+@current.saison.to_s+";"+@current.episode.to_s+";"+@current.fichier+";"+@current.candidats[@plusmoins.intValue-1].fichier+";"+@current.candidats[@plusmoins.intValue-1].date+";"+typeGestion+";"+@current.candidats[@plusmoins.intValue-1].source+"\n"
-		fichierCSV = File.open("/Library/Application\ Support/SubsMgr/SubsMgrHistory.csv",'a+')
+		fichierCSV = File.open("#{Common::PREF_PATH}/SubsMgrHistory.csv",'a+')
 		fichierCSV << toFichier
 		fichierCSV.close
 	end
@@ -1194,7 +1194,7 @@ class SubsMgr < OSX::NSWindowController
 	end
 
 	def StatsRAZ(sender)
-		FileUtils.cp(File.join(@appPath, "SubsMgrStats.plist"), "/Library/Application\ Support/SubsMgr/SubsMgrStats.plist")
+		FileUtils.cp(File.join(@appPath, "SubsMgrStats.plist"), "#{Common::PREF_PATH}/SubsMgr/SubsMgrStats.plist")
 		StatsLoad()
 		# Raffraichissement des statistiques
 		StatsRefresh(self)
@@ -1508,7 +1508,7 @@ class SubsMgr < OSX::NSWindowController
 		@prefs["Subs management"]["Commande"] = @pCommande.stringValue()
 
 
-		@prefs.save_plist("/Library/Application Support/SubsMgr/SubsMgrPrefs.plist")
+		@prefs.save_plist("#{Common::PREF_PATH}/SubsMgrPrefs.plist")
 		PrefRefreshMain()
 		@fenPref.close()
 	end
@@ -1517,7 +1517,7 @@ class SubsMgr < OSX::NSWindowController
 	def PrefCancel(sender)
 		# Lecture du plist
 		@prefDefault = Plist::parse_xml(File.join(@appPath, "SubsMgrPrefs.plist"))
-		@prefCurrent = Plist::parse_xml("/Library/Application Support/SubsMgr/SubsMgrPrefs.plist")
+		@prefCurrent = Plist::parse_xml("#{Common::PREF_PATH}/SubsMgrPrefs.plist")
 		@prefs = @prefDefault.deep_merge(@prefCurrent)
 
 		# Onglet Directories
