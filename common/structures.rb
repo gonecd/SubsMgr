@@ -85,14 +85,18 @@ class WebSub < CommonStruct
 				self.score += 1
 			end
 			
-			self.confiant = (self.score.to_f / 4).round
-			if self.confiant >=12 && self.errors.size>0
-				self.confiant = 8 # on peut pas avoir totalement confiance s'il y a une erreur
+			self.confiant = (self.score.to_f / 4).round + rank
+			self.score += rank
+
+			if self.confiant >=3
+				if self.errors.size>0
+					self.confiant = 2 # on peut pas avoir totalement confiance s'il y a une erreur
+				else
+					self.confiant = 3
+				end
 			elsif self.confiant<1
 				self.confiant = 1
 			end
-			self.confiant += rank
-			self.score += rank
 			return self.confiant
 		rescue StandardError => e
 			Tools.logger.error "# SubsMgr Error # calcul_confiance [#{ligne.fichier}] : #{e}\n#{e.backtrace.join("\n")}"
