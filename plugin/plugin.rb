@@ -59,7 +59,7 @@ module Plugin
 				end
 				count = list.size
 				marks = list.inject(0) { |sum, e| sum += e.confiant}
-				self.current.candidats = self.current.candidats.concat(list).sort
+				self.current.candidats = self.current.candidats.concat(list)
 			rescue Exception => e
 				Tools.logger.error "# SubsMgr Error # search_sub #{self.class.name} [#{current.fichier}]: #{e.inspect}\n#{e.backtrace.join("\n")}"
 				self.current.comment = "Pb dans le parsing #{self.class.name}"

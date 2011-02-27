@@ -41,7 +41,6 @@ class Plugin::TVSubtitles < Plugin::Base
 		return [] unless monURL
 		
 		# Trouver les sous titres
-		Tools.logger.info "TVSubtitle Episode: #{monURL}"
 		doc = FileCache.get_html(monURL)
 		doc.search("a[@href]").collect do |k|
 			next unless (k.at("img") || {})['src'].to_s.match(/fr\.(gif|png|jpg)/im)

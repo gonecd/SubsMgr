@@ -33,25 +33,25 @@ end
 # Structure de gestion des sous titres trouvés (candidats)
 class WebSub < CommonStruct
 	attr_accessor :fichier, :date, :lien, :source, :referer
-	attr_accessor :errors, :confiant 
+	attr_accessor :errors, :score, :confiant
 
 	def calcul_confiance(ligne, rank = 0)
 		return 0 if fichier.blank?
 		
 		self.errors = {}
 		begin
-			self.confiant = 12
+			self.score = 12
 
 			# Check du nom de la série
 			unless fichier.match(%r{#{ligne.serie.gsub(/\s+/, '.+')}}i)
-				self.confiant -= 3
+				self.score -= 3
 				self.errors[:serie] = true
 			end
 
 			# Check du nom de la team
 			# on verifie le nom complet, mais aussi les formes du type .3LETTRES. et .4LETTRES.
 			unless fichier.match(%r{(#{ligne.team}|[\.-]#{ligne.team.to_s[0..3]}?[\.-])}i)
-				self.confiant -=	3
+				self.score -=	 3
 				self.errors[:team] = true
 			end
 
@@ -64,36 +64,35 @@ class WebSub < CommonStruct
 				end
 			end
 			unless ok
-				self.confiant -= 3
+				self.score -= 3
 				self.errors[:infos] = true
 			end
 
 			# Check de la saison et l'épisode
 			unless WebSub.valid_episode?(fichier, ligne.saison, ligne.episode)
-				self.confiant -= 3
+				self.score -= 3
 				self.errors[:saison] = true
 				self.errors[:episode] = true
 			end
 
 			# on préfère les version tag vs notag
 			if fichier.match(/tag/im) && !fichier.match(/notag/im)
-				self.confiant += 1 # avec tag c'est mieux que sans tag
+				self.score += 1 # avec tag c'est mieux que sans tag
 			end
 
 			# check du format 720p
 			if fichier.match(/720p/im) && ligne.format == '720p'
-				self.confiant += 1
+				self.score += 1
 			end
 			
-			Tools.logger.info "#{fichier} - #{ligne.format} - #{self.confiant} - #{self.errors.inspect}"
-			
-			self.confiant = (self.confiant.to_f / 4).round
-			if self.confiant >=3 && self.errors.size>0
-				self.confiant = 2 # on peut pas avoir totalement confiance s'il y a une erreur
+			self.confiant = (self.score.to_f / 4).round
+			if self.confiant >=12 && self.errors.size>0
+				self.confiant = 8 # on peut pas avoir totalement confiance s'il y a une erreur
 			elsif self.confiant<1
 				self.confiant = 1
 			end
 			self.confiant += rank
+			self.score += rank
 			return self.confiant
 		rescue StandardError => e
 			Tools.logger.error "# SubsMgr Error # calcul_confiance [#{ligne.fichier}] : #{e}\n#{e.backtrace.join("\n")}"
@@ -104,7 +103,7 @@ class WebSub < CommonStruct
 
 	def <=>(other)
 		# meilleure confiance en premier
-		result = (other.confiant <=> self.confiant)
+		result = (other.score <=> self.score)
 		
 		# en cas d'egalite, celui qui a le moins d'erreurs gagne
 		result = (self.errors.size <=> other.errors.size) if result == 0
