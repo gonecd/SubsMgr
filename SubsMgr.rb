@@ -155,7 +155,9 @@ class SubsMgr < OSX::NSWindowController
 			@fileTarg.setStringValue(@current.fileTarget)
 
 			# On se posionne sur le meilleur sous titre trouvé
-			if @current.candidats.size() != 0
+			if @current.candidats.size>0
+				bestConf = @current.candidats.collect {|e|e.confiant.to_f}.max
+				bestcandidat = 
 				bestConf = @current.candidats[0].confiant
 				bestcandidat = 0
 				for i in (0..@current.candidats.size()-1)
@@ -164,8 +166,8 @@ class SubsMgr < OSX::NSWindowController
 						bestConf = @current.candidats[i].confiant
 					end
 				end
-				@subsTot.setIntValue_(@current.candidats.size())
-				@subsNb.setIntValue_(@current.candidats.size())
+				@subsTot.setIntValue_(@current.candidats.size)
+				@subsNb.setIntValue_(@current.candidats.size)
 				@plusmoins.setIntValue(bestcandidat+1)
 				ChangeInstance(self)
 			end
@@ -715,11 +717,11 @@ class SubsMgr < OSX::NSWindowController
 			# dans l'ordre du plus précis au moins précis (en particulier le format 101 se telescope avec les autres infos du type 720p ou x264)
 
 			# Format s01e02 ou variantes (s1e1, s01e1, s1e01)
-			temp = chaine.match(/(.*?).s([0-9]{1,2})e([0-9]{1,2})(.*)\.(avi|mkv|mp4|m4v)/i)
+			temp = chaine.match(/(.*?).s([0-9]{1,2})e([0-9]{1,2})([\._\s-].*)*\.(avi|mkv|mp4|m4v)/i)
 			# Format 1x02 ou 01x02
-			temp = chaine.match(/(.*?).([0-9]{1,2})x([0-9]{1,2})(.*)\.(avi|mkv|mp4|m4v)/i) unless temp
+			temp = chaine.match(/(.*?).([0-9]{1,2})x([0-9]{1,2})([\._\s-].*)*\.(avi|mkv|mp4|m4v)/i) unless temp
 			# Format 102
-			temp = chaine.match(/(.*?).([0-9]{1,2})([0-9]{2})[^p](.*)\.(avi|mkv|mp4|m4v)/i) unless temp
+			temp = chaine.match(/(.*?).([0-9]{1,2})([0-9]{2})([\._\s-].*)*\.(avi|mkv|mp4|m4v)/i) unless temp
 
 			unless temp
 				@current.serie = "Error"
@@ -1170,6 +1172,7 @@ class SubsMgr < OSX::NSWindowController
 
 		# Recherche du meilleur candidat
 		bestConf = 0.0
+		@current.candidats.sort!
 		if @current.candidats.size() != 0
 			for i in (0..@current.candidats.size()-1)
 				if @current.candidats[i].confiant > bestConf

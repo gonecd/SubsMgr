@@ -41,11 +41,12 @@ class Plugin::TVSubtitles < Plugin::Base
 		return [] unless monURL
 		
 		# Trouver les sous titres
+		Tools.logger.info "TVSubtitle Episode: #{monURL}"
 		doc = FileCache.get_html(monURL)
 		doc.search("a[@href]").collect do |k|
 			next unless (k.at("img") || {})['src'].to_s.match(/fr\.(gif|png|jpg)/im)
 			new_ligne = WebSub.new
-			new_ligne.fichier = "#{current.serie}.#{rec}." + k.search("p[@title='rip']").text.scan(/[0-9]*\ *[a-zA-Z]*/).to_s + "-" + k.search("p[@title='release']").text.scan(/[0-9]*\ *[a-zA-Z]*/).to_s
+			new_ligne.fichier = "#{current.serie}.#{rec}." + k.search("p[@title='rip']").text.scan(/[0-9]*\ *[a-zA-Z]*/).to_s + "-" + k.search("p[@title='release']").text.scan(/[0-9]*\ *[a-zA-Z]*/).to_s + ".srt"
 			new_ligne.date = k.text.to_s.scan(/[0-9][0-9]\.[0-9][0-9]\.[0-9][0-9]/).to_s
 			new_ligne.lien = k[:href].to_s.scan(/[0-9]*/).to_s
 			new_ligne.referer = monURL
