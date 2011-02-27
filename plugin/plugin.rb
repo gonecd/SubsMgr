@@ -82,9 +82,8 @@ module Plugin
 				end
 
 				# Check du nom de la team
-				# FIXME, il faudrait aussi verifier uniquement sur les 3 premières lettres de la team quand le nom de la team est supérieur à 3 ou 4 lettres
-				# car souvent le nom est raccourci
-				unless sousTitre.match(%r{#{current.team}}i)
+				# on verifie le nom complet, mais aussi les formes du type .3LETTRES. et .4LETTRES.
+				unless sousTitre.match(%r{(#{current.team}|[\.-]#{current.team.to_s[0..3]}?[\.-])}i)
 					maConfiance -=	2
 					errors[:team] = true
 				end
