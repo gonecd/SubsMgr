@@ -30,7 +30,7 @@ class Plugin::Podnapisi < Plugin::Base
 				listetd = k.search("td")
 
 				new_ligne = WebSub.new
-				new_ligne.fichier = "#{k.at(".release").text}.srt"
+				new_ligne.fichier = "#{k.at(".release").try(:text)}.srt"
 				new_ligne.date = k.at("td:nth-of-type(7)").text.strip.split(/[^0-9]+/).reverse.join("-")
 				new_ligne.lien = k.at("td:nth-of-type(1) a")['href']
 				new_ligne.referer = monURL

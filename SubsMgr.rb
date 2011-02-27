@@ -1564,63 +1564,50 @@ class SubsMgr < OSX::NSWindowController
 		Plugin::Local.local_path = @pDirSubs.stringValue().to_s
 
 		# Affichage des sources actives dans la liste des épisodes
+		# on prend en priorité les 3 sources les mieux rankées par l'utilisateur
 		@sourcesActives = 0
+		@lignessources.find_all {|s|s.active == 1}.sort {|a, b| b.rank.to_f<=>a.rank.to_f}.each do |source|
+			@sourcesActives += 1
+			instance_variable_get("@source#{@sourcesActives}").setImage(source.image)
+			@liste.tableColumns[6-@sourcesActives].setIdentifier(source.source)
+			@liste.tableColumns[6-@sourcesActives].setHeaderToolTip(source.source)
 
-		@source3.setImage(Icones.list["None"])
-		@liste.tableColumns[5].setIdentifier("None")
-		@liste.tableColumns[5].setHeaderToolTip("None")
-		@source2.setImage(Icones.list["None"])
-		@liste.tableColumns[4].setIdentifier("None")
-		@liste.tableColumns[4].setHeaderToolTip("None")
-		@source1.setImage(Icones.list["None"])
-		@liste.tableColumns[3].setIdentifier("None")
-		@liste.tableColumns[3].setHeaderToolTip("None")
-
-		for i in 0..7
-			if @lignessources[i].active == 1
-				if @sourcesActives == 2
-					@source3.setImage(@lignessources[i].image)
-					@sourcesActives = 3
-					@liste.tableColumns[5].setIdentifier(@lignessources[i].source)
-					@liste.tableColumns[5].setHeaderToolTip(@lignessources[i].source)
-				end
-				if @sourcesActives == 1
-					@source2.setImage(@lignessources[i].image)
-					@sourcesActives = 2
-					@liste.tableColumns[4].setIdentifier(@lignessources[i].source)
-					@liste.tableColumns[4].setHeaderToolTip(@lignessources[i].source)
-				end
-				if @sourcesActives == 0
-					@source1.setImage(@lignessources[i].image)
-					@sourcesActives = 1
-					@liste.tableColumns[3].setIdentifier(@lignessources[i].source)
-					@liste.tableColumns[3].setHeaderToolTip(@lignessources[i].source)
-				end
-			end
+			# on ne dispose que de 3 colonnes de sources donc on arrête quand ca va deborder ;-)
+			break if @sourcesActives == 3
 		end
+		
+		# si moins de 3 sources, on complete l'initialisation
+		while @sourcesActives < 3
+			@sourcesActives += 1
+			instance_variable_get("@source#{@sourcesActives}").setImage(Icones.list["None"])
+			@liste.tableColumns[6-@sourcesActives].setIdentifier('None')
+			@liste.tableColumns[6-@sourcesActives].setHeaderToolTip('None')
+		end
+		
 		@liste.reloadData()
 
 		# Affichage des flags de Suppression des tags
-		@bSupprCrochets.setState(@pSupprCrochets.state())
-		@bSupprAccolades.setState(@pSupprAccolades.state())
-		if @pCommande.stringValue() == "" then @bCommande.setState(0) else @bCommande.setState(1) end
+		@bSupprCrochets.setState(@pSupprCrochets.state)
+		@bSupprAccolades.setState(@pSupprAccolades.state)
+		@pCommande.stringValue.blank? ? @bCommande.setState(0) : @bCommande.setState(1)
 	end
 
 	def PrefSourceModif(sender)
 		@alertMessage.setStringValue("")
-		@rankSource.setIntValue(@lignessources[@listesources.selectedRow()].rank)
-		@activeSource.setState(@lignessources[@listesources.selectedRow()].active)
-		@nomSource.setStringValue(@lignessources[@listesources.selectedRow()].source)
+		@rankSource.setIntValue(@lignessources[@listesources.selectedRow].rank)
+		@activeSource.setState(@lignessources[@listesources.selectedRow].active)
+		@nomSource.setStringValue(@lignessources[@listesources.selectedRow].source)
 		@fenSource.makeKeyAndOrderFront_(sender)
 	end
 	ib_action :PrefSourceModif
 
 	def PrefSourceValid(sender)
-		if (@activeSource.state() == 1) and (@sourcesActives == 3) then @alertMessage.setStringValue("You already activated 3 sources"); return; end
-		if (@activeSource.state() == 0) and (@lignessources[@listesources.selectedRow()].active == 1) then @sourcesActives = @sourcesActives - 1; end
+		if (@activeSource.state == 0) && (@lignessources[@listesources.selectedRow].active == 1) 
+			@sourcesActives -= - 1
+		end
 
-		@lignessources[@listesources.selectedRow()].active = @activeSource.state()
-		@lignessources[@listesources.selectedRow()].rank = @rankSource.intValue()
+		@lignessources[@listesources.selectedRow].active = @activeSource.state
+		@lignessources[@listesources.selectedRow].rank = @rankSource.intValue
 		@listesources.reloadData()
 		@fenSource.close()
 	end
