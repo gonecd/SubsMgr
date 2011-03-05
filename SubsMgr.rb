@@ -1194,7 +1194,7 @@ class SubsMgr < OSX::NSWindowController
 	end
 
 	def StatsRAZ(sender)
-		FileUtils.cp(File.join(@appPath, "SubsMgrStats.plist"), "#{Common::PREF_PATH}/SubsMgr/SubsMgrStats.plist")
+		FileUtils.cp(File.join(@appPath, "SubsMgrStats.plist"), "#{Common::PREF_PATH}/SubsMgrStats.plist")
 		StatsLoad()
 		# Raffraichissement des statistiques
 		StatsRefresh(self)
