@@ -24,6 +24,21 @@ class CacheSub
 
 	def exists?(entry)
 		path = full_path(entry)
+
+		# Gestion de la profondeur de cache
+#		case cache_depth
+#			when 0 :oldest=1.seconds.ago
+#			when 1 :oldest=1.hours.ago
+#			when 2 :oldest=2.hours.ago
+#			when 3 :oldest=6.hours.ago
+#			when 4 :oldest=12.hours.ago
+#			when 5 :oldest=1.days.ago
+#			when 6 :oldest=2.days.ago
+#			when 7 :oldest=7.days.ago
+#		end
+#		puts "On va jusqu'à "+oldest.to_s
+#		
+#		File.exists?(path) && File.size(path)>0 && File.ctime(path)>=oldest
 		File.exists?(path) && File.size(path)>0 && File.ctime(path)>=1.days.ago
 	end
 
@@ -129,6 +144,10 @@ module FileCache
 			cache.write(crc, file.body.to_s)
 			options[:xml] ? Nokogiri::XML(file.body.to_s).root : file.root
 		end
+	end
+
+	def clean()
+		FileUtils.rm_rf(CACHE_PATH)
 	end
 
 end

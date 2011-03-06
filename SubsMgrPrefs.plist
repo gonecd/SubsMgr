@@ -30,10 +30,14 @@
 		<integer>2</integer>
 		<key>Schedule SearchAll</key>
 		<integer>0</integer>
+		<key>Schedule RefreshAll</key>
+		<integer>0</integer>
 		<key>Schedule ProcessAll</key>
 		<integer>0</integer>
 		<key>Forom key</key>
 		<string></string>
+		<key>Cache Depth</key>
+		<integer>0</integer>
 	</dict>
 	<key>Sources</key>
 	<dict>

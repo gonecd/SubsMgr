@@ -33,7 +33,7 @@ class SubsMgr < OSX::NSWindowController
 	# Ecran Préférences
 	ib_outlets :pDirTorrent, :pDirSerie, :pDirBanner, :pDirSubs, :pDirTorrents, :pDirTorrentButton, :pDirSerieButton, :pDirBannerButton, :pDirSubsButton, :pDirTorrentsButton
 	ib_outlets :pFileRule, :pDirRule, :pSepRule
-	ib_outlets :pConfiance, :pSchedSearch, :pSchedProcess, :pForomKey
+	ib_outlets :pConfiance, :pSchedRefresh, :pSchedSearch, :pSchedProcess, :pCacheDepth, :pForomKey
 	ib_outlets :listesources, :nomSource, :rankSource, :activeSource, :alertMessage
 	ib_outlets :pMove, :pSupprCrochets, :pSupprAccolades, :pCommande
 
@@ -1491,6 +1491,8 @@ class SubsMgr < OSX::NSWindowController
 		@prefs["Automatism"]["Min confidence"] = @pConfiance.selectedColumn()
 		@prefs["Automatism"]["Schedule SearchAll"] = @pSchedSearch.indexOfSelectedItem()
 		@prefs["Automatism"]["Schedule ProcessAll"] = @pSchedProcess.indexOfSelectedItem()
+		@prefs["Automatism"]["Schedule RefreshAll"] = @pSchedRefresh.indexOfSelectedItem()
+		@prefs["Automatism"]["Cache Depth"] = @pCacheDepth.indexOfSelectedItem()
 		@prefs["Automatism"]["Forom key"] = @pForomKey.stringValue()
 
 		# Onglet Sources
@@ -1536,6 +1538,8 @@ class SubsMgr < OSX::NSWindowController
 		@pConfiance.selectCellAtRow_column_(0, @prefs["Automatism"]["Min confidence"])
 		@pSchedSearch.selectItemAtIndex(@prefs["Automatism"]["Schedule SearchAll"])
 		@pSchedProcess.selectItemAtIndex(@prefs["Automatism"]["Schedule ProcessAll"])
+		@pSchedRefresh.selectItemAtIndex(@prefs["Automatism"]["Schedule RefreshAll"])
+		@pCacheDepth.selectItemAtIndex(@prefs["Automatism"]["Cache Depth"])
 		@pForomKey.setStringValue(@prefs["Automatism"]["Forom key"])
 
 		# Onglet Sources
@@ -1643,5 +1647,10 @@ class SubsMgr < OSX::NSWindowController
 		end
 	end
 	ib_action :PrefDirChoose
+	
+	def DeleteCache(sender)
+		FileCache.clean()
+	end
+	ib_action :DeleteCache
 
 end
