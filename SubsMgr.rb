@@ -68,6 +68,7 @@ class SubsMgr < OSX::NSWindowController
 		@ligneslibrary = []
 		@seriesBanners = {}
 		@liste.dataSource = self
+		@liste.setDelegate_(self)
 		@ovliste.dataSource = self
 		@listeseries.dataSource = self
 		@listestats.dataSource = self
@@ -128,7 +129,7 @@ class SubsMgr < OSX::NSWindowController
 	# ------------------------------------------
 	# Fonctions de gestion du tableau
 	# ------------------------------------------
-	def rowSelected
+	def rowSelected	
 		@current = @lignes[@liste.selectedRow()]
 
 		begin
@@ -260,6 +261,12 @@ class SubsMgr < OSX::NSWindowController
 			puts "Attention : view non identifiée dans tableView_objectValueForTableColumn_row #{view.description}"
 			nil
 		end
+	end
+
+	def tableView_shouldSelectRow(view, row)
+		@liste.selectRowIndexes_byExtendingSelection_(OSX::NSIndexSet.indexSetWithIndex(row), false)
+		rowSelected()
+		return true
 	end
 
 	def Refresh(sender)
