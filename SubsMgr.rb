@@ -747,7 +747,8 @@ class SubsMgr < OSX::NSWindowController
 			end
 
 		rescue Exception=>e
-			Tools.logger.error "# SubsMgr Error # AnalyseFichier [#{@current.fichier}] : #{e.inspect}\n#{e.backtrace[0..10].join("\n")}"
+			Tools.logger.error "# SubsMgr Error # AnalyseFichier [#{@current.fichier}] : #{e.inspect}"
+			#Tools.logger.error "# SubsMgr Error # AnalyseFichier [#{@current.fichier}] : #{e.inspect}\n#{e.backtrace[0..10].join("\n")}"
 			@current.serie = "Error"
 			@current.saison = 0
 			@current.episode = 0
@@ -1565,6 +1566,9 @@ class SubsMgr < OSX::NSWindowController
 
 		PrefRefreshMain()
 		@fenPref.close()
+        
+        # Activation des timers de refresh
+        
 
 	end
 	ib_action :PrefCancel
