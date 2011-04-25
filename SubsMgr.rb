@@ -129,7 +129,7 @@ class SubsMgr < OSX::NSWindowController
 	# ------------------------------------------
 	# Fonctions de gestion du tableau
 	# ------------------------------------------
-	def rowSelected	
+	def rowSelected 
 		@current = @lignes[@liste.selectedRow()]
 
 		begin
@@ -700,11 +700,11 @@ class SubsMgr < OSX::NSWindowController
 			# Format s01e02 ou variantes (s1e1, s01e1, s1e01)
 			temp = chaine.match(/(.*?).s([0-9]{1,2})e([0-9]{1,2})([\._\s-].*)*\.(avi|mkv|mp4|m4v)/i)
 			# Format 1x02 ou 01x02
-			temp = chaine.match(/(.*?).([0-9]{1,2})x([0-9]{1,2})([\._\s-].*)*\.(avi|mkv|mp4|m4v)/i) unless temp
+			temp = chaine.match(/(.*?).([0-9]{1,2})x([0-9]{1,2})([\._\s-].*)*\.(avi|mkv|mp4|m4v)/i) if temp.blank?
 			# Format 102
-			temp = chaine.match(/(.*?).([0-9]{1,2})([0-9]{2})([\._\s-].*)*\.(avi|mkv|mp4|m4v)/i) unless temp
+			temp = chaine.match(/(.*?).([0-9]{1,2})([0-9]{2})([\._\s-].*)*\.(avi|mkv|mp4|m4v)/i) if temp.blank?
 
-			unless temp
+			if temp.blank?
 				@current.serie = "Error"
 				@current.saison = 0
 				@current.episode = 0
@@ -719,12 +719,12 @@ class SubsMgr < OSX::NSWindowController
 			end
 
 			# On range
-			@current.serie = temp[1].gsub(/\./, ' ').to_s.strip
+			@current.serie = temp[1].to_s.gsub(/\./, ' ').to_s.strip
 			@current.saison = temp[2].to_i
 			@current.episode = temp[3].to_i
 
 			# et on traite les infos correctement pour eliminer l'eventuel titre d'épisode
-			infos = temp[4].split('-')
+			infos = temp[4].to_s.split('-')
 
 			# la team est toujours après le dernier tiret, suivi eventuellement d'un provider)
 			(team, provider) = infos.pop.to_s.split(/\./, 2)
@@ -1566,9 +1566,9 @@ class SubsMgr < OSX::NSWindowController
 
 		PrefRefreshMain()
 		@fenPref.close()
-        
-        # Activation des timers de refresh
-        
+				
+				# Activation des timers de refresh
+				
 
 	end
 	ib_action :PrefCancel
