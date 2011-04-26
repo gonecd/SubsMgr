@@ -1581,11 +1581,13 @@ class SubsMgr < OSX::NSWindowController
 		# Affichage des sources actives dans la liste des épisodes
 		# on prend en priorité les 3 sources les mieux rankées par l'utilisateur
 		@sourcesActives = 0
+		start = 3 # first source column
 		@lignessources.find_all {|s|s.active == 1}.sort {|a, b| b.rank.to_f<=>a.rank.to_f}.each do |source|
 			@sourcesActives += 1
 			instance_variable_get("@source#{@sourcesActives}").setImage(source.image)
-			@liste.tableColumns[6-@sourcesActives].setIdentifier(source.source)
-			@liste.tableColumns[6-@sourcesActives].setHeaderToolTip(source.source)
+			idx = start + @sourcesActives - 1
+			@liste.tableColumns[idx].setIdentifier(source.source)
+			@liste.tableColumns[idx].setHeaderToolTip(source.source)
 
 			# on ne dispose que de 3 colonnes de sources donc on arrête quand ca va deborder ;-)
 			break if @sourcesActives == 3
@@ -1595,8 +1597,9 @@ class SubsMgr < OSX::NSWindowController
 		while @sourcesActives < 3
 			@sourcesActives += 1
 			instance_variable_get("@source#{@sourcesActives}").setImage(Icones.list["None"])
-			@liste.tableColumns[6-@sourcesActives].setIdentifier('None')
-			@liste.tableColumns[6-@sourcesActives].setHeaderToolTip('None')
+			idx = start + @sourcesActives - 1
+			@liste.tableColumns[idx].setIdentifier('None')
+			@liste.tableColumns[idx].setHeaderToolTip('None')
 		end
 		
 		@liste.reloadData()
