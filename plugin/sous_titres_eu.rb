@@ -13,13 +13,11 @@ class Plugin::SousTitresEU < Plugin::Base
 		rec_saison = sprintf("%s\.S0?%s", current.serie.downcase.gsub(/ /, '.'), current.saison, current.saison)
 
 		doc = FileCache.get_html(monURL)
-		doc.search("div.saison tr").collect do |k|
-			blk = k.at("td.filename a")
-			next if blk.nil?
-			
-			fichierCible = blk.text
-			vers = blk.attr("href").to_s
-			rel = k.search("td.update").text.to_s
+		doc.search("div.saison a").collect do |k|
+            
+			fichierCible = k.search("span.filenameSerie").text.to_s
+			vers = k.attr("href").to_s
+			rel = k.search("span.update").text.to_s
 
 			# Cas du zip par episode
 			if WebSub.valid_episode?(fichierCible, current.saison, current.episode)
