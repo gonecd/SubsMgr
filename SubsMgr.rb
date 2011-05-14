@@ -130,7 +130,7 @@ class SubsMgr < OSX::NSWindowController
 	# ------------------------------------------
 	# Fonctions de gestion des tableaux
 	# ------------------------------------------
-	def rowSelected	
+	def rowSelected 
 		@current = @lignes[@liste.selectedRow()]
 
 		begin
@@ -704,11 +704,11 @@ class SubsMgr < OSX::NSWindowController
 			# Format s01e02 ou variantes (s1e1, s01e1, s1e01)
 			temp = chaine.match(/(.*?).s([0-9]{1,2})e([0-9]{1,2})([\._\s-].*)*\.(avi|mkv|mp4|m4v)/i)
 			# Format 1x02 ou 01x02
-			temp = chaine.match(/(.*?).([0-9]{1,2})x([0-9]{1,2})([\._\s-].*)*\.(avi|mkv|mp4|m4v)/i) unless temp
+			temp = chaine.match(/(.*?).([0-9]{1,2})x([0-9]{1,2})([\._\s-].*)*\.(avi|mkv|mp4|m4v)/i) if temp.blank?
 			# Format 102
-			temp = chaine.match(/(.*?).([0-9]{1,2})([0-9]{2})([\._\s-].*)*\.(avi|mkv|mp4|m4v)/i) unless temp
+			temp = chaine.match(/(.*?).([0-9]{1,2})([0-9]{2})([\._\s-].*)*\.(avi|mkv|mp4|m4v)/i) if temp.blank?
 
-			unless temp
+			if temp.blank?
 				@current.serie = "Error"
 				@current.saison = 0
 				@current.episode = 0
@@ -723,12 +723,12 @@ class SubsMgr < OSX::NSWindowController
 			end
 
 			# On range
-			@current.serie = temp[1].gsub(/\./, ' ').to_s.strip
+			@current.serie = temp[1].to_s.gsub(/\./, ' ').to_s.strip
 			@current.saison = temp[2].to_i
 			@current.episode = temp[3].to_i
 
 			# et on traite les infos correctement pour eliminer l'eventuel titre d'épisode
-			infos = temp[4].split('-')
+			infos = temp[4].to_s.split('-')
 
 			# la team est toujours après le dernier tiret, suivi eventuellement d'un provider)
 			(team, provider) = infos.pop.to_s.split(/\./, 2)
@@ -1615,7 +1615,6 @@ class SubsMgr < OSX::NSWindowController
         #@TimerRefresh = OSX::NSTimer.scheduledTimerWithTimeInterval_target_selector_userInfo_repeats_(60.0, self, :ScheduledRefresh, nil, true)
         #@TimerSearch = OSX::NSTimer.scheduledTimerWithTimeInterval_target_selector_userInfo_repeats_(5.0, self, :ScheduledSearch, nil, true)
         #@TimerProcess = OSX::NSTimer.scheduledTimerWithTimeInterval_target_selector_userInfo_repeats_(5.0, self, :ScheduledProcess, nil, true)
-
 	end
 	ib_action :PrefCancel
 
@@ -1627,11 +1626,13 @@ class SubsMgr < OSX::NSWindowController
 		# Affichage des sources actives dans la liste des épisodes
 		# on prend en priorité les 3 sources les mieux rankées par l'utilisateur
 		@sourcesActives = 0
+		start = 3 # first source column
 		@lignessources.find_all {|s|s.active == 1}.sort {|a, b| b.rank.to_f<=>a.rank.to_f}.each do |source|
 			@sourcesActives += 1
 			instance_variable_get("@source#{@sourcesActives}").setImage(source.image)
-			@liste.tableColumns[6-@sourcesActives].setIdentifier(source.source)
-			@liste.tableColumns[6-@sourcesActives].setHeaderToolTip(source.source)
+			idx = start + @sourcesActives - 1
+			@liste.tableColumns[idx].setIdentifier(source.source)
+			@liste.tableColumns[idx].setHeaderToolTip(source.source)
 
 			# on ne dispose que de 3 colonnes de sources donc on arrête quand ca va deborder ;-)
 			break if @sourcesActives == 3
@@ -1641,8 +1642,9 @@ class SubsMgr < OSX::NSWindowController
 		while @sourcesActives < 3
 			@sourcesActives += 1
 			instance_variable_get("@source#{@sourcesActives}").setImage(Icones.list["None"])
-			@liste.tableColumns[6-@sourcesActives].setIdentifier('None')
-			@liste.tableColumns[6-@sourcesActives].setHeaderToolTip('None')
+			idx = start + @sourcesActives - 1
+			@liste.tableColumns[idx].setIdentifier('None')
+			@liste.tableColumns[idx].setHeaderToolTip('None')
 		end
 		
 		@liste.reloadData()
