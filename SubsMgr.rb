@@ -77,9 +77,9 @@ class SubsMgr < OSX::NSWindowController
 		@spotFilter = ""
 		@appPath = OSX::NSBundle.mainBundle.resourcePath.fileSystemRepresentation
 		Icones.path = File.join(@appPath, "Icones")
-        #@TimerRefresh = OSX::NSTimer		
+				#@TimerRefresh = OSX::NSTimer		
 		
-        # First run ? Fichier manquants ?
+				# First run ? Fichier manquants ?
 		FileUtils.makedirs(Common::PREF_PATH) unless File.exist?(Common::PREF_PATH)
 		FileUtils.touch("#{Common::PREF_PATH}/SubsMgrHistory.csv") unless File.exist?("#{Common::PREF_PATH}/SubsMgrHistory.csv")
 		unless File.exist?("#{Common::PREF_PATH}/SubsMgrPrefs.plist")
@@ -271,9 +271,9 @@ class SubsMgr < OSX::NSWindowController
 
 
 
-    # ------------------------------------------
-    # Methodes de récupération des données de base
-    # ------------------------------------------
+		# ------------------------------------------
+		# Methodes de récupération des données de base
+		# ------------------------------------------
 	def Refresh(sender)
 		case @refreshItem.indexOfSelectedItem()
 		when 0
@@ -910,33 +910,33 @@ class SubsMgr < OSX::NSWindowController
 
 
 
-    # ------------------------------------------
-    # Methodes des timers de gestion automatique
-    # ------------------------------------------
-    def ScheduledRefresh(sender)
-        puts "# SubsMgr Info # ScheduledRefresh Started"
-        
-        @refreshItem.selectItemAtIndex(0)
-        Refresh(sender)
-        
-        puts "# SubsMgr Info # ScheduledRefresh Finished"
-    end
+		# ------------------------------------------
+		# Methodes des timers de gestion automatique
+		# ------------------------------------------
+		def ScheduledRefresh(sender)
+				puts "# SubsMgr Info # ScheduledRefresh Started"
+				
+				@refreshItem.selectItemAtIndex(0)
+				Refresh(sender)
+				
+				puts "# SubsMgr Info # ScheduledRefresh Finished"
+		end
 
-    def ScheduledSearch(sender)
-        puts "# SubsMgr Info # ScheduledSearch Started"
-        
-        
-        
-        puts "# SubsMgr Info # ScheduledSearch Finished"
-    end
+		def ScheduledSearch(sender)
+				puts "# SubsMgr Info # ScheduledSearch Started"
+				
+				
+				
+				puts "# SubsMgr Info # ScheduledSearch Finished"
+		end
 
-    def ScheduledProcess(sender)
-        puts "# SubsMgr Info # ScheduledProcess Started"
-        
-        
-        
-        puts "# SubsMgr Info # ScheduledProcess Finished"   
-    end
+		def ScheduledProcess(sender)
+				puts "# SubsMgr Info # ScheduledProcess Started"
+				
+				
+				
+				puts "# SubsMgr Info # ScheduledProcess Finished"		
+		end
 
 
 	# ------------------------------------------
@@ -1552,14 +1552,14 @@ class SubsMgr < OSX::NSWindowController
 		@prefs.save_plist("#{Common::PREF_PATH}/SubsMgrPrefs.plist")
 		PrefRefreshMain()
 
-        # Activation des timers de refresh
-        #case @prefs["Automatism"]["Schedule RefreshAll"]
-        #    when 0: if @TimerRefresh.isValid then @TimerRefresh.invalidate end
-        #    when 1: @TimerRefresh.scheduledTimerWithTimeInterval_target_selector_userInfo_repeats_(15.0, self, :ScheduledRefresh, nil, true)
-        #    when 2: @TimerRefresh.scheduledTimerWithTimeInterval_target_selector_userInfo_repeats_(60.0, self, :ScheduledRefresh, nil, true)           
-        #end
+				# Activation des timers de refresh
+				#case @prefs["Automatism"]["Schedule RefreshAll"]
+				#		 when 0: if @TimerRefresh.isValid then @TimerRefresh.invalidate end
+				#		 when 1: @TimerRefresh.scheduledTimerWithTimeInterval_target_selector_userInfo_repeats_(15.0, self, :ScheduledRefresh, nil, true)
+				#		 when 2: @TimerRefresh.scheduledTimerWithTimeInterval_target_selector_userInfo_repeats_(60.0, self, :ScheduledRefresh, nil, true)						
+				#end
 
-        @fenPref.close()
+				@fenPref.close()
 	end
 	ib_action :PrefValid
 
@@ -1605,16 +1605,16 @@ class SubsMgr < OSX::NSWindowController
 
 		PrefRefreshMain()
 		@fenPref.close()
-        
-        # Activation des timers de refresh
-        #case @prefs["Automatism"]["Schedule RefreshAll"]
-        #    when 0: @TimerRefresh.invalidate()
-        #    when 1: @TimerRefresh.scheduledTimerWithTimeInterval_target_selector_userInfo_repeats_(15.0, self, :ScheduledRefresh, nil, true)
-        #    when 2: @TimerRefresh.scheduledTimerWithTimeInterval_target_selector_userInfo_repeats_(60.0, self, :ScheduledRefresh, nil, true)           
-        #    end
-        #@TimerRefresh = OSX::NSTimer.scheduledTimerWithTimeInterval_target_selector_userInfo_repeats_(60.0, self, :ScheduledRefresh, nil, true)
-        #@TimerSearch = OSX::NSTimer.scheduledTimerWithTimeInterval_target_selector_userInfo_repeats_(5.0, self, :ScheduledSearch, nil, true)
-        #@TimerProcess = OSX::NSTimer.scheduledTimerWithTimeInterval_target_selector_userInfo_repeats_(5.0, self, :ScheduledProcess, nil, true)
+				
+				# Activation des timers de refresh
+				#case @prefs["Automatism"]["Schedule RefreshAll"]
+				#		 when 0: @TimerRefresh.invalidate()
+				#		 when 1: @TimerRefresh.scheduledTimerWithTimeInterval_target_selector_userInfo_repeats_(15.0, self, :ScheduledRefresh, nil, true)
+				#		 when 2: @TimerRefresh.scheduledTimerWithTimeInterval_target_selector_userInfo_repeats_(60.0, self, :ScheduledRefresh, nil, true)						
+				#		 end
+				#@TimerRefresh = OSX::NSTimer.scheduledTimerWithTimeInterval_target_selector_userInfo_repeats_(60.0, self, :ScheduledRefresh, nil, true)
+				#@TimerSearch = OSX::NSTimer.scheduledTimerWithTimeInterval_target_selector_userInfo_repeats_(5.0, self, :ScheduledSearch, nil, true)
+				#@TimerProcess = OSX::NSTimer.scheduledTimerWithTimeInterval_target_selector_userInfo_repeats_(5.0, self, :ScheduledProcess, nil, true)
 	end
 	ib_action :PrefCancel
 

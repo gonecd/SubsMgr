@@ -9,7 +9,6 @@
 *.perspectivev3
 *.pbxuser
 *.tm_build_errors
-project.xcworkspace
 xcuserdata
 
 # Generated files

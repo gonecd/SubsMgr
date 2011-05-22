@@ -14,7 +14,7 @@ class Plugin::SousTitresEU < Plugin::Base
 
 		doc = FileCache.get_html(monURL)
 		doc.search("div.saison a").collect do |k|
-            
+						
 			fichierCible = k.search("span.filenameSerie").text.to_s
 			vers = k.attr("href").to_s
 			rel = k.search("span.update").text.to_s
