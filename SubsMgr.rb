@@ -703,6 +703,8 @@ class SubsMgr < OSX::NSWindowController
 
 			# Format s01e02 ou variantes (s1e1, s01e1, s1e01)
 			temp = chaine.match(/(.*?).s([0-9]{1,2})e([0-9]{1,2})([\._\s-].*)*\.(avi|mkv|mp4|m4v)/i)
+			# Format s01e22e23 ou variantes (s1e1, s01e1, s1e01)
+			temp = chaine.match(/(.*?).s([0-9]{1,2})e([0-9]{1,2})[e_-][0-9]{1,2}([\._\s-].*)*\.(avi|mkv|mp4|m4v)/i) if temp.blank?
 			# Format 1x02 ou 01x02
 			temp = chaine.match(/(.*?).([0-9]{1,2})x([0-9]{1,2})([\._\s-].*)*\.(avi|mkv|mp4|m4v)/i) if temp.blank?
 			# Format 102

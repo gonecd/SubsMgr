@@ -140,9 +140,16 @@ module FileCache
 		if cache.exists?(crc)
 			options[:xml] ? Nokogiri::XML(cache.read(crc)).root : Nokogiri::HTML(cache.read(crc)).root
 		else
-			file = BROWSER.get(source, :referer => options[:refered])
-			cache.write(crc, file.body.to_s)
-			options[:xml] ? Nokogiri::XML(file.body.to_s).root : file.root
+			begin
+				file = BROWSER.get(source, :referer => options[:refered])
+				cache.write(crc, file.body.to_s)
+				options[:xml] ? Nokogiri::XML(file.body.to_s).root : file.root
+			rescue Mechanize::ResponseCodeError => err
+				Tools.logger.error("ERROR: #{source} : #{err.inspect}")
+				txt = "<br/>"
+				cache.write(crc, txt)
+				options[:xml] ? Nokogiri::XML(txt).root : Nokogiri::HTML(txt).root
+			end
 		end
 	end
 
