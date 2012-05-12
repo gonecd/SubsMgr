@@ -26,6 +26,7 @@ require 'active_support/all'
 # Common definitions
 # ------------------------------------------
 require 'structures'
+require 'plugin'
 require 'web_sub'
 require 'ligne'
 require 'file_cache'
@@ -36,7 +37,6 @@ require 'tools'
 # ------------------------------------------
 # Sources managers
 # ------------------------------------------
-require 'plugin'
 require 'series_sub'
 require 'forom'
 require 'local'
