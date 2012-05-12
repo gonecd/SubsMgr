@@ -1,3 +1,4 @@
+# encoding: utf-8
 # Structure d'insertion dans la liste
 class Ligne < CommonStruct
 	attr_accessor :fichier, :date, :conf, :comment

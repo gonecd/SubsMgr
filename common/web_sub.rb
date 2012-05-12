@@ -1,3 +1,4 @@
+# encoding: utf-8
 # Structure de gestion des sous titres trouvés (candidats)
 class WebSub < CommonStruct
 	attr_accessor :fichier, :date, :lien, :source, :referer
@@ -120,9 +121,9 @@ class WebSub < CommonStruct
 		return false unless french?(txt)
 
 		case
-		when txt.match(/s0?#{saison}e0?#{episode}([^0-9]|$)/im): true # format S01E01 et variantes
-		when txt.match(/0?#{saison}x0?#{episode}([^0-9]|$)/im): true # format 01X01 et variantes
-		when txt.match(/#{saison}#{sprintf('%02d',episode)}([^0-9]|$)/im): true		# format 101
+		when txt.match(/s0?#{saison}e0?#{episode}([^0-9]|$)/im) then true # format S01E01 et variantes
+		when txt.match(/0?#{saison}x0?#{episode}([^0-9]|$)/im) then true # format 01X01 et variantes
+		when txt.match(/#{saison}#{sprintf('%02d',episode)}([^0-9]|$)/im) then true		# format 101
 		else false
 		end
 	end

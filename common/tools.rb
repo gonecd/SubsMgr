@@ -1,3 +1,4 @@
+# encoding: utf-8
 module Tools
 	module_function
 	# fonction pour logger les erreurs, on change le niveau de "verbosité" via l'intruction

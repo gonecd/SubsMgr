@@ -1,4 +1,4 @@
-#
+# encoding: utf-8
 #	 SubsMgr.rb
 #	 SubsMgr
 #
@@ -14,7 +14,7 @@ ENV['RUBYCOCOA_THREAD_HOOK_DISABLE'] = '1' # disable thread warning
 require 'osx/cocoa'
 require 'common'
 
-Tools.logger.level = 0 
+Tools.logger.level = 0
 
 class SubsMgr < OSX::NSWindowController
 	# ------------------------------------------
@@ -26,7 +26,7 @@ class SubsMgr < OSX::NSWindowController
 	ib_outlets :bFiltre, :listestats, :bSupprCrochets, :bSupprAccolades, :bCommande
 	ib_outlets :source1, :source2, :source3
 	ib_outlets :refreshItem
-	
+
 	# Petits drapeaux d'erreurs
 	ib_outlets :errSaison, :errEpisode, :errTeam, :errInfos, :errSerie
 
@@ -77,9 +77,9 @@ class SubsMgr < OSX::NSWindowController
 		@spotFilter = ""
 		@appPath = OSX::NSBundle.mainBundle.resourcePath.fileSystemRepresentation
 		Icones.path = File.join(@appPath, "Icones")
-				#@TimerRefresh = OSX::NSTimer		
-		
-				# First run ? Fichier manquants ?
+		#@TimerRefresh = OSX::NSTimer
+
+		# First run ? Fichier manquants ?
 		FileUtils.makedirs(Common::PREF_PATH) unless File.exist?(Common::PREF_PATH)
 		FileUtils.touch("#{Common::PREF_PATH}/SubsMgrHistory.csv") unless File.exist?("#{Common::PREF_PATH}/SubsMgrHistory.csv")
 		unless File.exist?("#{Common::PREF_PATH}/SubsMgrPrefs.plist")
@@ -130,7 +130,7 @@ class SubsMgr < OSX::NSWindowController
 	# ------------------------------------------
 	# Fonctions de gestion des tableaux
 	# ------------------------------------------
-	def rowSelected 
+	def rowSelected
 		@current = @lignes[@liste.selectedRow()]
 
 		begin
@@ -148,7 +148,7 @@ class SubsMgr < OSX::NSWindowController
 			@repTarg.setStringValue(@current.repTarget)
 			@fileTarg.setStringValue(@current.fileTarget)
 
-			# On se posionne sur le meilleur sous titre trouvé, c'est à dire le 1er vu que 
+			# On se posionne sur le meilleur sous titre trouvé, c'est à dire le 1er vu que
 			# les candidats sont triés par ordre décroissant de confiance
 			unless @current.candidats.blank?
 				@subsTot.setIntValue_(@current.candidats.size)
@@ -209,11 +209,11 @@ class SubsMgr < OSX::NSWindowController
 
 	def numberOfRowsInTableView(view)
 		case view.description
-		when @liste.description: @lignes.size
-		when @listeseries.description: @ligneslibrary.size
-		when @listestats.description: Statistics.lignes_stats.size
-		when @ovliste.description: @lignesinfos.size
-		when @listesources.description: @lignessources.size
+		when @liste.description then @lignes.size
+		when @listeseries.description then @ligneslibrary.size
+		when @listestats.description then Statistics.lignes_stats.size
+		when @ovliste.description then @lignesinfos.size
+		when @listesources.description then @lignessources.size
 		else
 			$stderr.puts "Attention : view non identifiée dans numberOfRowsInTableView #{view.description}"
 			@lignes.size
@@ -225,9 +225,9 @@ class SubsMgr < OSX::NSWindowController
 		when @liste.description
 			ligne = @lignes[index]
 			case column.identifier
-			when 'Message': ligne.comment
-			when 'Confiance': ligne.conf
-			when 'None': "-"
+			when 'Message' then ligne.comment
+			when 'Confiance' then ligne.conf
+			when 'None' then "-"
 			else
 				field = column.identifier.downcase
 				ligne.send(field) if ligne.respond_to?(field)
@@ -235,8 +235,11 @@ class SubsMgr < OSX::NSWindowController
 		when @listeseries.description
 			ligne = @ligneslibrary[index]
 			case column.identifier
-			when 'serie': ligne.image
-			when /ep[0-9]+/im : if ligne.episodes[column.identifier.gsub(/ep/im, '').to_i-1] then ligne.episodes[column.identifier.gsub(/ep/im, '').to_i-1]["Statut"] else nil end
+			when 'serie' then ligne.image
+			when /ep[0-9]+/im
+				if ligne.episodes[column.identifier.gsub(/ep/im, '').to_i-1]
+					ligne.episodes[column.identifier.gsub(/ep/im, '').to_i-1]["Statut"]
+				end
 			else
 				field = column.identifier.downcase
 				ligne.send(field) if ligne.respond_to?(field)
@@ -252,7 +255,7 @@ class SubsMgr < OSX::NSWindowController
 		when @listesources.description
 			ligne = @lignessources[index]
 			case column.identifier
-			when 'Ranking': ligne.rank
+			when 'Ranking' then ligne.rank
 			else
 				field = column.identifier.downcase
 				ligne.send(field) if ligne.respond_to?(field)
@@ -271,9 +274,9 @@ class SubsMgr < OSX::NSWindowController
 
 
 
-		# ------------------------------------------
-		# Methodes de récupération des données de base
-		# ------------------------------------------
+	# ------------------------------------------
+	# Methodes de récupération des données de base
+	# ------------------------------------------
 	def Refresh(sender)
 		case @refreshItem.indexOfSelectedItem()
 		when 0
@@ -305,39 +308,40 @@ class SubsMgr < OSX::NSWindowController
 		# Préparation des variables de traitement
 		libCSV = {}
 		case @prefs["Naming Rules"]["Separator"]
-			when 0 then sep = "."
-			when 1 then sep = " "
-			when 2 then sep = "-"
-			when 3 then sep = " - "
+		when 0 then sep = "."
+		when 1 then sep = " "
+		when 2 then sep = "-"
+		when 3 then sep = " - "
 		end
 		case @prefs["Naming Rules"]["Episodes"]
-			when 0 then masque = "%s%ss%02de%02d"
-			when 1 then masque = "%s%s%dx%02d"
-			when 2 then masque = "%s%sS%02dE%02d"
-			when 3 then masque = "%s%s%d%02d"
-			when 4 then masque = "%s%sSaison %d Episode %02d.avi"
+		when 0 then masque = "%s%ss%02de%02d"
+		when 1 then masque = "%s%s%dx%02d"
+		when 2 then masque = "%s%sS%02dE%02d"
+		when 3 then masque = "%s%s%d%02d"
+		when 4 then masque = "%s%sSaison %d Episode %02d.avi"
 		end
-		
+
 		# Récupération des données dans le fichier CSV
 		File.open("#{Common::PREF_PATH}/SubsMgrHistory.csv").each do |line|
-		begin
-			row = CSV.parse_line(line,';')
-			raise CSV::IllegalFormatError unless (row && row.size == 8)
-		
-			# On parse la liste des épisodes
-			ext = row[3].split('.').last
-			balise = sprintf(masque+"."+ext, row[0], sep, row[1], row[2])
-			libCSV[balise] = {	"FichierSource" => row[3], 
-								"FichierSRT" => row[4], 
-								"Date" => row[5], 
-								"AutoManuel" => row[6], 
-								"Source" => row[7]} 
-			
-			rescue CSV::IllegalFormatError => err
+			begin
+				row = CSV.parse_line(line,';')
+				raise CSV::IllegalFormatError unless (row && row.size == 8)
+
+				# On parse la liste des épisodes
+				ext = row[3].split('.').last
+				balise = sprintf(masque+"."+ext, row[0], sep, row[1], row[2])
+				libCSV[balise] = {
+					"FichierSource" => row[3],
+					"FichierSRT" => row[4],
+					"Date" => row[5],
+					"AutoManuel" => row[6],
+					"Source" => row[7]
+				}
+			rescue CSV::IllegalFormatError
 				$stderr.puts "# SubsMgr Error # Invalid CSV history line skipped:\n#{line}"
 			end
 		end
-				
+
 		# Récupération des torrents en attente de download
 		if File.exist?(@prefs["Directories"]["Torrents"])
 			Dir.chdir(@prefs["Directories"]["Torrents"])
@@ -385,7 +389,7 @@ class SubsMgr < OSX::NSWindowController
 				@current = new_ligne
 				AnalyseEpisode(@current.fichier)
 				buildTargets()
-				
+
 				# Mise à jour des infos d'historique si elle existent
 				if libCSV[new_ligne.fichier] != nil
 					new_candid = WebSub.new
@@ -395,7 +399,7 @@ class SubsMgr < OSX::NSWindowController
 					new_candid.source = libCSV[new_ligne.fichier]["Source"]
 					new_candid.referer = "None"
 					new_candid.calcul_confiance(@current)
-					
+
 					@current.candidats << new_candid
 					@current.fichier = libCSV[new_ligne.fichier]["FichierSource"]
 					AnalyseFichier(@current.fichier)
@@ -433,9 +437,9 @@ class SubsMgr < OSX::NSWindowController
 				new_ligne.saison = episode.saison
 				new_ligne.image = SerieBanner(episode.serie.downcase)
 				new_ligne.episodes = []
-		
+
 				@ligneslibrary << new_ligne
-			end		
+			end
 		end
 
 		@ligneslibrary.sort! {|x,y| x.serie+x.saison.to_s <=> y.serie+y.saison.to_s }
@@ -457,7 +461,7 @@ class SubsMgr < OSX::NSWindowController
 
 		@ligneslibrary.each do |maserie|
 			if maserie.serie == "." or maserie.serie == "Error" then next end
-			
+
 			# Recherche de la page de la saison sur TheTVdb
 			monURL = "http://www.thetvdb.com/?tab=series&id="+SerieId(maserie.serie.to_s.downcase).to_s
 			if monURL == "http://www.thetvdb.com/?tab=series&id=0" then next end
@@ -468,22 +472,22 @@ class SubsMgr < OSX::NSWindowController
 					maserie.URLTVdb = monURL
 				end
 			end
-			
+
 			# Lecture des épisodes
 			maserie.episodes = []
 			numero = titre = diffusion = nil
-			
+
 			doc = FileCache.get_html(monURL)
 			doc.search("table#listtable tr td").each_with_index do |k, index|
 				next unless k['class'].match(/odd|even/im)
 				case index.modulo(4)
-				when 0: numero = k.text.to_i
-				when 1: titre = k.text
-				when 2: diffusion = k.text
-				when 3: maserie.episodes << {"Episode" => numero, "Titre" => titre, "Diffusion" => diffusion, "Statut" => nil}
+				when 0 then numero = k.text.to_i
+				when 1 then titre = k.text
+				when 2 then diffusion = k.text
+				when 3 then maserie.episodes << {"Episode" => numero, "Titre" => titre, "Diffusion" => diffusion, "Statut" => nil}
 				end
 			end
-			
+
 			maserie.nbepisodes = maserie.episodes.size()
 		end
 		@listeseries.reloadData()
@@ -644,7 +648,7 @@ class SubsMgr < OSX::NSWindowController
 
 		end
 	end
-	
+
 	def initBanners()
 		@series.each() do |serie|
 			@seriesBanners[serie[0]] = OSX::NSImage.alloc.initWithContentsOfFile_(@prefs["Directories"]["Banners"]+@series[serie[0]]["Banner"])
@@ -668,10 +672,10 @@ class SubsMgr < OSX::NSWindowController
 					linkBanner = k.search("banner").inner_html.downcase.to_s
 					@series.save_plist("#{Common::PREF_PATH}/SubsMgrSeries.plist")
 					found = 1
-					break 
+					break
 				end
 			end
-			
+
 			if found == 1
 				# On loade la bannière sur theTVdb
 				FileUtils.cp(FileCache.get_file("http://www.thetvdb.com/banners/"+linkBanner), @prefs["Directories"]["Banners"]+@series[myserie]["Banner"])
@@ -696,7 +700,7 @@ class SubsMgr < OSX::NSWindowController
 			return 0
 		end
 	end
-	
+
 	def AnalyseFichier(chaine)
 		begin
 			# dans l'ordre du plus précis au moins précis (en particulier le format 101 se telescope avec les autres infos du type 720p ou x264)
@@ -830,22 +834,22 @@ class SubsMgr < OSX::NSWindowController
 
 		end
 	end
-	
+
 	def AnalyseInfosSaison()
 
 		@ligneslibrary.each do |maserie|
 			if maserie.serie == "." or maserie.serie == "Error" then next end
-			
+
 			# Analyse des épisodes de la saison
 			maserie.episodes.each do |myepisode|
 				begin
 					if Date.parse(myepisode["Diffusion"]) < Date.today()
 						myepisode["Statut"] = Icones.list["Aired"]
-					
+
 						subtitled = @allEpisodes.any? do |eps|
 							(eps.serie.downcase.to_s == maserie.serie) and (eps.saison == maserie.saison) and (eps.episode == myepisode["Episode"]) and (eps.status == "Traité")
 						end
-				
+
 						vidloaded = @allEpisodes.any? do |eps|
 							(eps.serie.downcase.to_s == maserie.serie) and (eps.saison == maserie.saison) and (eps.episode == myepisode["Episode"]) and (eps.status == "Attente")
 						end
@@ -861,29 +865,29 @@ class SubsMgr < OSX::NSWindowController
 						myepisode["Statut"] = Icones.list["NotAired"]
 						maserie.status = Icones.list["NotAired"]
 					end
-				
-				rescue Exception=>e
+
+				rescue Exception
 					myepisode["Statut"] = Icones.list["NotAired"]
 					maserie.status = Icones.list["NotAired"]
 				end
 			end
-			
+
 			# Calcul du statut global de la saison
 			maserie.status = Icones.list["Subtitled"]
-			
+
 			vidloaded = maserie.episodes.any? do |eps| (eps["Statut"] == Icones.list["VideoLoaded"]) end
 			if vidloaded then maserie.status = Icones.list["VideoLoaded"] end
-			
+
 			torrentloaded = maserie.episodes.any? do |eps| (eps["Statut"] == Icones.list["TorrentLoaded"]) end
 			if torrentloaded then maserie.status = Icones.list["TorrentLoaded"] end
-			
+
 			aired = maserie.episodes.any? do |eps| (eps["Statut"] == Icones.list["Aired"]) end
 			if aired then maserie.status = Icones.list["Aired"] end
-			
+
 			notaired = maserie.episodes.any? do |eps| (eps["Statut"] == Icones.list["NotAired"]) end
 			if notaired then maserie.status = Icones.list["NotAired"] end
 		end
-		
+
 	end
 
 	# Méthodes des boutons de gestion des versions de sous-titres
@@ -895,7 +899,7 @@ class SubsMgr < OSX::NSWindowController
 		else
 			# Changer le sous titre affiché
 			candidat = @current.candidats[@plusmoins.intValue-1]
-			
+
 			@subsNb.setIntValue(@plusmoins.intValue)
 			@subs.setStringValue(candidat.fichier)
 			@release.setStringValue(candidat.date)
@@ -912,33 +916,33 @@ class SubsMgr < OSX::NSWindowController
 
 
 
-		# ------------------------------------------
-		# Methodes des timers de gestion automatique
-		# ------------------------------------------
-		def ScheduledRefresh(sender)
-				puts "# SubsMgr Info # ScheduledRefresh Started"
-				
-				@refreshItem.selectItemAtIndex(0)
-				Refresh(sender)
-				
-				puts "# SubsMgr Info # ScheduledRefresh Finished"
-		end
+	# ------------------------------------------
+	# Methodes des timers de gestion automatique
+	# ------------------------------------------
+	def ScheduledRefresh(sender)
+		puts "# SubsMgr Info # ScheduledRefresh Started"
 
-		def ScheduledSearch(sender)
-				puts "# SubsMgr Info # ScheduledSearch Started"
-				
-				
-				
-				puts "# SubsMgr Info # ScheduledSearch Finished"
-		end
+		@refreshItem.selectItemAtIndex(0)
+		Refresh(sender)
 
-		def ScheduledProcess(sender)
-				puts "# SubsMgr Info # ScheduledProcess Started"
-				
-				
-				
-				puts "# SubsMgr Info # ScheduledProcess Finished"		
-		end
+		puts "# SubsMgr Info # ScheduledRefresh Finished"
+	end
+
+	def ScheduledSearch(sender)
+		puts "# SubsMgr Info # ScheduledSearch Started"
+
+
+
+		puts "# SubsMgr Info # ScheduledSearch Finished"
+	end
+
+	def ScheduledProcess(sender)
+		puts "# SubsMgr Info # ScheduledProcess Started"
+
+
+
+		puts "# SubsMgr Info # ScheduledProcess Finished"
+	end
 
 
 	# ------------------------------------------
@@ -1100,8 +1104,8 @@ class SubsMgr < OSX::NSWindowController
 		Plugin::LIST.each do |p|
 			plugin = Plugin.constantize(p)
 			if plugin && @lignessources[plugin::INDEX].active == 1
-				threads << Thread.new(plugin) { |plugin|
-					plugin.new(@current, @lignessources[plugin::INDEX].rank, @plusmoins.intValue-1).search_sub
+				threads << Thread.new(plugin) { |e|
+					e.new(@current, @lignessources[plugin::INDEX].rank, @plusmoins.intValue-1).search_sub
 				}
 			end
 		end
@@ -1362,7 +1366,7 @@ class SubsMgr < OSX::NSWindowController
 
 		# Mettre à jour la liste
 		@current.processed!
-		
+
 		# Rangement des fichiers
 		CheckArbo()
 
@@ -1421,10 +1425,10 @@ class SubsMgr < OSX::NSWindowController
 	ib_action :ViewDir
 
 	def SerieInfos(sender)
-		
+
 		@ovserie = @ligneslibrary[@listeseries.selectedRow()]
 		@ovimage.setImage(@ovserie.image)
-		
+
 		# Remplissage du tableau et vérification du status
 		@lignesinfos.clear()
 		subsok = 0
@@ -1538,7 +1542,7 @@ class SubsMgr < OSX::NSWindowController
 
 		# Onglet Sources
 		j = 0
-		for i in ["Forom", "Podnapisi", "SeriesSub", "SousTitresEU", "TVSubs", "TVSubtitles", "Local", "MySource"]
+		for i in Plugin::LIST
 			@prefs["Sources"][i]["Active"] = @lignessources[j].active
 			@prefs["Sources"][i]["Ranking"] = @lignessources[j].rank
 			j = j+1
@@ -1554,14 +1558,14 @@ class SubsMgr < OSX::NSWindowController
 		@prefs.save_plist("#{Common::PREF_PATH}/SubsMgrPrefs.plist")
 		PrefRefreshMain()
 
-				# Activation des timers de refresh
-				#case @prefs["Automatism"]["Schedule RefreshAll"]
-				#		 when 0: if @TimerRefresh.isValid then @TimerRefresh.invalidate end
-				#		 when 1: @TimerRefresh.scheduledTimerWithTimeInterval_target_selector_userInfo_repeats_(15.0, self, :ScheduledRefresh, nil, true)
-				#		 when 2: @TimerRefresh.scheduledTimerWithTimeInterval_target_selector_userInfo_repeats_(60.0, self, :ScheduledRefresh, nil, true)						
-				#end
+		# Activation des timers de refresh
+		#case @prefs["Automatism"]["Schedule RefreshAll"]
+		#		 when 0: if @TimerRefresh.isValid then @TimerRefresh.invalidate end
+		#		 when 1: @TimerRefresh.scheduledTimerWithTimeInterval_target_selector_userInfo_repeats_(15.0, self, :ScheduledRefresh, nil, true)
+		#		 when 2: @TimerRefresh.scheduledTimerWithTimeInterval_target_selector_userInfo_repeats_(60.0, self, :ScheduledRefresh, nil, true)
+		#end
 
-				@fenPref.close()
+		@fenPref.close()
 	end
 	ib_action :PrefValid
 
@@ -1593,7 +1597,7 @@ class SubsMgr < OSX::NSWindowController
 
 		# Onglet Sources
 		j = 0
-		for i in ["Forom", "Podnapisi", "SeriesSub", "SousTitresEU", "TVSubs", "TVSubtitles", "Local", "MySource"]
+		for i in Plugin::LIST
 			@lignessources[j].active = @prefs["Sources"][i]["Active"]
 			@lignessources[j].rank = @prefs["Sources"][i]["Ranking"]
 			j = j+1
@@ -1607,16 +1611,16 @@ class SubsMgr < OSX::NSWindowController
 
 		PrefRefreshMain()
 		@fenPref.close()
-				
-				# Activation des timers de refresh
-				#case @prefs["Automatism"]["Schedule RefreshAll"]
-				#		 when 0: @TimerRefresh.invalidate()
-				#		 when 1: @TimerRefresh.scheduledTimerWithTimeInterval_target_selector_userInfo_repeats_(15.0, self, :ScheduledRefresh, nil, true)
-				#		 when 2: @TimerRefresh.scheduledTimerWithTimeInterval_target_selector_userInfo_repeats_(60.0, self, :ScheduledRefresh, nil, true)						
-				#		 end
-				#@TimerRefresh = OSX::NSTimer.scheduledTimerWithTimeInterval_target_selector_userInfo_repeats_(60.0, self, :ScheduledRefresh, nil, true)
-				#@TimerSearch = OSX::NSTimer.scheduledTimerWithTimeInterval_target_selector_userInfo_repeats_(5.0, self, :ScheduledSearch, nil, true)
-				#@TimerProcess = OSX::NSTimer.scheduledTimerWithTimeInterval_target_selector_userInfo_repeats_(5.0, self, :ScheduledProcess, nil, true)
+
+		# Activation des timers de refresh
+		#case @prefs["Automatism"]["Schedule RefreshAll"]
+		#		 when 0: @TimerRefresh.invalidate()
+		#		 when 1: @TimerRefresh.scheduledTimerWithTimeInterval_target_selector_userInfo_repeats_(15.0, self, :ScheduledRefresh, nil, true)
+		#		 when 2: @TimerRefresh.scheduledTimerWithTimeInterval_target_selector_userInfo_repeats_(60.0, self, :ScheduledRefresh, nil, true)
+		#		 end
+		#@TimerRefresh = OSX::NSTimer.scheduledTimerWithTimeInterval_target_selector_userInfo_repeats_(60.0, self, :ScheduledRefresh, nil, true)
+		#@TimerSearch = OSX::NSTimer.scheduledTimerWithTimeInterval_target_selector_userInfo_repeats_(5.0, self, :ScheduledSearch, nil, true)
+		#@TimerProcess = OSX::NSTimer.scheduledTimerWithTimeInterval_target_selector_userInfo_repeats_(5.0, self, :ScheduledProcess, nil, true)
 	end
 	ib_action :PrefCancel
 
@@ -1639,7 +1643,7 @@ class SubsMgr < OSX::NSWindowController
 			# on ne dispose que de 3 colonnes de sources donc on arrête quand ca va deborder ;-)
 			break if @sourcesActives == 3
 		end
-		
+
 		# si moins de 3 sources, on complete l'initialisation
 		while @sourcesActives < 3
 			@sourcesActives += 1
@@ -1648,7 +1652,7 @@ class SubsMgr < OSX::NSWindowController
 			@liste.tableColumns[idx].setIdentifier('None')
 			@liste.tableColumns[idx].setHeaderToolTip('None')
 		end
-		
+
 		@liste.reloadData()
 
 		# Affichage des flags de Suppression des tags
@@ -1667,7 +1671,7 @@ class SubsMgr < OSX::NSWindowController
 	ib_action :PrefSourceModif
 
 	def PrefSourceValid(sender)
-		if (@activeSource.state == 0) && (@lignessources[@listesources.selectedRow].active == 1) 
+		if (@activeSource.state == 0) && (@lignessources[@listesources.selectedRow].active == 1)
 			@sourcesActives -= - 1
 		end
 
@@ -1708,7 +1712,7 @@ class SubsMgr < OSX::NSWindowController
 		end
 	end
 	ib_action :PrefDirChoose
-	
+
 	def DeleteCache(sender)
 		FileCache.clean()
 	end

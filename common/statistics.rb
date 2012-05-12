@@ -1,3 +1,4 @@
+# encoding: utf-8
 module Statistics
 	module_function
 	def lignes_stats

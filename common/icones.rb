@@ -1,3 +1,4 @@
+# encoding: utf-8
 module Icones
 	module_function
 	def path=(new_value)
