@@ -4,8 +4,13 @@ class Ligne < CommonStruct
 	attr_accessor :fichier, :date, :conf, :comment
 	attr_accessor :serie, :saison, :episode, :team, :format, :source, :provider, :titre, :infos
 	attr_accessor :repTarget, :fileTarget
-	attr_accessor :forom, :seriessub, :podnapisi, :tvsubs, :tvsubtitles, :local, :mysource, :soustitreseu
 	attr_accessor :status, :candidats
+	
+	# on sait pas trop pourquoi, mais il faut un accessor par plugin, portant le nom
+	# du plugin => sinon ca fait planter l'interface de Cyril, même s'il ne sait pas pourquoi
+	Plugin::LIST.each do |k|
+		attr_accessor k.downcase.to_sym
+	end
 	
 	def initialize(*args)
 		self.comment = ""
