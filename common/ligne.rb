@@ -44,7 +44,9 @@ class Ligne < CommonStruct
 	
 	private
 	def init_with(val)
-		self.forom = self.seriessub = self.podnapisi = self.tvsubs = self.tvsubtitles = self.soustitreseu = self.mysource = self.local = val
+		Plugin::LIST.each do |k|
+			self.send("#{k.downcase}=", val)
+		end
 	end
 
 end
