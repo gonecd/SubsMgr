@@ -1,4 +1,3 @@
-# encoding: utf-8
 # Structure de gestion des sous titres trouvés (candidats)
 class WebSub < CommonStruct
 	attr_accessor :fichier, :date, :lien, :source, :referer
@@ -45,8 +44,11 @@ class WebSub < CommonStruct
 			# Check du nom de la team
 			# on verifie le nom complet, mais aussi les formes du type .3LETTRES. et .4LETTRES.
 			unless fichier.match(%r{(#{ligne.team}|[\.-]#{ligne.team.to_s[0..3]}?[\.-])}i)
-				self.score -=	 3
-				self.errors[:team] = true
+				# dim et lol sont le même groupe
+				unless ligne.team.match(/^(dim|lol|dimension)$/im) && fichier.match(/(dim[\.-]|lol[\.-]|dimension)/im)
+					self.score -=	 3
+					self.errors[:team] = true
+				end
 			end
 
 			# Check des infos supplémentaires, mais sans tenir compte de l'ordre qui peut varier
