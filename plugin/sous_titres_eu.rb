@@ -1,5 +1,4 @@
 class Plugin::SousTitresEU < Plugin::Base
-	ICONE = 'soustitreseu.png'
 
 	def get_from_source
 		item = current.candidats[idx_candidat]

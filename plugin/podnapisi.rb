@@ -1,5 +1,4 @@
 class Plugin::Podnapisi < Plugin::Base
-	ICONE = 'podnapisi.ico'
 
 	def get_from_source
 		item = current.candidats[idx_candidat]

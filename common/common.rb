@@ -37,11 +37,12 @@ require 'tools'
 # ------------------------------------------
 # Sources managers
 # ------------------------------------------
-require 'series_sub'
+require 'addicted'
 require 'forom'
 require 'local'
 require 'my_source'
 require 'podnapisi'
+require 'series_sub'
 require 'sous_titres_eu'
 require 'tv_subs'
 require 'tv_subtitles'

@@ -1,5 +1,4 @@
 class Plugin::Forom < Plugin::Base
-	ICONE = 'forom.ico'
 	@@forom_key = nil
 	
 	def self.forom_key=(new_value)

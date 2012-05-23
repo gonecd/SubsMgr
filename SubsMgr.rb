@@ -1596,11 +1596,11 @@ class SubsMgr < OSX::NSWindowController
 		@pForomKey.setStringValue(@prefs["Automatism"]["Forom key"])
 
 		# Onglet Sources
-		j = 0
-		for i in Plugin::LIST
-			@lignessources[j].active = @prefs["Sources"][i]["Active"]
-			@lignessources[j].rank = @prefs["Sources"][i]["Ranking"]
-			j = j+1
+		Plugin::LIST.each_with_index do |key, idx|
+			if @prefs["Sources"][key]
+				@lignessources[idx].active = @prefs["Sources"][key]["Active"]
+				@lignessources[idx].rank = @prefs["Sources"][key]["Ranking"]
+			end
 		end
 
 		# Onglet Subs management

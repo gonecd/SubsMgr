@@ -1,5 +1,4 @@
 class Plugin::Local < Plugin::Base
-	ICONE = 'dir.png'
 	@@local_path = nil
 
 	def self.local_path

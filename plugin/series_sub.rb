@@ -2,7 +2,6 @@
 # ex: Dexter.S5 => http://www.seriessub.com/sous-titres/dexter/saison_5/
 
 class Plugin::SeriesSub < Plugin::Base
-	ICONE = 'seriessub.png'
 
 	def get_from_source
 		item = current.candidats[idx_candidat]

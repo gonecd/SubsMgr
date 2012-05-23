@@ -1,5 +1,4 @@
 class Plugin::TVSubtitles < Plugin::Base
-	ICONE = 'tvsubtitles.png'
 
 	def get_from_source
 		item = current.candidats[idx_candidat]

@@ -1,5 +1,4 @@
 class Plugin::MySource < Plugin::Base
-	ICONE = 'SubsMgr.icns'
 
 	def get_from_source
 		# generer le fichier /tmp/Subs.srt
