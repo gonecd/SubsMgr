@@ -35,18 +35,13 @@ require 'statistics'
 require 'tools'
 
 # ------------------------------------------
-# Sources managers
+# Sources managers: chargement dynamique
 # ------------------------------------------
-require 'addicted'
-require 'forom'
-require 'local'
-require 'my_source'
-require 'podnapisi'
-require 'series_sub'
-require 'sous_titres_eu'
-require 'tv_subs'
-require 'tv_subtitles'
-
+Dir.glob(File.expand_path(File.dirname(__FILE__) + "/../plugin/*.rb")).each do |f|
+	name = f.split('/').last.gsub('.rb', '')
+	next if name == 'plugin'
+	require name
+end
 
 # ------------------------------------------
 # Common tools
