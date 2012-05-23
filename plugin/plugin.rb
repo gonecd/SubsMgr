@@ -1,5 +1,5 @@
 module Plugin
-	LIST = ["Forom", "Podnapisi", "SeriesSub", "SousTitresEU", "TVSubs", "TVSubtitles", "Local", "MySource"]
+	LIST = ["Forom", "Podnapisi", "SeriesSub", "SousTitresEU", "TVSubs", "TVSubtitles", "Addicted", "Local", "MySource"]
 
 	def self.index
 		LIST.index(self.name.split(':').last)
