@@ -132,7 +132,8 @@ class SubsMgr < OSX::NSWindowController
 	# ------------------------------------------
 	def rowSelected
 		@current = @lignes[@liste.selectedRow()]
-
+		return unless @current
+		 
 		begin
 			clearResults()
 
@@ -168,7 +169,6 @@ class SubsMgr < OSX::NSWindowController
 			Tools.logger.error "# SubsMgr Error # rowSelected ["+@current.fichier+"] : "+e
 			@current.comment = "Pb dans l'analyse du fichier"
 		end
-
 		@liste.reloadData
 	end
 	ib_action :rowSelected
