@@ -44,7 +44,7 @@ end
 # Structure d'insertion dans les sources
 class Sources < CommonStruct
 	attr_accessor :source, :image, :active, :rank
-
+	
 	def to_s
 		"<Sources source:#{source} - active:#{active} - rank:#{rank}>"
 	end

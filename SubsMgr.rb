@@ -94,6 +94,8 @@ class SubsMgr < OSX::NSWindowController
 			new_ligne = Sources.new
 			new_ligne.source = i
 			new_ligne.image = Icones.list[i]
+			new_ligne.active = 0
+			new_ligne.rank = 0
 			@lignessources << new_ligne
 		end
 		@listesources.reloadData
@@ -133,7 +135,7 @@ class SubsMgr < OSX::NSWindowController
 	def rowSelected
 		@current = @lignes[@liste.selectedRow()]
 		return unless @current
-		 
+
 		begin
 			clearResults()
 
@@ -1102,11 +1104,12 @@ class SubsMgr < OSX::NSWindowController
 		# Recherche pour les sources actives en // (enfin si ruby supporte les threads !)
 		threads = []
 		Plugin::LIST.each do |p|
-			plugin = Plugin.constantize(p)
-			if plugin && @lignessources[plugin.index].active == 1
-				threads << Thread.new(plugin) { |e|
-					e.new(@current, @lignessources[plugin.index].rank, @plusmoins.intValue-1).search_sub
-				}
+			if (plugin = Plugin.constantize(p))
+				if @lignessources[plugin.index] && @lignessources[plugin.index].active.to_i == 1
+					threads << Thread.new(plugin) { |e|
+						e.new(@current, @lignessources[e.index].rank, @plusmoins.intValue-1).search_sub
+					}
+				end
 			end
 		end
 		# et on attend que tout le monde ait terminé

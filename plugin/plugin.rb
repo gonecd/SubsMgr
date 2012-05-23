@@ -76,7 +76,7 @@ module Plugin
 		end
 
 		def self.index
-			Plugin::LIST.index(field_name)
+			Plugin::LIST.index(self.name.split(':').last).to_i
 		end
 
 	end
