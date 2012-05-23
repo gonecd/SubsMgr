@@ -54,7 +54,10 @@ module FileCache
 
 	BROWSER = Mechanize.new { |agent|
 		agent.user_agent_alias = 'Mac Safari'
+		agent.gzip_enabled = false
 		agent.follow_meta_refresh = false
+		agent.history.max_size = 5
+		agent.keep_alive = false
 	}
 
 	module_function
@@ -123,7 +126,7 @@ module FileCache
 		if cache.exists?(crc)
 			Tools.logger.debug("# SubsMgr cache - Load #{source}")
 		else
-			Tools.logger.debug("# SubsMgr cache - Live request #{source}")
+			Tools.logger.debug("# SubsMgr cache - Live request #{source} - Referer: #{options[:referer]}")
 			file = BROWSER.get(source, :referer => options[:referer])
 			cache.write(crc, file.body)
 			flatten_archive(path) if options[:zip]
