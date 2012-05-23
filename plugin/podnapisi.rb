@@ -1,7 +1,5 @@
 class Plugin::Podnapisi < Plugin::Base
-	INDEX = 1
 	ICONE = 'podnapisi.ico'
-	NAME = 'podnapisi'
 
 	def get_from_source
 		item = current.candidats[idx_candidat]
@@ -27,8 +25,6 @@ class Plugin::Podnapisi < Plugin::Base
 		doc = FileCache.get_html(monURL)
 		doc.search("div[@class*='seznambg'] tr[@class*='bg']").collect do |k|
 			if k.inner_html.to_s.match(/-sous-titres-p/im)
-				listetd = k.search("td")
-
 				new_ligne = WebSub.new
 				new_ligne.fichier = "#{k.at(".release").try(:text)}.srt"
 				new_ligne.date = k.at("td:nth-of-type(7)").text.strip.split(/[^0-9]+/).reverse.join("-")

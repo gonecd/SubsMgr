@@ -1008,7 +1008,7 @@ class SubsMgr < OSX::NSWindowController
 
 		src = @current.candidats[@plusmoins.intValue-1].source
 		if (kls = Plugin.constantize(src))
-			Statistics.update_stats_accept(kls::INDEX, start, sender)
+			Statistics.update_stats_accept(kls.index, start, sender)
 			@current.send("#{src.downcase}=", "©")
 		else
 			$stderr.puts "Je suis perdu, j'ai jamais entendu parlé de #{src}!"
@@ -1103,9 +1103,9 @@ class SubsMgr < OSX::NSWindowController
 		threads = []
 		Plugin::LIST.each do |p|
 			plugin = Plugin.constantize(p)
-			if plugin && @lignessources[plugin::INDEX].active == 1
+			if plugin && @lignessources[plugin.index].active == 1
 				threads << Thread.new(plugin) { |e|
-					e.new(@current, @lignessources[plugin::INDEX].rank, @plusmoins.intValue-1).search_sub
+					e.new(@current, @lignessources[plugin.index].rank, @plusmoins.intValue-1).search_sub
 				}
 			end
 		end
@@ -1401,7 +1401,7 @@ class SubsMgr < OSX::NSWindowController
 		if @current.candidats[@plusmoins.intValue-1].lien != ""
 			begin
 				plugin = Plugin.constantize(@current.candidats[@plusmoins.intValue-1].source)
-				plugin.new(@current, @lignessources[plugin::INDEX].rank, @plusmoins.intValue-1).get_from_source
+				plugin.new(@current, @lignessources[plugin.index].rank, @plusmoins.intValue-1).get_from_source
 			rescue NoMethodError => err
 				$stderr.puts "# SubsMgr Error # GetSub [ #{@current.fichier} ] - #{err.inspect}"
 			end

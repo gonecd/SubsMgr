@@ -1,7 +1,5 @@
 class Plugin::TVSubs < Plugin::Base
-	INDEX = 4
 	ICONE = 'tvsubs.ico'
-	NAME = 'tvsubs'
 
 	def get_from_source
 		item = current.candidats[idx_candidat]

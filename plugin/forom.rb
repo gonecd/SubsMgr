@@ -1,7 +1,5 @@
 class Plugin::Forom < Plugin::Base
-	INDEX = 0
 	ICONE = 'forom.ico'
-	NAME = 'seriessub'
 	@@forom_key = nil
 	
 	def self.forom_key=(new_value)
@@ -34,7 +32,6 @@ class Plugin::Forom < Plugin::Base
 				end
 				if foundTmp == 1
 					foundTmp = 0
-					saisonref = k.text.to_s.scan(/.*saison ([0-9]*)/)
 					k.search("td").each do |k2|
 						if k2.text.match("ici")
 							val = k2.search("a").attr("href").gsub(/[0-9]/, current.saison.to_s)

@@ -2,9 +2,7 @@
 # ex: Dexter.S5 => http://www.seriessub.com/sous-titres/dexter/saison_5/
 
 class Plugin::SeriesSub < Plugin::Base
-	INDEX = 2
 	ICONE = 'seriessub.png'
-	NAME = 'seriessub'
 
 	def get_from_source
 		item = current.candidats[idx_candidat]

@@ -1,6 +1,14 @@
 module Plugin
 	LIST = ["Forom", "Podnapisi", "SeriesSub", "SousTitresEU", "TVSubs", "TVSubtitles", "Local", "MySource"]
 
+	def self.index
+		LIST.index(self.name.split(':').last)
+	end
+	
+	def self.field_name
+		self.name.split(':').last.downcase
+	end
+	
 	def constantize(kls)
 		if kls != '' && const_defined?(kls)
 			Plugin.const_get(kls)
@@ -64,10 +72,12 @@ module Plugin
 				Tools.logger.error "# SubsMgr Error # search_sub #{self.class.name} [#{current.fichier}]: #{e.inspect}\n#{e.backtrace.join("\n")}"
 				self.current.comment = "Pb dans le parsing #{self.class.name}"
 			end
-			self.current.send("#{self.class::NAME}=", count)
+			
+			field_name 
+			self.current.send("#{self.class.field_name}=", count)
 			# Mise à jour des stats
 			# FIXME: remettre en place une fonction independante de l'UI
-			Statistics.update_stats_search(self.class::INDEX, start, marks, count) if count > -1
+			Statistics.update_stats_search(self.class.index, start, marks, count) if count > -1
 		end
 
 	end

@@ -1,7 +1,5 @@
 class Plugin::Local < Plugin::Base
-	INDEX = 6
 	ICONE = 'dir.png'
-	NAME = 'local'
 	@@local_path = nil
 
 	def self.local_path
