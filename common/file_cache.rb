@@ -136,7 +136,7 @@ module FileCache
 				Tools.logger.debug "SubsMgr cache - Force referer #{options[:referer]}"
 				BROWSER.get(options[:referer])
 			end
-			Tools.logger.debug("# SubsMgr cache - Live request #{source} - Referer: #{options[:referer]}")
+			Tools.logger.debug("# SubsMgr cache - Live request #{source}")
 			file = BROWSER.get(source, [], options[:referer])
 			cache.write(crc, file.body)
 			flatten_archive(path) if options[:zip]
