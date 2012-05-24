@@ -72,16 +72,16 @@ module FileCache
 	end
 	
 	# recuperer un sous titre non compressé
-	def get_srt(link, referer = nil)
-		path = get_file(link, :referer => referer)
+	def get_srt(link, referer = nil, load_referer = false)
+		path = get_file(link, :referer => referer, :load_referer => load_referer)
 		FileUtils.cp(path, "/tmp/Sub.srt")
 	end
 
 	# recuperer un zip contenant le bon sous titre
-	def get_zip(link, file, referer = nil)
+	def get_zip(link, file, referer = nil, load_referer = false)
 		begin
 			# Récupération du zip
-			full_path = get_file(link, :referer => referer, :zip => true)
+			full_path = get_file(link, :referer => referer, :zip => true, :load_referer => load_referer)
 
 			# Extraction du zip
 			if file == "None"
@@ -131,6 +131,11 @@ module FileCache
 		if cache.exists?(crc)
 			Tools.logger.debug("# SubsMgr cache - Load #{source}")
 		else
+			if options[:load_referer] && options[:referer]
+				# parfois il faut vraiment aller sur la page de referer au préalable pour être sur que tout est positionné correctement
+				Tools.logger.debug "SubsMgr cache - Force referer #{options[:referer]}"
+				BROWSER.get(options[:referer])
+			end
 			Tools.logger.debug("# SubsMgr cache - Live request #{source} - Referer: #{options[:referer]}")
 			file = BROWSER.get(source, [], options[:referer])
 			cache.write(crc, file.body)

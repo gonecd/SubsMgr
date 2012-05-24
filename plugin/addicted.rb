@@ -3,7 +3,7 @@ class Plugin::Addicted < Plugin::Base
 	def get_from_source
 		# generer le fichier /tmp/Subs.srt
 		item = current.candidats[idx_candidat]
-		FileCache.get_srt("http://www.addic7ed.com#{item.lien}", item.referer)
+		FileCache.get_srt("http://www.addic7ed.com#{item.lien}", item.referer, true)
 	end
 
 	def do_search
