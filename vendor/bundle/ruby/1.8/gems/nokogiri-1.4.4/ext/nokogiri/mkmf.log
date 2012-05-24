@@ -1,6 +1,6 @@
 find_header: checking for libxml/parser.h... -------------------- yes
 
-"gcc -E -I. -I/Users/olivier/.rvm/rubies/ree-1.8.7-2011.01/lib/ruby/1.8/i686-darwin10.6.0 -I. -I-I-I/opt/local/include -I-I-I/usr/local/include -I-I-I/Users/olivier/.rvm/rubies/ree-1.8.7-2011.01/include -I-I-I/usr/include -I-I-I/usr/include/libxml2 -I/opt/local/include/libxml2 -I/usr/local/include/libxml2 -I/Users/olivier/.rvm/rubies/ree-1.8.7-2011.01/include/libxml2 -I-I/opt/local/include -I-I/usr/local/include -I-I/Users/olivier/.rvm/rubies/ree-1.8.7-2011.01/include -I-I/usr/include -I-I/usr/include/libxml2 -I/opt/local/include -I/usr/local/include -I/Users/olivier/.rvm/rubies/ree-1.8.7-2011.01/include -I/usr/include -I/usr/include/libxml2  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2   -fno-common -pipe -fno-common    -g -DXP_UNIX -O3 -Wall -Wcast-qual -Wwrite-strings -Wconversion -Wmissing-noreturn -Winline  conftest.c -o conftest.i"
+"gcc -E -I. -I/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/universal-darwin11.0 -I. -I-I-I/opt/local/include -I-I-I/usr/local/include -I-I-I/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/include -I-I-I/usr/include -I-I-I/usr/include/libxml2 -I/opt/local/include/libxml2 -I/usr/local/include/libxml2 -I/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/include/libxml2 -I-I/opt/local/include -I-I/usr/local/include -I-I/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/include -I-I/usr/include -I-I/usr/include/libxml2 -I/opt/local/include -I/usr/local/include -I/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/include -I/usr/include -I/usr/include/libxml2  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE     -g -Os -pipe -fno-common -DENABLE_DTRACE  -fno-common  -pipe -fno-common    -g -DXP_UNIX -O3 -Wall -Wcast-qual -Wwrite-strings -Wconversion -Wmissing-noreturn -Winline  conftest.c -o conftest.i"
 checked program was:
 /* begin */
 1: #include <libxml/parser.h>
@@ -10,7 +10,7 @@ checked program was:
 
 find_header: checking for libxslt/xslt.h... -------------------- yes
 
-"gcc -E -I. -I/Users/olivier/.rvm/rubies/ree-1.8.7-2011.01/lib/ruby/1.8/i686-darwin10.6.0 -I. -I-I-I/opt/local/include -I-I-I/usr/local/include -I-I-I/Users/olivier/.rvm/rubies/ree-1.8.7-2011.01/include -I-I-I/usr/include -I-I-I/usr/include/libxml2 -I/opt/local/include/libxml2 -I/usr/local/include/libxml2 -I/Users/olivier/.rvm/rubies/ree-1.8.7-2011.01/include/libxml2 -I-I/opt/local/include -I-I/usr/local/include -I-I/Users/olivier/.rvm/rubies/ree-1.8.7-2011.01/include -I-I/usr/include -I-I/usr/include/libxml2 -I/opt/local/include -I/usr/local/include -I/Users/olivier/.rvm/rubies/ree-1.8.7-2011.01/include -I/usr/include -I/usr/include/libxml2  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2   -fno-common -pipe -fno-common    -g -DXP_UNIX -O3 -Wall -Wcast-qual -Wwrite-strings -Wconversion -Wmissing-noreturn -Winline  conftest.c -o conftest.i"
+"gcc -E -I. -I/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/universal-darwin11.0 -I. -I-I-I/opt/local/include -I-I-I/usr/local/include -I-I-I/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/include -I-I-I/usr/include -I-I-I/usr/include/libxml2 -I/opt/local/include/libxml2 -I/usr/local/include/libxml2 -I/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/include/libxml2 -I-I/opt/local/include -I-I/usr/local/include -I-I/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/include -I-I/usr/include -I-I/usr/include/libxml2 -I/opt/local/include -I/usr/local/include -I/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/include -I/usr/include -I/usr/include/libxml2  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE     -g -Os -pipe -fno-common -DENABLE_DTRACE  -fno-common  -pipe -fno-common    -g -DXP_UNIX -O3 -Wall -Wcast-qual -Wwrite-strings -Wconversion -Wmissing-noreturn -Winline  conftest.c -o conftest.i"
 checked program was:
 /* begin */
 1: #include <libxslt/xslt.h>
@@ -20,7 +20,7 @@ checked program was:
 
 find_header: checking for libexslt/exslt.h... -------------------- yes
 
-"gcc -E -I. -I/Users/olivier/.rvm/rubies/ree-1.8.7-2011.01/lib/ruby/1.8/i686-darwin10.6.0 -I. -I-I-I/opt/local/include -I-I-I/usr/local/include -I-I-I/Users/olivier/.rvm/rubies/ree-1.8.7-2011.01/include -I-I-I/usr/include -I-I-I/usr/include/libxml2 -I/opt/local/include/libxml2 -I/usr/local/include/libxml2 -I/Users/olivier/.rvm/rubies/ree-1.8.7-2011.01/include/libxml2 -I-I/opt/local/include -I-I/usr/local/include -I-I/Users/olivier/.rvm/rubies/ree-1.8.7-2011.01/include -I-I/usr/include -I-I/usr/include/libxml2 -I/opt/local/include -I/usr/local/include -I/Users/olivier/.rvm/rubies/ree-1.8.7-2011.01/include -I/usr/include -I/usr/include/libxml2  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2   -fno-common -pipe -fno-common    -g -DXP_UNIX -O3 -Wall -Wcast-qual -Wwrite-strings -Wconversion -Wmissing-noreturn -Winline  conftest.c -o conftest.i"
+"gcc -E -I. -I/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/universal-darwin11.0 -I. -I-I-I/opt/local/include -I-I-I/usr/local/include -I-I-I/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/include -I-I-I/usr/include -I-I-I/usr/include/libxml2 -I/opt/local/include/libxml2 -I/usr/local/include/libxml2 -I/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/include/libxml2 -I-I/opt/local/include -I-I/usr/local/include -I-I/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/include -I-I/usr/include -I-I/usr/include/libxml2 -I/opt/local/include -I/usr/local/include -I/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/include -I/usr/include -I/usr/include/libxml2  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE     -g -Os -pipe -fno-common -DENABLE_DTRACE  -fno-common  -pipe -fno-common    -g -DXP_UNIX -O3 -Wall -Wcast-qual -Wwrite-strings -Wconversion -Wmissing-noreturn -Winline  conftest.c -o conftest.i"
 checked program was:
 /* begin */
 1: #include <libexslt/exslt.h>
@@ -30,12 +30,20 @@ checked program was:
 
 have_func: checking for iconv_open() in iconv.h... -------------------- no
 
-"gcc -o conftest -I. -I/Users/olivier/.rvm/rubies/ree-1.8.7-2011.01/lib/ruby/1.8/i686-darwin10.6.0 -I. -I-I-I/opt/local/include -I-I-I/usr/local/include -I-I-I/Users/olivier/.rvm/rubies/ree-1.8.7-2011.01/include -I-I-I/usr/include -I-I-I/usr/include/libxml2 -I/opt/local/include/libxml2 -I/usr/local/include/libxml2 -I/Users/olivier/.rvm/rubies/ree-1.8.7-2011.01/include/libxml2 -I-I/opt/local/include -I-I/usr/local/include -I-I/Users/olivier/.rvm/rubies/ree-1.8.7-2011.01/include -I-I/usr/include -I-I/usr/include/libxml2 -I/opt/local/include -I/usr/local/include -I/Users/olivier/.rvm/rubies/ree-1.8.7-2011.01/include -I/usr/include -I/usr/include/libxml2  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2   -fno-common -pipe -fno-common    -g -DXP_UNIX -O3 -Wall -Wcast-qual -Wwrite-strings -Wconversion -Wmissing-noreturn -Winline conftest.c  -L. -L/Users/olivier/.rvm/rubies/ree-1.8.7-2011.01/lib -L/opt/local/lib -L/usr/local/lib -L/Users/olivier/.rvm/rubies/ree-1.8.7-2011.01/lib -L/usr/lib -L.      -lruby-static  -ldl -lobjc   "
-Undefined symbols:
-  "_libiconv_open", referenced from:
-      _t in ccRJKD9T.o
-ld: symbol(s) not found
+"gcc -o conftest -I. -I/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/universal-darwin11.0 -I. -I-I-I/opt/local/include -I-I-I/usr/local/include -I-I-I/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/include -I-I-I/usr/include -I-I-I/usr/include/libxml2 -I/opt/local/include/libxml2 -I/usr/local/include/libxml2 -I/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/include/libxml2 -I-I/opt/local/include -I-I/usr/local/include -I-I/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/include -I-I/usr/include -I-I/usr/include/libxml2 -I/opt/local/include -I/usr/local/include -I/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/include -I/usr/include -I/usr/include/libxml2  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -arch x86_64 -arch i386 -g -Os -pipe -fno-common -DENABLE_DTRACE  -fno-common  -pipe -fno-common    -g -DXP_UNIX -O3 -Wall -Wcast-qual -Wwrite-strings -Wconversion -Wmissing-noreturn -Winline conftest.c  -L. -L/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib -L/opt/local/lib -L/usr/local/lib -L/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib -L/usr/lib -L. -arch x86_64 -arch i386      -lruby  -lpthread -ldl -lobjc   "
+ld: warning: directory not found for option '-L/opt/local/lib'
+Undefined symbols for architecture x86_64:
+  "_iconv_open", referenced from:
+      _t in cctvtj5L.o
+ld: symbol(s) not found for architecture x86_64
 collect2: ld returned 1 exit status
+ld: warning: directory not found for option '-L/opt/local/lib'
+Undefined symbols for architecture i386:
+  "_iconv_open", referenced from:
+      _t in ccOpBj8n.o
+ld: symbol(s) not found for architecture i386
+collect2: ld returned 1 exit status
+lipo: can't open input file: /var/folders/3c/d1qvywnj17d8r703h_djr_pm0000gn/T//cchHxzXF.out (No such file or directory)
 checked program was:
 /* begin */
 1: #include <iconv.h>
@@ -45,9 +53,12 @@ checked program was:
 5: int t() { void ((*volatile p)()); p = (void ((*)()))iconv_open; return 0; }
 /* end */
 
-"gcc -o conftest -I. -I/Users/olivier/.rvm/rubies/ree-1.8.7-2011.01/lib/ruby/1.8/i686-darwin10.6.0 -I. -I-I-I/opt/local/include -I-I-I/usr/local/include -I-I-I/Users/olivier/.rvm/rubies/ree-1.8.7-2011.01/include -I-I-I/usr/include -I-I-I/usr/include/libxml2 -I/opt/local/include/libxml2 -I/usr/local/include/libxml2 -I/Users/olivier/.rvm/rubies/ree-1.8.7-2011.01/include/libxml2 -I-I/opt/local/include -I-I/usr/local/include -I-I/Users/olivier/.rvm/rubies/ree-1.8.7-2011.01/include -I-I/usr/include -I-I/usr/include/libxml2 -I/opt/local/include -I/usr/local/include -I/Users/olivier/.rvm/rubies/ree-1.8.7-2011.01/include -I/usr/include -I/usr/include/libxml2  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2   -fno-common -pipe -fno-common    -g -DXP_UNIX -O3 -Wall -Wcast-qual -Wwrite-strings -Wconversion -Wmissing-noreturn -Winline conftest.c  -L. -L/Users/olivier/.rvm/rubies/ree-1.8.7-2011.01/lib -L/opt/local/lib -L/usr/local/lib -L/Users/olivier/.rvm/rubies/ree-1.8.7-2011.01/lib -L/usr/lib -L.      -lruby-static  -ldl -lobjc   "
+"gcc -o conftest -I. -I/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/universal-darwin11.0 -I. -I-I-I/opt/local/include -I-I-I/usr/local/include -I-I-I/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/include -I-I-I/usr/include -I-I-I/usr/include/libxml2 -I/opt/local/include/libxml2 -I/usr/local/include/libxml2 -I/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/include/libxml2 -I-I/opt/local/include -I-I/usr/local/include -I-I/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/include -I-I/usr/include -I-I/usr/include/libxml2 -I/opt/local/include -I/usr/local/include -I/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/include -I/usr/include -I/usr/include/libxml2  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -arch x86_64 -arch i386 -g -Os -pipe -fno-common -DENABLE_DTRACE  -fno-common  -pipe -fno-common    -g -DXP_UNIX -O3 -Wall -Wcast-qual -Wwrite-strings -Wconversion -Wmissing-noreturn -Winline conftest.c  -L. -L/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib -L/opt/local/lib -L/usr/local/lib -L/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib -L/usr/lib -L. -arch x86_64 -arch i386      -lruby  -lpthread -ldl -lobjc   "
 conftest.c: In function ‘t’:
-conftest.c:5: error: too few arguments to function ‘libiconv_open’
+conftest.c:5: error: too few arguments to function ‘iconv_open’
+conftest.c: In function ‘t’:
+conftest.c:5: error: too few arguments to function ‘iconv_open’
+lipo: can't figure out the architecture type of: /var/folders/3c/d1qvywnj17d8r703h_djr_pm0000gn/T//ccekPKrZ.out
 checked program was:
 /* begin */
 1: #include <iconv.h>
@@ -61,7 +72,9 @@ checked program was:
 
 have_library: checking for iconv_open() in -liconv... -------------------- yes
 
-"gcc -o conftest -I. -I/Users/olivier/.rvm/rubies/ree-1.8.7-2011.01/lib/ruby/1.8/i686-darwin10.6.0 -I. -I-I-I/opt/local/include -I-I-I/usr/local/include -I-I-I/Users/olivier/.rvm/rubies/ree-1.8.7-2011.01/include -I-I-I/usr/include -I-I-I/usr/include/libxml2 -I/opt/local/include/libxml2 -I/usr/local/include/libxml2 -I/Users/olivier/.rvm/rubies/ree-1.8.7-2011.01/include/libxml2 -I-I/opt/local/include -I-I/usr/local/include -I-I/Users/olivier/.rvm/rubies/ree-1.8.7-2011.01/include -I-I/usr/include -I-I/usr/include/libxml2 -I/opt/local/include -I/usr/local/include -I/Users/olivier/.rvm/rubies/ree-1.8.7-2011.01/include -I/usr/include -I/usr/include/libxml2  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2   -fno-common -pipe -fno-common    -g -DXP_UNIX -O3 -Wall -Wcast-qual -Wwrite-strings -Wconversion -Wmissing-noreturn -Winline conftest.c  -L. -L/Users/olivier/.rvm/rubies/ree-1.8.7-2011.01/lib -L/opt/local/lib -L/usr/local/lib -L/Users/olivier/.rvm/rubies/ree-1.8.7-2011.01/lib -L/usr/lib -L.      -lruby-static -liconv  -ldl -lobjc   "
+"gcc -o conftest -I. -I/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/universal-darwin11.0 -I. -I-I-I/opt/local/include -I-I-I/usr/local/include -I-I-I/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/include -I-I-I/usr/include -I-I-I/usr/include/libxml2 -I/opt/local/include/libxml2 -I/usr/local/include/libxml2 -I/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/include/libxml2 -I-I/opt/local/include -I-I/usr/local/include -I-I/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/include -I-I/usr/include -I-I/usr/include/libxml2 -I/opt/local/include -I/usr/local/include -I/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/include -I/usr/include -I/usr/include/libxml2  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -arch x86_64 -arch i386 -g -Os -pipe -fno-common -DENABLE_DTRACE  -fno-common  -pipe -fno-common    -g -DXP_UNIX -O3 -Wall -Wcast-qual -Wwrite-strings -Wconversion -Wmissing-noreturn -Winline conftest.c  -L. -L/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib -L/opt/local/lib -L/usr/local/lib -L/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib -L/usr/lib -L. -arch x86_64 -arch i386      -lruby -liconv  -lpthread -ldl -lobjc   "
+ld: warning: directory not found for option '-L/opt/local/lib'
+ld: warning: directory not found for option '-L/opt/local/lib'
 checked program was:
 /* begin */
 1: #include <iconv.h>
@@ -75,11 +88,16 @@ checked program was:
 
 find_library: checking for xmlParseDoc() in -lxml2... -------------------- yes
 
-"gcc -o conftest -I. -I/Users/olivier/.rvm/rubies/ree-1.8.7-2011.01/lib/ruby/1.8/i686-darwin10.6.0 -I. -I-I-I/opt/local/include -I-I-I/usr/local/include -I-I-I/Users/olivier/.rvm/rubies/ree-1.8.7-2011.01/include -I-I-I/usr/include -I-I-I/usr/include/libxml2 -I/opt/local/include/libxml2 -I/usr/local/include/libxml2 -I/Users/olivier/.rvm/rubies/ree-1.8.7-2011.01/include/libxml2 -I-I/opt/local/include -I-I/usr/local/include -I-I/Users/olivier/.rvm/rubies/ree-1.8.7-2011.01/include -I-I/usr/include -I-I/usr/include/libxml2 -I/opt/local/include -I/usr/local/include -I/Users/olivier/.rvm/rubies/ree-1.8.7-2011.01/include -I/usr/include -I/usr/include/libxml2  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2   -fno-common -pipe -fno-common    -g -DXP_UNIX -O3 -Wall -Wcast-qual -Wwrite-strings -Wconversion -Wmissing-noreturn -Winline conftest.c  -L. -L/Users/olivier/.rvm/rubies/ree-1.8.7-2011.01/lib -L/opt/local/lib -L/usr/local/lib -L/Users/olivier/.rvm/rubies/ree-1.8.7-2011.01/lib -L/usr/lib -L.     -liconv  -lruby-static -lxml2 -liconv  -ldl -lobjc   "
+"gcc -o conftest -I. -I/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/universal-darwin11.0 -I. -I-I-I/opt/local/include -I-I-I/usr/local/include -I-I-I/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/include -I-I-I/usr/include -I-I-I/usr/include/libxml2 -I/opt/local/include/libxml2 -I/usr/local/include/libxml2 -I/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/include/libxml2 -I-I/opt/local/include -I-I/usr/local/include -I-I/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/include -I-I/usr/include -I-I/usr/include/libxml2 -I/opt/local/include -I/usr/local/include -I/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/include -I/usr/include -I/usr/include/libxml2  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -arch x86_64 -arch i386 -g -Os -pipe -fno-common -DENABLE_DTRACE  -fno-common  -pipe -fno-common    -g -DXP_UNIX -O3 -Wall -Wcast-qual -Wwrite-strings -Wconversion -Wmissing-noreturn -Winline conftest.c  -L. -L/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib -L/opt/local/lib -L/usr/local/lib -L/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib -L/usr/lib -L. -arch x86_64 -arch i386     -liconv  -lruby -lxml2 -liconv  -lpthread -ldl -lobjc   "
 conftest.c: In function ‘t’:
 conftest.c:3: error: ‘xmlParseDoc’ undeclared (first use in this function)
 conftest.c:3: error: (Each undeclared identifier is reported only once
 conftest.c:3: error: for each function it appears in.)
+conftest.c: In function ‘t’:
+conftest.c:3: error: ‘xmlParseDoc’ undeclared (first use in this function)
+conftest.c:3: error: (Each undeclared identifier is reported only once
+conftest.c:3: error: for each function it appears in.)
+lipo: can't figure out the architecture type of: /var/folders/3c/d1qvywnj17d8r703h_djr_pm0000gn/T//ccNCyq3P.out
 checked program was:
 /* begin */
 1: /*top*/
@@ -87,9 +105,13 @@ checked program was:
 3: int t() { void ((*volatile p)()); p = (void ((*)()))xmlParseDoc; return 0; }
 /* end */
 
-"gcc -o conftest -I. -I/Users/olivier/.rvm/rubies/ree-1.8.7-2011.01/lib/ruby/1.8/i686-darwin10.6.0 -I. -I-I-I/opt/local/include -I-I-I/usr/local/include -I-I-I/Users/olivier/.rvm/rubies/ree-1.8.7-2011.01/include -I-I-I/usr/include -I-I-I/usr/include/libxml2 -I/opt/local/include/libxml2 -I/usr/local/include/libxml2 -I/Users/olivier/.rvm/rubies/ree-1.8.7-2011.01/include/libxml2 -I-I/opt/local/include -I-I/usr/local/include -I-I/Users/olivier/.rvm/rubies/ree-1.8.7-2011.01/include -I-I/usr/include -I-I/usr/include/libxml2 -I/opt/local/include -I/usr/local/include -I/Users/olivier/.rvm/rubies/ree-1.8.7-2011.01/include -I/usr/include -I/usr/include/libxml2  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2   -fno-common -pipe -fno-common    -g -DXP_UNIX -O3 -Wall -Wcast-qual -Wwrite-strings -Wconversion -Wmissing-noreturn -Winline conftest.c  -L. -L/Users/olivier/.rvm/rubies/ree-1.8.7-2011.01/lib -L/opt/local/lib -L/usr/local/lib -L/Users/olivier/.rvm/rubies/ree-1.8.7-2011.01/lib -L/usr/lib -L.     -liconv  -lruby-static -lxml2 -liconv  -ldl -lobjc   "
+"gcc -o conftest -I. -I/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/universal-darwin11.0 -I. -I-I-I/opt/local/include -I-I-I/usr/local/include -I-I-I/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/include -I-I-I/usr/include -I-I-I/usr/include/libxml2 -I/opt/local/include/libxml2 -I/usr/local/include/libxml2 -I/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/include/libxml2 -I-I/opt/local/include -I-I/usr/local/include -I-I/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/include -I-I/usr/include -I-I/usr/include/libxml2 -I/opt/local/include -I/usr/local/include -I/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/include -I/usr/include -I/usr/include/libxml2  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -arch x86_64 -arch i386 -g -Os -pipe -fno-common -DENABLE_DTRACE  -fno-common  -pipe -fno-common    -g -DXP_UNIX -O3 -Wall -Wcast-qual -Wwrite-strings -Wconversion -Wmissing-noreturn -Winline conftest.c  -L. -L/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib -L/opt/local/lib -L/usr/local/lib -L/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib -L/usr/lib -L. -arch x86_64 -arch i386     -liconv  -lruby -lxml2 -liconv  -lpthread -ldl -lobjc   "
 conftest.c: In function ‘t’:
 conftest.c:3: warning: implicit declaration of function ‘xmlParseDoc’
+ld: warning: directory not found for option '-L/opt/local/lib'
+conftest.c: In function ‘t’:
+conftest.c:3: warning: implicit declaration of function ‘xmlParseDoc’
+ld: warning: directory not found for option '-L/opt/local/lib'
 checked program was:
 /* begin */
 1: /*top*/
@@ -101,11 +123,16 @@ checked program was:
 
 find_library: checking for xsltParseStylesheetDoc() in -lxslt... -------------------- yes
 
-"gcc -o conftest -I. -I/Users/olivier/.rvm/rubies/ree-1.8.7-2011.01/lib/ruby/1.8/i686-darwin10.6.0 -I. -I-I-I/opt/local/include -I-I-I/usr/local/include -I-I-I/Users/olivier/.rvm/rubies/ree-1.8.7-2011.01/include -I-I-I/usr/include -I-I-I/usr/include/libxml2 -I/opt/local/include/libxml2 -I/usr/local/include/libxml2 -I/Users/olivier/.rvm/rubies/ree-1.8.7-2011.01/include/libxml2 -I-I/opt/local/include -I-I/usr/local/include -I-I/Users/olivier/.rvm/rubies/ree-1.8.7-2011.01/include -I-I/usr/include -I-I/usr/include/libxml2 -I/opt/local/include -I/usr/local/include -I/Users/olivier/.rvm/rubies/ree-1.8.7-2011.01/include -I/usr/include -I/usr/include/libxml2  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2   -fno-common -pipe -fno-common    -g -DXP_UNIX -O3 -Wall -Wcast-qual -Wwrite-strings -Wconversion -Wmissing-noreturn -Winline conftest.c  -L. -L/Users/olivier/.rvm/rubies/ree-1.8.7-2011.01/lib -L/opt/local/lib -L/usr/local/lib -L/Users/olivier/.rvm/rubies/ree-1.8.7-2011.01/lib -L/usr/lib -L.     -lxml2 -liconv  -lruby-static -lxslt -lxml2 -liconv  -ldl -lobjc   "
+"gcc -o conftest -I. -I/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/universal-darwin11.0 -I. -I-I-I/opt/local/include -I-I-I/usr/local/include -I-I-I/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/include -I-I-I/usr/include -I-I-I/usr/include/libxml2 -I/opt/local/include/libxml2 -I/usr/local/include/libxml2 -I/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/include/libxml2 -I-I/opt/local/include -I-I/usr/local/include -I-I/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/include -I-I/usr/include -I-I/usr/include/libxml2 -I/opt/local/include -I/usr/local/include -I/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/include -I/usr/include -I/usr/include/libxml2  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -arch x86_64 -arch i386 -g -Os -pipe -fno-common -DENABLE_DTRACE  -fno-common  -pipe -fno-common    -g -DXP_UNIX -O3 -Wall -Wcast-qual -Wwrite-strings -Wconversion -Wmissing-noreturn -Winline conftest.c  -L. -L/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib -L/opt/local/lib -L/usr/local/lib -L/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib -L/usr/lib -L. -arch x86_64 -arch i386     -lxml2 -liconv  -lruby -lxslt -lxml2 -liconv  -lpthread -ldl -lobjc   "
 conftest.c: In function ‘t’:
 conftest.c:3: error: ‘xsltParseStylesheetDoc’ undeclared (first use in this function)
 conftest.c:3: error: (Each undeclared identifier is reported only once
 conftest.c:3: error: for each function it appears in.)
+conftest.c: In function ‘t’:
+conftest.c:3: error: ‘xsltParseStylesheetDoc’ undeclared (first use in this function)
+conftest.c:3: error: (Each undeclared identifier is reported only once
+conftest.c:3: error: for each function it appears in.)
+lipo: can't figure out the architecture type of: /var/folders/3c/d1qvywnj17d8r703h_djr_pm0000gn/T//cclJvxu5.out
 checked program was:
 /* begin */
 1: /*top*/
@@ -113,9 +140,13 @@ checked program was:
 3: int t() { void ((*volatile p)()); p = (void ((*)()))xsltParseStylesheetDoc; return 0; }
 /* end */
 
-"gcc -o conftest -I. -I/Users/olivier/.rvm/rubies/ree-1.8.7-2011.01/lib/ruby/1.8/i686-darwin10.6.0 -I. -I-I-I/opt/local/include -I-I-I/usr/local/include -I-I-I/Users/olivier/.rvm/rubies/ree-1.8.7-2011.01/include -I-I-I/usr/include -I-I-I/usr/include/libxml2 -I/opt/local/include/libxml2 -I/usr/local/include/libxml2 -I/Users/olivier/.rvm/rubies/ree-1.8.7-2011.01/include/libxml2 -I-I/opt/local/include -I-I/usr/local/include -I-I/Users/olivier/.rvm/rubies/ree-1.8.7-2011.01/include -I-I/usr/include -I-I/usr/include/libxml2 -I/opt/local/include -I/usr/local/include -I/Users/olivier/.rvm/rubies/ree-1.8.7-2011.01/include -I/usr/include -I/usr/include/libxml2  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2   -fno-common -pipe -fno-common    -g -DXP_UNIX -O3 -Wall -Wcast-qual -Wwrite-strings -Wconversion -Wmissing-noreturn -Winline conftest.c  -L. -L/Users/olivier/.rvm/rubies/ree-1.8.7-2011.01/lib -L/opt/local/lib -L/usr/local/lib -L/Users/olivier/.rvm/rubies/ree-1.8.7-2011.01/lib -L/usr/lib -L.     -lxml2 -liconv  -lruby-static -lxslt -lxml2 -liconv  -ldl -lobjc   "
+"gcc -o conftest -I. -I/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/universal-darwin11.0 -I. -I-I-I/opt/local/include -I-I-I/usr/local/include -I-I-I/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/include -I-I-I/usr/include -I-I-I/usr/include/libxml2 -I/opt/local/include/libxml2 -I/usr/local/include/libxml2 -I/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/include/libxml2 -I-I/opt/local/include -I-I/usr/local/include -I-I/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/include -I-I/usr/include -I-I/usr/include/libxml2 -I/opt/local/include -I/usr/local/include -I/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/include -I/usr/include -I/usr/include/libxml2  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -arch x86_64 -arch i386 -g -Os -pipe -fno-common -DENABLE_DTRACE  -fno-common  -pipe -fno-common    -g -DXP_UNIX -O3 -Wall -Wcast-qual -Wwrite-strings -Wconversion -Wmissing-noreturn -Winline conftest.c  -L. -L/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib -L/opt/local/lib -L/usr/local/lib -L/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib -L/usr/lib -L. -arch x86_64 -arch i386     -lxml2 -liconv  -lruby -lxslt -lxml2 -liconv  -lpthread -ldl -lobjc   "
 conftest.c: In function ‘t’:
 conftest.c:3: warning: implicit declaration of function ‘xsltParseStylesheetDoc’
+ld: warning: directory not found for option '-L/opt/local/lib'
+conftest.c: In function ‘t’:
+conftest.c:3: warning: implicit declaration of function ‘xsltParseStylesheetDoc’
+ld: warning: directory not found for option '-L/opt/local/lib'
 checked program was:
 /* begin */
 1: /*top*/
@@ -127,11 +158,16 @@ checked program was:
 
 find_library: checking for exsltFuncRegister() in -lexslt... -------------------- yes
 
-"gcc -o conftest -I. -I/Users/olivier/.rvm/rubies/ree-1.8.7-2011.01/lib/ruby/1.8/i686-darwin10.6.0 -I. -I-I-I/opt/local/include -I-I-I/usr/local/include -I-I-I/Users/olivier/.rvm/rubies/ree-1.8.7-2011.01/include -I-I-I/usr/include -I-I-I/usr/include/libxml2 -I/opt/local/include/libxml2 -I/usr/local/include/libxml2 -I/Users/olivier/.rvm/rubies/ree-1.8.7-2011.01/include/libxml2 -I-I/opt/local/include -I-I/usr/local/include -I-I/Users/olivier/.rvm/rubies/ree-1.8.7-2011.01/include -I-I/usr/include -I-I/usr/include/libxml2 -I/opt/local/include -I/usr/local/include -I/Users/olivier/.rvm/rubies/ree-1.8.7-2011.01/include -I/usr/include -I/usr/include/libxml2  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2   -fno-common -pipe -fno-common    -g -DXP_UNIX -O3 -Wall -Wcast-qual -Wwrite-strings -Wconversion -Wmissing-noreturn -Winline conftest.c  -L. -L/Users/olivier/.rvm/rubies/ree-1.8.7-2011.01/lib -L/opt/local/lib -L/usr/local/lib -L/Users/olivier/.rvm/rubies/ree-1.8.7-2011.01/lib -L/usr/lib -L.     -lxslt -lxml2 -liconv  -lruby-static -lexslt -lxslt -lxml2 -liconv  -ldl -lobjc   "
+"gcc -o conftest -I. -I/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/universal-darwin11.0 -I. -I-I-I/opt/local/include -I-I-I/usr/local/include -I-I-I/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/include -I-I-I/usr/include -I-I-I/usr/include/libxml2 -I/opt/local/include/libxml2 -I/usr/local/include/libxml2 -I/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/include/libxml2 -I-I/opt/local/include -I-I/usr/local/include -I-I/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/include -I-I/usr/include -I-I/usr/include/libxml2 -I/opt/local/include -I/usr/local/include -I/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/include -I/usr/include -I/usr/include/libxml2  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -arch x86_64 -arch i386 -g -Os -pipe -fno-common -DENABLE_DTRACE  -fno-common  -pipe -fno-common    -g -DXP_UNIX -O3 -Wall -Wcast-qual -Wwrite-strings -Wconversion -Wmissing-noreturn -Winline conftest.c  -L. -L/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib -L/opt/local/lib -L/usr/local/lib -L/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib -L/usr/lib -L. -arch x86_64 -arch i386     -lxslt -lxml2 -liconv  -lruby -lexslt -lxslt -lxml2 -liconv  -lpthread -ldl -lobjc   "
 conftest.c: In function ‘t’:
 conftest.c:3: error: ‘exsltFuncRegister’ undeclared (first use in this function)
 conftest.c:3: error: (Each undeclared identifier is reported only once
 conftest.c:3: error: for each function it appears in.)
+conftest.c: In function ‘t’:
+conftest.c:3: error: ‘exsltFuncRegister’ undeclared (first use in this function)
+conftest.c:3: error: (Each undeclared identifier is reported only once
+conftest.c:3: error: for each function it appears in.)
+lipo: can't figure out the architecture type of: /var/folders/3c/d1qvywnj17d8r703h_djr_pm0000gn/T//ccwozbpo.out
 checked program was:
 /* begin */
 1: /*top*/
@@ -139,9 +175,13 @@ checked program was:
 3: int t() { void ((*volatile p)()); p = (void ((*)()))exsltFuncRegister; return 0; }
 /* end */
 
-"gcc -o conftest -I. -I/Users/olivier/.rvm/rubies/ree-1.8.7-2011.01/lib/ruby/1.8/i686-darwin10.6.0 -I. -I-I-I/opt/local/include -I-I-I/usr/local/include -I-I-I/Users/olivier/.rvm/rubies/ree-1.8.7-2011.01/include -I-I-I/usr/include -I-I-I/usr/include/libxml2 -I/opt/local/include/libxml2 -I/usr/local/include/libxml2 -I/Users/olivier/.rvm/rubies/ree-1.8.7-2011.01/include/libxml2 -I-I/opt/local/include -I-I/usr/local/include -I-I/Users/olivier/.rvm/rubies/ree-1.8.7-2011.01/include -I-I/usr/include -I-I/usr/include/libxml2 -I/opt/local/include -I/usr/local/include -I/Users/olivier/.rvm/rubies/ree-1.8.7-2011.01/include -I/usr/include -I/usr/include/libxml2  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2   -fno-common -pipe -fno-common    -g -DXP_UNIX -O3 -Wall -Wcast-qual -Wwrite-strings -Wconversion -Wmissing-noreturn -Winline conftest.c  -L. -L/Users/olivier/.rvm/rubies/ree-1.8.7-2011.01/lib -L/opt/local/lib -L/usr/local/lib -L/Users/olivier/.rvm/rubies/ree-1.8.7-2011.01/lib -L/usr/lib -L.     -lxslt -lxml2 -liconv  -lruby-static -lexslt -lxslt -lxml2 -liconv  -ldl -lobjc   "
+"gcc -o conftest -I. -I/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/universal-darwin11.0 -I. -I-I-I/opt/local/include -I-I-I/usr/local/include -I-I-I/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/include -I-I-I/usr/include -I-I-I/usr/include/libxml2 -I/opt/local/include/libxml2 -I/usr/local/include/libxml2 -I/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/include/libxml2 -I-I/opt/local/include -I-I/usr/local/include -I-I/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/include -I-I/usr/include -I-I/usr/include/libxml2 -I/opt/local/include -I/usr/local/include -I/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/include -I/usr/include -I/usr/include/libxml2  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -arch x86_64 -arch i386 -g -Os -pipe -fno-common -DENABLE_DTRACE  -fno-common  -pipe -fno-common    -g -DXP_UNIX -O3 -Wall -Wcast-qual -Wwrite-strings -Wconversion -Wmissing-noreturn -Winline conftest.c  -L. -L/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib -L/opt/local/lib -L/usr/local/lib -L/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib -L/usr/lib -L. -arch x86_64 -arch i386     -lxslt -lxml2 -liconv  -lruby -lexslt -lxslt -lxml2 -liconv  -lpthread -ldl -lobjc   "
 conftest.c: In function ‘t’:
 conftest.c:3: warning: implicit declaration of function ‘exsltFuncRegister’
+ld: warning: directory not found for option '-L/opt/local/lib'
+conftest.c: In function ‘t’:
+conftest.c:3: warning: implicit declaration of function ‘exsltFuncRegister’
+ld: warning: directory not found for option '-L/opt/local/lib'
 checked program was:
 /* begin */
 1: /*top*/
@@ -153,11 +193,16 @@ checked program was:
 
 have_func: checking for xmlFirstElementChild()... -------------------- yes
 
-"gcc -o conftest -I. -I/Users/olivier/.rvm/rubies/ree-1.8.7-2011.01/lib/ruby/1.8/i686-darwin10.6.0 -I. -I-I-I/opt/local/include -I-I-I/usr/local/include -I-I-I/Users/olivier/.rvm/rubies/ree-1.8.7-2011.01/include -I-I-I/usr/include -I-I-I/usr/include/libxml2 -I/opt/local/include/libxml2 -I/usr/local/include/libxml2 -I/Users/olivier/.rvm/rubies/ree-1.8.7-2011.01/include/libxml2 -I-I/opt/local/include -I-I/usr/local/include -I-I/Users/olivier/.rvm/rubies/ree-1.8.7-2011.01/include -I-I/usr/include -I-I/usr/include/libxml2 -I/opt/local/include -I/usr/local/include -I/Users/olivier/.rvm/rubies/ree-1.8.7-2011.01/include -I/usr/include -I/usr/include/libxml2  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2   -fno-common -pipe -fno-common    -g -DXP_UNIX -O3 -Wall -Wcast-qual -Wwrite-strings -Wconversion -Wmissing-noreturn -Winline conftest.c  -L. -L/Users/olivier/.rvm/rubies/ree-1.8.7-2011.01/lib -L/opt/local/lib -L/usr/local/lib -L/Users/olivier/.rvm/rubies/ree-1.8.7-2011.01/lib -L/usr/lib -L.     -lexslt -lxslt -lxml2 -liconv  -lruby-static -lexslt -lxslt -lxml2 -liconv  -ldl -lobjc   "
+"gcc -o conftest -I. -I/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/universal-darwin11.0 -I. -I-I-I/opt/local/include -I-I-I/usr/local/include -I-I-I/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/include -I-I-I/usr/include -I-I-I/usr/include/libxml2 -I/opt/local/include/libxml2 -I/usr/local/include/libxml2 -I/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/include/libxml2 -I-I/opt/local/include -I-I/usr/local/include -I-I/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/include -I-I/usr/include -I-I/usr/include/libxml2 -I/opt/local/include -I/usr/local/include -I/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/include -I/usr/include -I/usr/include/libxml2  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -arch x86_64 -arch i386 -g -Os -pipe -fno-common -DENABLE_DTRACE  -fno-common  -pipe -fno-common    -g -DXP_UNIX -O3 -Wall -Wcast-qual -Wwrite-strings -Wconversion -Wmissing-noreturn -Winline conftest.c  -L. -L/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib -L/opt/local/lib -L/usr/local/lib -L/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib -L/usr/lib -L. -arch x86_64 -arch i386     -lexslt -lxslt -lxml2 -liconv  -lruby -lexslt -lxslt -lxml2 -liconv  -lpthread -ldl -lobjc   "
 conftest.c: In function ‘t’:
 conftest.c:3: error: ‘xmlFirstElementChild’ undeclared (first use in this function)
 conftest.c:3: error: (Each undeclared identifier is reported only once
 conftest.c:3: error: for each function it appears in.)
+conftest.c: In function ‘t’:
+conftest.c:3: error: ‘xmlFirstElementChild’ undeclared (first use in this function)
+conftest.c:3: error: (Each undeclared identifier is reported only once
+conftest.c:3: error: for each function it appears in.)
+lipo: can't figure out the architecture type of: /var/folders/3c/d1qvywnj17d8r703h_djr_pm0000gn/T//ccYi5m8d.out
 checked program was:
 /* begin */
 1: /*top*/
@@ -165,9 +210,13 @@ checked program was:
 3: int t() { void ((*volatile p)()); p = (void ((*)()))xmlFirstElementChild; return 0; }
 /* end */
 
-"gcc -o conftest -I. -I/Users/olivier/.rvm/rubies/ree-1.8.7-2011.01/lib/ruby/1.8/i686-darwin10.6.0 -I. -I-I-I/opt/local/include -I-I-I/usr/local/include -I-I-I/Users/olivier/.rvm/rubies/ree-1.8.7-2011.01/include -I-I-I/usr/include -I-I-I/usr/include/libxml2 -I/opt/local/include/libxml2 -I/usr/local/include/libxml2 -I/Users/olivier/.rvm/rubies/ree-1.8.7-2011.01/include/libxml2 -I-I/opt/local/include -I-I/usr/local/include -I-I/Users/olivier/.rvm/rubies/ree-1.8.7-2011.01/include -I-I/usr/include -I-I/usr/include/libxml2 -I/opt/local/include -I/usr/local/include -I/Users/olivier/.rvm/rubies/ree-1.8.7-2011.01/include -I/usr/include -I/usr/include/libxml2  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2   -fno-common -pipe -fno-common    -g -DXP_UNIX -O3 -Wall -Wcast-qual -Wwrite-strings -Wconversion -Wmissing-noreturn -Winline conftest.c  -L. -L/Users/olivier/.rvm/rubies/ree-1.8.7-2011.01/lib -L/opt/local/lib -L/usr/local/lib -L/Users/olivier/.rvm/rubies/ree-1.8.7-2011.01/lib -L/usr/lib -L.     -lexslt -lxslt -lxml2 -liconv  -lruby-static -lexslt -lxslt -lxml2 -liconv  -ldl -lobjc   "
+"gcc -o conftest -I. -I/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/universal-darwin11.0 -I. -I-I-I/opt/local/include -I-I-I/usr/local/include -I-I-I/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/include -I-I-I/usr/include -I-I-I/usr/include/libxml2 -I/opt/local/include/libxml2 -I/usr/local/include/libxml2 -I/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/include/libxml2 -I-I/opt/local/include -I-I/usr/local/include -I-I/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/include -I-I/usr/include -I-I/usr/include/libxml2 -I/opt/local/include -I/usr/local/include -I/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/include -I/usr/include -I/usr/include/libxml2  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -arch x86_64 -arch i386 -g -Os -pipe -fno-common -DENABLE_DTRACE  -fno-common  -pipe -fno-common    -g -DXP_UNIX -O3 -Wall -Wcast-qual -Wwrite-strings -Wconversion -Wmissing-noreturn -Winline conftest.c  -L. -L/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib -L/opt/local/lib -L/usr/local/lib -L/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib -L/usr/lib -L. -arch x86_64 -arch i386     -lexslt -lxslt -lxml2 -liconv  -lruby -lexslt -lxslt -lxml2 -liconv  -lpthread -ldl -lobjc   "
 conftest.c: In function ‘t’:
 conftest.c:3: warning: implicit declaration of function ‘xmlFirstElementChild’
+ld: warning: directory not found for option '-L/opt/local/lib'
+conftest.c: In function ‘t’:
+conftest.c:3: warning: implicit declaration of function ‘xmlFirstElementChild’
+ld: warning: directory not found for option '-L/opt/local/lib'
 checked program was:
 /* begin */
 1: /*top*/
@@ -179,11 +228,16 @@ checked program was:
 
 have_func: checking for xmlRelaxNGSetParserStructuredErrors()... -------------------- yes
 
-"gcc -o conftest -I. -I/Users/olivier/.rvm/rubies/ree-1.8.7-2011.01/lib/ruby/1.8/i686-darwin10.6.0 -I. -I-I-I/opt/local/include -I-I-I/usr/local/include -I-I-I/Users/olivier/.rvm/rubies/ree-1.8.7-2011.01/include -I-I-I/usr/include -I-I-I/usr/include/libxml2 -I/opt/local/include/libxml2 -I/usr/local/include/libxml2 -I/Users/olivier/.rvm/rubies/ree-1.8.7-2011.01/include/libxml2 -I-I/opt/local/include -I-I/usr/local/include -I-I/Users/olivier/.rvm/rubies/ree-1.8.7-2011.01/include -I-I/usr/include -I-I/usr/include/libxml2 -I/opt/local/include -I/usr/local/include -I/Users/olivier/.rvm/rubies/ree-1.8.7-2011.01/include -I/usr/include -I/usr/include/libxml2  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2   -fno-common -pipe -fno-common    -g -DXP_UNIX -O3 -Wall -Wcast-qual -Wwrite-strings -Wconversion -Wmissing-noreturn -Winline conftest.c  -L. -L/Users/olivier/.rvm/rubies/ree-1.8.7-2011.01/lib -L/opt/local/lib -L/usr/local/lib -L/Users/olivier/.rvm/rubies/ree-1.8.7-2011.01/lib -L/usr/lib -L.     -lexslt -lxslt -lxml2 -liconv  -lruby-static -lexslt -lxslt -lxml2 -liconv  -ldl -lobjc   "
+"gcc -o conftest -I. -I/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/universal-darwin11.0 -I. -I-I-I/opt/local/include -I-I-I/usr/local/include -I-I-I/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/include -I-I-I/usr/include -I-I-I/usr/include/libxml2 -I/opt/local/include/libxml2 -I/usr/local/include/libxml2 -I/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/include/libxml2 -I-I/opt/local/include -I-I/usr/local/include -I-I/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/include -I-I/usr/include -I-I/usr/include/libxml2 -I/opt/local/include -I/usr/local/include -I/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/include -I/usr/include -I/usr/include/libxml2  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -arch x86_64 -arch i386 -g -Os -pipe -fno-common -DENABLE_DTRACE  -fno-common  -pipe -fno-common    -g -DXP_UNIX -O3 -Wall -Wcast-qual -Wwrite-strings -Wconversion -Wmissing-noreturn -Winline conftest.c  -L. -L/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib -L/opt/local/lib -L/usr/local/lib -L/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib -L/usr/lib -L. -arch x86_64 -arch i386     -lexslt -lxslt -lxml2 -liconv  -lruby -lexslt -lxslt -lxml2 -liconv  -lpthread -ldl -lobjc   "
 conftest.c: In function ‘t’:
 conftest.c:3: error: ‘xmlRelaxNGSetParserStructuredErrors’ undeclared (first use in this function)
 conftest.c:3: error: (Each undeclared identifier is reported only once
 conftest.c:3: error: for each function it appears in.)
+conftest.c: In function ‘t’:
+conftest.c:3: error: ‘xmlRelaxNGSetParserStructuredErrors’ undeclared (first use in this function)
+conftest.c:3: error: (Each undeclared identifier is reported only once
+conftest.c:3: error: for each function it appears in.)
+lipo: can't figure out the architecture type of: /var/folders/3c/d1qvywnj17d8r703h_djr_pm0000gn/T//ccZOp6JZ.out
 checked program was:
 /* begin */
 1: /*top*/
@@ -191,9 +245,13 @@ checked program was:
 3: int t() { void ((*volatile p)()); p = (void ((*)()))xmlRelaxNGSetParserStructuredErrors; return 0; }
 /* end */
 
-"gcc -o conftest -I. -I/Users/olivier/.rvm/rubies/ree-1.8.7-2011.01/lib/ruby/1.8/i686-darwin10.6.0 -I. -I-I-I/opt/local/include -I-I-I/usr/local/include -I-I-I/Users/olivier/.rvm/rubies/ree-1.8.7-2011.01/include -I-I-I/usr/include -I-I-I/usr/include/libxml2 -I/opt/local/include/libxml2 -I/usr/local/include/libxml2 -I/Users/olivier/.rvm/rubies/ree-1.8.7-2011.01/include/libxml2 -I-I/opt/local/include -I-I/usr/local/include -I-I/Users/olivier/.rvm/rubies/ree-1.8.7-2011.01/include -I-I/usr/include -I-I/usr/include/libxml2 -I/opt/local/include -I/usr/local/include -I/Users/olivier/.rvm/rubies/ree-1.8.7-2011.01/include -I/usr/include -I/usr/include/libxml2  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2   -fno-common -pipe -fno-common    -g -DXP_UNIX -O3 -Wall -Wcast-qual -Wwrite-strings -Wconversion -Wmissing-noreturn -Winline conftest.c  -L. -L/Users/olivier/.rvm/rubies/ree-1.8.7-2011.01/lib -L/opt/local/lib -L/usr/local/lib -L/Users/olivier/.rvm/rubies/ree-1.8.7-2011.01/lib -L/usr/lib -L.     -lexslt -lxslt -lxml2 -liconv  -lruby-static -lexslt -lxslt -lxml2 -liconv  -ldl -lobjc   "
+"gcc -o conftest -I. -I/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/universal-darwin11.0 -I. -I-I-I/opt/local/include -I-I-I/usr/local/include -I-I-I/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/include -I-I-I/usr/include -I-I-I/usr/include/libxml2 -I/opt/local/include/libxml2 -I/usr/local/include/libxml2 -I/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/include/libxml2 -I-I/opt/local/include -I-I/usr/local/include -I-I/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/include -I-I/usr/include -I-I/usr/include/libxml2 -I/opt/local/include -I/usr/local/include -I/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/include -I/usr/include -I/usr/include/libxml2  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -arch x86_64 -arch i386 -g -Os -pipe -fno-common -DENABLE_DTRACE  -fno-common  -pipe -fno-common    -g -DXP_UNIX -O3 -Wall -Wcast-qual -Wwrite-strings -Wconversion -Wmissing-noreturn -Winline conftest.c  -L. -L/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib -L/opt/local/lib -L/usr/local/lib -L/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib -L/usr/lib -L. -arch x86_64 -arch i386     -lexslt -lxslt -lxml2 -liconv  -lruby -lexslt -lxslt -lxml2 -liconv  -lpthread -ldl -lobjc   "
 conftest.c: In function ‘t’:
 conftest.c:3: warning: implicit declaration of function ‘xmlRelaxNGSetParserStructuredErrors’
+ld: warning: directory not found for option '-L/opt/local/lib'
+conftest.c: In function ‘t’:
+conftest.c:3: warning: implicit declaration of function ‘xmlRelaxNGSetParserStructuredErrors’
+ld: warning: directory not found for option '-L/opt/local/lib'
 checked program was:
 /* begin */
 1: /*top*/
@@ -205,11 +263,16 @@ checked program was:
 
 have_func: checking for xmlRelaxNGSetParserStructuredErrors()... -------------------- yes
 
-"gcc -o conftest -I. -I/Users/olivier/.rvm/rubies/ree-1.8.7-2011.01/lib/ruby/1.8/i686-darwin10.6.0 -I. -I-I-I/opt/local/include -I-I-I/usr/local/include -I-I-I/Users/olivier/.rvm/rubies/ree-1.8.7-2011.01/include -I-I-I/usr/include -I-I-I/usr/include/libxml2 -I/opt/local/include/libxml2 -I/usr/local/include/libxml2 -I/Users/olivier/.rvm/rubies/ree-1.8.7-2011.01/include/libxml2 -I-I/opt/local/include -I-I/usr/local/include -I-I/Users/olivier/.rvm/rubies/ree-1.8.7-2011.01/include -I-I/usr/include -I-I/usr/include/libxml2 -I/opt/local/include -I/usr/local/include -I/Users/olivier/.rvm/rubies/ree-1.8.7-2011.01/include -I/usr/include -I/usr/include/libxml2  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2   -fno-common -pipe -fno-common    -g -DXP_UNIX -O3 -Wall -Wcast-qual -Wwrite-strings -Wconversion -Wmissing-noreturn -Winline conftest.c  -L. -L/Users/olivier/.rvm/rubies/ree-1.8.7-2011.01/lib -L/opt/local/lib -L/usr/local/lib -L/Users/olivier/.rvm/rubies/ree-1.8.7-2011.01/lib -L/usr/lib -L.     -lexslt -lxslt -lxml2 -liconv  -lruby-static -lexslt -lxslt -lxml2 -liconv  -ldl -lobjc   "
+"gcc -o conftest -I. -I/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/universal-darwin11.0 -I. -I-I-I/opt/local/include -I-I-I/usr/local/include -I-I-I/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/include -I-I-I/usr/include -I-I-I/usr/include/libxml2 -I/opt/local/include/libxml2 -I/usr/local/include/libxml2 -I/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/include/libxml2 -I-I/opt/local/include -I-I/usr/local/include -I-I/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/include -I-I/usr/include -I-I/usr/include/libxml2 -I/opt/local/include -I/usr/local/include -I/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/include -I/usr/include -I/usr/include/libxml2  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -arch x86_64 -arch i386 -g -Os -pipe -fno-common -DENABLE_DTRACE  -fno-common  -pipe -fno-common    -g -DXP_UNIX -O3 -Wall -Wcast-qual -Wwrite-strings -Wconversion -Wmissing-noreturn -Winline conftest.c  -L. -L/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib -L/opt/local/lib -L/usr/local/lib -L/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib -L/usr/lib -L. -arch x86_64 -arch i386     -lexslt -lxslt -lxml2 -liconv  -lruby -lexslt -lxslt -lxml2 -liconv  -lpthread -ldl -lobjc   "
 conftest.c: In function ‘t’:
 conftest.c:3: error: ‘xmlRelaxNGSetParserStructuredErrors’ undeclared (first use in this function)
 conftest.c:3: error: (Each undeclared identifier is reported only once
 conftest.c:3: error: for each function it appears in.)
+conftest.c: In function ‘t’:
+conftest.c:3: error: ‘xmlRelaxNGSetParserStructuredErrors’ undeclared (first use in this function)
+conftest.c:3: error: (Each undeclared identifier is reported only once
+conftest.c:3: error: for each function it appears in.)
+lipo: can't figure out the architecture type of: /var/folders/3c/d1qvywnj17d8r703h_djr_pm0000gn/T//ccMArWIV.out
 checked program was:
 /* begin */
 1: /*top*/
@@ -217,9 +280,13 @@ checked program was:
 3: int t() { void ((*volatile p)()); p = (void ((*)()))xmlRelaxNGSetParserStructuredErrors; return 0; }
 /* end */
 
-"gcc -o conftest -I. -I/Users/olivier/.rvm/rubies/ree-1.8.7-2011.01/lib/ruby/1.8/i686-darwin10.6.0 -I. -I-I-I/opt/local/include -I-I-I/usr/local/include -I-I-I/Users/olivier/.rvm/rubies/ree-1.8.7-2011.01/include -I-I-I/usr/include -I-I-I/usr/include/libxml2 -I/opt/local/include/libxml2 -I/usr/local/include/libxml2 -I/Users/olivier/.rvm/rubies/ree-1.8.7-2011.01/include/libxml2 -I-I/opt/local/include -I-I/usr/local/include -I-I/Users/olivier/.rvm/rubies/ree-1.8.7-2011.01/include -I-I/usr/include -I-I/usr/include/libxml2 -I/opt/local/include -I/usr/local/include -I/Users/olivier/.rvm/rubies/ree-1.8.7-2011.01/include -I/usr/include -I/usr/include/libxml2  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2   -fno-common -pipe -fno-common    -g -DXP_UNIX -O3 -Wall -Wcast-qual -Wwrite-strings -Wconversion -Wmissing-noreturn -Winline conftest.c  -L. -L/Users/olivier/.rvm/rubies/ree-1.8.7-2011.01/lib -L/opt/local/lib -L/usr/local/lib -L/Users/olivier/.rvm/rubies/ree-1.8.7-2011.01/lib -L/usr/lib -L.     -lexslt -lxslt -lxml2 -liconv  -lruby-static -lexslt -lxslt -lxml2 -liconv  -ldl -lobjc   "
+"gcc -o conftest -I. -I/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/universal-darwin11.0 -I. -I-I-I/opt/local/include -I-I-I/usr/local/include -I-I-I/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/include -I-I-I/usr/include -I-I-I/usr/include/libxml2 -I/opt/local/include/libxml2 -I/usr/local/include/libxml2 -I/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/include/libxml2 -I-I/opt/local/include -I-I/usr/local/include -I-I/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/include -I-I/usr/include -I-I/usr/include/libxml2 -I/opt/local/include -I/usr/local/include -I/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/include -I/usr/include -I/usr/include/libxml2  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -arch x86_64 -arch i386 -g -Os -pipe -fno-common -DENABLE_DTRACE  -fno-common  -pipe -fno-common    -g -DXP_UNIX -O3 -Wall -Wcast-qual -Wwrite-strings -Wconversion -Wmissing-noreturn -Winline conftest.c  -L. -L/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib -L/opt/local/lib -L/usr/local/lib -L/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib -L/usr/lib -L. -arch x86_64 -arch i386     -lexslt -lxslt -lxml2 -liconv  -lruby -lexslt -lxslt -lxml2 -liconv  -lpthread -ldl -lobjc   "
 conftest.c: In function ‘t’:
 conftest.c:3: warning: implicit declaration of function ‘xmlRelaxNGSetParserStructuredErrors’
+ld: warning: directory not found for option '-L/opt/local/lib'
+conftest.c: In function ‘t’:
+conftest.c:3: warning: implicit declaration of function ‘xmlRelaxNGSetParserStructuredErrors’
+ld: warning: directory not found for option '-L/opt/local/lib'
 checked program was:
 /* begin */
 1: /*top*/
@@ -231,11 +298,16 @@ checked program was:
 
 have_func: checking for xmlRelaxNGSetValidStructuredErrors()... -------------------- yes
 
-"gcc -o conftest -I. -I/Users/olivier/.rvm/rubies/ree-1.8.7-2011.01/lib/ruby/1.8/i686-darwin10.6.0 -I. -I-I-I/opt/local/include -I-I-I/usr/local/include -I-I-I/Users/olivier/.rvm/rubies/ree-1.8.7-2011.01/include -I-I-I/usr/include -I-I-I/usr/include/libxml2 -I/opt/local/include/libxml2 -I/usr/local/include/libxml2 -I/Users/olivier/.rvm/rubies/ree-1.8.7-2011.01/include/libxml2 -I-I/opt/local/include -I-I/usr/local/include -I-I/Users/olivier/.rvm/rubies/ree-1.8.7-2011.01/include -I-I/usr/include -I-I/usr/include/libxml2 -I/opt/local/include -I/usr/local/include -I/Users/olivier/.rvm/rubies/ree-1.8.7-2011.01/include -I/usr/include -I/usr/include/libxml2  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2   -fno-common -pipe -fno-common    -g -DXP_UNIX -O3 -Wall -Wcast-qual -Wwrite-strings -Wconversion -Wmissing-noreturn -Winline conftest.c  -L. -L/Users/olivier/.rvm/rubies/ree-1.8.7-2011.01/lib -L/opt/local/lib -L/usr/local/lib -L/Users/olivier/.rvm/rubies/ree-1.8.7-2011.01/lib -L/usr/lib -L.     -lexslt -lxslt -lxml2 -liconv  -lruby-static -lexslt -lxslt -lxml2 -liconv  -ldl -lobjc   "
+"gcc -o conftest -I. -I/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/universal-darwin11.0 -I. -I-I-I/opt/local/include -I-I-I/usr/local/include -I-I-I/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/include -I-I-I/usr/include -I-I-I/usr/include/libxml2 -I/opt/local/include/libxml2 -I/usr/local/include/libxml2 -I/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/include/libxml2 -I-I/opt/local/include -I-I/usr/local/include -I-I/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/include -I-I/usr/include -I-I/usr/include/libxml2 -I/opt/local/include -I/usr/local/include -I/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/include -I/usr/include -I/usr/include/libxml2  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -arch x86_64 -arch i386 -g -Os -pipe -fno-common -DENABLE_DTRACE  -fno-common  -pipe -fno-common    -g -DXP_UNIX -O3 -Wall -Wcast-qual -Wwrite-strings -Wconversion -Wmissing-noreturn -Winline conftest.c  -L. -L/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib -L/opt/local/lib -L/usr/local/lib -L/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib -L/usr/lib -L. -arch x86_64 -arch i386     -lexslt -lxslt -lxml2 -liconv  -lruby -lexslt -lxslt -lxml2 -liconv  -lpthread -ldl -lobjc   "
 conftest.c: In function ‘t’:
 conftest.c:3: error: ‘xmlRelaxNGSetValidStructuredErrors’ undeclared (first use in this function)
 conftest.c:3: error: (Each undeclared identifier is reported only once
 conftest.c:3: error: for each function it appears in.)
+conftest.c: In function ‘t’:
+conftest.c:3: error: ‘xmlRelaxNGSetValidStructuredErrors’ undeclared (first use in this function)
+conftest.c:3: error: (Each undeclared identifier is reported only once
+conftest.c:3: error: for each function it appears in.)
+lipo: can't figure out the architecture type of: /var/folders/3c/d1qvywnj17d8r703h_djr_pm0000gn/T//ccnPZnAq.out
 checked program was:
 /* begin */
 1: /*top*/
@@ -243,9 +315,13 @@ checked program was:
 3: int t() { void ((*volatile p)()); p = (void ((*)()))xmlRelaxNGSetValidStructuredErrors; return 0; }
 /* end */
 
-"gcc -o conftest -I. -I/Users/olivier/.rvm/rubies/ree-1.8.7-2011.01/lib/ruby/1.8/i686-darwin10.6.0 -I. -I-I-I/opt/local/include -I-I-I/usr/local/include -I-I-I/Users/olivier/.rvm/rubies/ree-1.8.7-2011.01/include -I-I-I/usr/include -I-I-I/usr/include/libxml2 -I/opt/local/include/libxml2 -I/usr/local/include/libxml2 -I/Users/olivier/.rvm/rubies/ree-1.8.7-2011.01/include/libxml2 -I-I/opt/local/include -I-I/usr/local/include -I-I/Users/olivier/.rvm/rubies/ree-1.8.7-2011.01/include -I-I/usr/include -I-I/usr/include/libxml2 -I/opt/local/include -I/usr/local/include -I/Users/olivier/.rvm/rubies/ree-1.8.7-2011.01/include -I/usr/include -I/usr/include/libxml2  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2   -fno-common -pipe -fno-common    -g -DXP_UNIX -O3 -Wall -Wcast-qual -Wwrite-strings -Wconversion -Wmissing-noreturn -Winline conftest.c  -L. -L/Users/olivier/.rvm/rubies/ree-1.8.7-2011.01/lib -L/opt/local/lib -L/usr/local/lib -L/Users/olivier/.rvm/rubies/ree-1.8.7-2011.01/lib -L/usr/lib -L.     -lexslt -lxslt -lxml2 -liconv  -lruby-static -lexslt -lxslt -lxml2 -liconv  -ldl -lobjc   "
+"gcc -o conftest -I. -I/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/universal-darwin11.0 -I. -I-I-I/opt/local/include -I-I-I/usr/local/include -I-I-I/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/include -I-I-I/usr/include -I-I-I/usr/include/libxml2 -I/opt/local/include/libxml2 -I/usr/local/include/libxml2 -I/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/include/libxml2 -I-I/opt/local/include -I-I/usr/local/include -I-I/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/include -I-I/usr/include -I-I/usr/include/libxml2 -I/opt/local/include -I/usr/local/include -I/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/include -I/usr/include -I/usr/include/libxml2  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -arch x86_64 -arch i386 -g -Os -pipe -fno-common -DENABLE_DTRACE  -fno-common  -pipe -fno-common    -g -DXP_UNIX -O3 -Wall -Wcast-qual -Wwrite-strings -Wconversion -Wmissing-noreturn -Winline conftest.c  -L. -L/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib -L/opt/local/lib -L/usr/local/lib -L/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib -L/usr/lib -L. -arch x86_64 -arch i386     -lexslt -lxslt -lxml2 -liconv  -lruby -lexslt -lxslt -lxml2 -liconv  -lpthread -ldl -lobjc   "
 conftest.c: In function ‘t’:
 conftest.c:3: warning: implicit declaration of function ‘xmlRelaxNGSetValidStructuredErrors’
+ld: warning: directory not found for option '-L/opt/local/lib'
+conftest.c: In function ‘t’:
+conftest.c:3: warning: implicit declaration of function ‘xmlRelaxNGSetValidStructuredErrors’
+ld: warning: directory not found for option '-L/opt/local/lib'
 checked program was:
 /* begin */
 1: /*top*/
@@ -257,11 +333,16 @@ checked program was:
 
 have_func: checking for xmlSchemaSetValidStructuredErrors()... -------------------- yes
 
-"gcc -o conftest -I. -I/Users/olivier/.rvm/rubies/ree-1.8.7-2011.01/lib/ruby/1.8/i686-darwin10.6.0 -I. -I-I-I/opt/local/include -I-I-I/usr/local/include -I-I-I/Users/olivier/.rvm/rubies/ree-1.8.7-2011.01/include -I-I-I/usr/include -I-I-I/usr/include/libxml2 -I/opt/local/include/libxml2 -I/usr/local/include/libxml2 -I/Users/olivier/.rvm/rubies/ree-1.8.7-2011.01/include/libxml2 -I-I/opt/local/include -I-I/usr/local/include -I-I/Users/olivier/.rvm/rubies/ree-1.8.7-2011.01/include -I-I/usr/include -I-I/usr/include/libxml2 -I/opt/local/include -I/usr/local/include -I/Users/olivier/.rvm/rubies/ree-1.8.7-2011.01/include -I/usr/include -I/usr/include/libxml2  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2   -fno-common -pipe -fno-common    -g -DXP_UNIX -O3 -Wall -Wcast-qual -Wwrite-strings -Wconversion -Wmissing-noreturn -Winline conftest.c  -L. -L/Users/olivier/.rvm/rubies/ree-1.8.7-2011.01/lib -L/opt/local/lib -L/usr/local/lib -L/Users/olivier/.rvm/rubies/ree-1.8.7-2011.01/lib -L/usr/lib -L.     -lexslt -lxslt -lxml2 -liconv  -lruby-static -lexslt -lxslt -lxml2 -liconv  -ldl -lobjc   "
+"gcc -o conftest -I. -I/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/universal-darwin11.0 -I. -I-I-I/opt/local/include -I-I-I/usr/local/include -I-I-I/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/include -I-I-I/usr/include -I-I-I/usr/include/libxml2 -I/opt/local/include/libxml2 -I/usr/local/include/libxml2 -I/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/include/libxml2 -I-I/opt/local/include -I-I/usr/local/include -I-I/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/include -I-I/usr/include -I-I/usr/include/libxml2 -I/opt/local/include -I/usr/local/include -I/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/include -I/usr/include -I/usr/include/libxml2  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -arch x86_64 -arch i386 -g -Os -pipe -fno-common -DENABLE_DTRACE  -fno-common  -pipe -fno-common    -g -DXP_UNIX -O3 -Wall -Wcast-qual -Wwrite-strings -Wconversion -Wmissing-noreturn -Winline conftest.c  -L. -L/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib -L/opt/local/lib -L/usr/local/lib -L/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib -L/usr/lib -L. -arch x86_64 -arch i386     -lexslt -lxslt -lxml2 -liconv  -lruby -lexslt -lxslt -lxml2 -liconv  -lpthread -ldl -lobjc   "
 conftest.c: In function ‘t’:
 conftest.c:3: error: ‘xmlSchemaSetValidStructuredErrors’ undeclared (first use in this function)
 conftest.c:3: error: (Each undeclared identifier is reported only once
 conftest.c:3: error: for each function it appears in.)
+conftest.c: In function ‘t’:
+conftest.c:3: error: ‘xmlSchemaSetValidStructuredErrors’ undeclared (first use in this function)
+conftest.c:3: error: (Each undeclared identifier is reported only once
+conftest.c:3: error: for each function it appears in.)
+lipo: can't figure out the architecture type of: /var/folders/3c/d1qvywnj17d8r703h_djr_pm0000gn/T//ccqncbYQ.out
 checked program was:
 /* begin */
 1: /*top*/
@@ -269,9 +350,13 @@ checked program was:
 3: int t() { void ((*volatile p)()); p = (void ((*)()))xmlSchemaSetValidStructuredErrors; return 0; }
 /* end */
 
-"gcc -o conftest -I. -I/Users/olivier/.rvm/rubies/ree-1.8.7-2011.01/lib/ruby/1.8/i686-darwin10.6.0 -I. -I-I-I/opt/local/include -I-I-I/usr/local/include -I-I-I/Users/olivier/.rvm/rubies/ree-1.8.7-2011.01/include -I-I-I/usr/include -I-I-I/usr/include/libxml2 -I/opt/local/include/libxml2 -I/usr/local/include/libxml2 -I/Users/olivier/.rvm/rubies/ree-1.8.7-2011.01/include/libxml2 -I-I/opt/local/include -I-I/usr/local/include -I-I/Users/olivier/.rvm/rubies/ree-1.8.7-2011.01/include -I-I/usr/include -I-I/usr/include/libxml2 -I/opt/local/include -I/usr/local/include -I/Users/olivier/.rvm/rubies/ree-1.8.7-2011.01/include -I/usr/include -I/usr/include/libxml2  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2   -fno-common -pipe -fno-common    -g -DXP_UNIX -O3 -Wall -Wcast-qual -Wwrite-strings -Wconversion -Wmissing-noreturn -Winline conftest.c  -L. -L/Users/olivier/.rvm/rubies/ree-1.8.7-2011.01/lib -L/opt/local/lib -L/usr/local/lib -L/Users/olivier/.rvm/rubies/ree-1.8.7-2011.01/lib -L/usr/lib -L.     -lexslt -lxslt -lxml2 -liconv  -lruby-static -lexslt -lxslt -lxml2 -liconv  -ldl -lobjc   "
+"gcc -o conftest -I. -I/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/universal-darwin11.0 -I. -I-I-I/opt/local/include -I-I-I/usr/local/include -I-I-I/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/include -I-I-I/usr/include -I-I-I/usr/include/libxml2 -I/opt/local/include/libxml2 -I/usr/local/include/libxml2 -I/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/include/libxml2 -I-I/opt/local/include -I-I/usr/local/include -I-I/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/include -I-I/usr/include -I-I/usr/include/libxml2 -I/opt/local/include -I/usr/local/include -I/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/include -I/usr/include -I/usr/include/libxml2  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -arch x86_64 -arch i386 -g -Os -pipe -fno-common -DENABLE_DTRACE  -fno-common  -pipe -fno-common    -g -DXP_UNIX -O3 -Wall -Wcast-qual -Wwrite-strings -Wconversion -Wmissing-noreturn -Winline conftest.c  -L. -L/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib -L/opt/local/lib -L/usr/local/lib -L/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib -L/usr/lib -L. -arch x86_64 -arch i386     -lexslt -lxslt -lxml2 -liconv  -lruby -lexslt -lxslt -lxml2 -liconv  -lpthread -ldl -lobjc   "
 conftest.c: In function ‘t’:
 conftest.c:3: warning: implicit declaration of function ‘xmlSchemaSetValidStructuredErrors’
+ld: warning: directory not found for option '-L/opt/local/lib'
+conftest.c: In function ‘t’:
+conftest.c:3: warning: implicit declaration of function ‘xmlSchemaSetValidStructuredErrors’
+ld: warning: directory not found for option '-L/opt/local/lib'
 checked program was:
 /* begin */
 1: /*top*/
@@ -283,11 +368,16 @@ checked program was:
 
 have_func: checking for xmlSchemaSetParserStructuredErrors()... -------------------- yes
 
-"gcc -o conftest -I. -I/Users/olivier/.rvm/rubies/ree-1.8.7-2011.01/lib/ruby/1.8/i686-darwin10.6.0 -I. -I-I-I/opt/local/include -I-I-I/usr/local/include -I-I-I/Users/olivier/.rvm/rubies/ree-1.8.7-2011.01/include -I-I-I/usr/include -I-I-I/usr/include/libxml2 -I/opt/local/include/libxml2 -I/usr/local/include/libxml2 -I/Users/olivier/.rvm/rubies/ree-1.8.7-2011.01/include/libxml2 -I-I/opt/local/include -I-I/usr/local/include -I-I/Users/olivier/.rvm/rubies/ree-1.8.7-2011.01/include -I-I/usr/include -I-I/usr/include/libxml2 -I/opt/local/include -I/usr/local/include -I/Users/olivier/.rvm/rubies/ree-1.8.7-2011.01/include -I/usr/include -I/usr/include/libxml2  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2   -fno-common -pipe -fno-common    -g -DXP_UNIX -O3 -Wall -Wcast-qual -Wwrite-strings -Wconversion -Wmissing-noreturn -Winline conftest.c  -L. -L/Users/olivier/.rvm/rubies/ree-1.8.7-2011.01/lib -L/opt/local/lib -L/usr/local/lib -L/Users/olivier/.rvm/rubies/ree-1.8.7-2011.01/lib -L/usr/lib -L.     -lexslt -lxslt -lxml2 -liconv  -lruby-static -lexslt -lxslt -lxml2 -liconv  -ldl -lobjc   "
+"gcc -o conftest -I. -I/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/universal-darwin11.0 -I. -I-I-I/opt/local/include -I-I-I/usr/local/include -I-I-I/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/include -I-I-I/usr/include -I-I-I/usr/include/libxml2 -I/opt/local/include/libxml2 -I/usr/local/include/libxml2 -I/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/include/libxml2 -I-I/opt/local/include -I-I/usr/local/include -I-I/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/include -I-I/usr/include -I-I/usr/include/libxml2 -I/opt/local/include -I/usr/local/include -I/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/include -I/usr/include -I/usr/include/libxml2  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -arch x86_64 -arch i386 -g -Os -pipe -fno-common -DENABLE_DTRACE  -fno-common  -pipe -fno-common    -g -DXP_UNIX -O3 -Wall -Wcast-qual -Wwrite-strings -Wconversion -Wmissing-noreturn -Winline conftest.c  -L. -L/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib -L/opt/local/lib -L/usr/local/lib -L/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib -L/usr/lib -L. -arch x86_64 -arch i386     -lexslt -lxslt -lxml2 -liconv  -lruby -lexslt -lxslt -lxml2 -liconv  -lpthread -ldl -lobjc   "
 conftest.c: In function ‘t’:
 conftest.c:3: error: ‘xmlSchemaSetParserStructuredErrors’ undeclared (first use in this function)
 conftest.c:3: error: (Each undeclared identifier is reported only once
 conftest.c:3: error: for each function it appears in.)
+conftest.c: In function ‘t’:
+conftest.c:3: error: ‘xmlSchemaSetParserStructuredErrors’ undeclared (first use in this function)
+conftest.c:3: error: (Each undeclared identifier is reported only once
+conftest.c:3: error: for each function it appears in.)
+lipo: can't figure out the architecture type of: /var/folders/3c/d1qvywnj17d8r703h_djr_pm0000gn/T//cc4ylDqV.out
 checked program was:
 /* begin */
 1: /*top*/
@@ -295,9 +385,13 @@ checked program was:
 3: int t() { void ((*volatile p)()); p = (void ((*)()))xmlSchemaSetParserStructuredErrors; return 0; }
 /* end */
 
-"gcc -o conftest -I. -I/Users/olivier/.rvm/rubies/ree-1.8.7-2011.01/lib/ruby/1.8/i686-darwin10.6.0 -I. -I-I-I/opt/local/include -I-I-I/usr/local/include -I-I-I/Users/olivier/.rvm/rubies/ree-1.8.7-2011.01/include -I-I-I/usr/include -I-I-I/usr/include/libxml2 -I/opt/local/include/libxml2 -I/usr/local/include/libxml2 -I/Users/olivier/.rvm/rubies/ree-1.8.7-2011.01/include/libxml2 -I-I/opt/local/include -I-I/usr/local/include -I-I/Users/olivier/.rvm/rubies/ree-1.8.7-2011.01/include -I-I/usr/include -I-I/usr/include/libxml2 -I/opt/local/include -I/usr/local/include -I/Users/olivier/.rvm/rubies/ree-1.8.7-2011.01/include -I/usr/include -I/usr/include/libxml2  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2   -fno-common -pipe -fno-common    -g -DXP_UNIX -O3 -Wall -Wcast-qual -Wwrite-strings -Wconversion -Wmissing-noreturn -Winline conftest.c  -L. -L/Users/olivier/.rvm/rubies/ree-1.8.7-2011.01/lib -L/opt/local/lib -L/usr/local/lib -L/Users/olivier/.rvm/rubies/ree-1.8.7-2011.01/lib -L/usr/lib -L.     -lexslt -lxslt -lxml2 -liconv  -lruby-static -lexslt -lxslt -lxml2 -liconv  -ldl -lobjc   "
+"gcc -o conftest -I. -I/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/universal-darwin11.0 -I. -I-I-I/opt/local/include -I-I-I/usr/local/include -I-I-I/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/include -I-I-I/usr/include -I-I-I/usr/include/libxml2 -I/opt/local/include/libxml2 -I/usr/local/include/libxml2 -I/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/include/libxml2 -I-I/opt/local/include -I-I/usr/local/include -I-I/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/include -I-I/usr/include -I-I/usr/include/libxml2 -I/opt/local/include -I/usr/local/include -I/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/include -I/usr/include -I/usr/include/libxml2  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -arch x86_64 -arch i386 -g -Os -pipe -fno-common -DENABLE_DTRACE  -fno-common  -pipe -fno-common    -g -DXP_UNIX -O3 -Wall -Wcast-qual -Wwrite-strings -Wconversion -Wmissing-noreturn -Winline conftest.c  -L. -L/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib -L/opt/local/lib -L/usr/local/lib -L/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib -L/usr/lib -L. -arch x86_64 -arch i386     -lexslt -lxslt -lxml2 -liconv  -lruby -lexslt -lxslt -lxml2 -liconv  -lpthread -ldl -lobjc   "
 conftest.c: In function ‘t’:
 conftest.c:3: warning: implicit declaration of function ‘xmlSchemaSetParserStructuredErrors’
+ld: warning: directory not found for option '-L/opt/local/lib'
+conftest.c: In function ‘t’:
+conftest.c:3: warning: implicit declaration of function ‘xmlSchemaSetParserStructuredErrors’
+ld: warning: directory not found for option '-L/opt/local/lib'
 checked program was:
 /* begin */
 1: /*top*/

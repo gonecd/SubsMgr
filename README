@@ -17,7 +17,7 @@ h2. Préparation des gems pour les inclures dans l'appli finale
 Après une mise à jour des gems (ou une réinstallation), il faut au préalable lancer la commande
 ./scripts/relink_nokogiri.rb
 
-Ce script permet de changer les chemins des différentes lib nécessaires à Nokogiri afin d'utiliser celles inclusent dans l'appli plutôt que les libs système
+Ce script permet de changer les chemins des différentes lib nécessaires à Nokogiri afin d'utiliser celles inclusent dans l'appli plutôt que les libs système. Il faut modifier dans ce script la constante indiquant la version de Nokogiri
 
 
 h1. Playground

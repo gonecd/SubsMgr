@@ -330,7 +330,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "echo \"copy external files\"\ncp -r ${SRCROOT}/vendor ${TARGET_BUILD_DIR}/${TARGET_NAME}.app/Contents/Resources\ncp -r ${SRCROOT}/plugin ${TARGET_BUILD_DIR}/${TARGET_NAME}.app/Contents/Resources\ncp -r ${SRCROOT}/common ${TARGET_BUILD_DIR}/${TARGET_NAME}.app/Contents/Resources\n";
+			shellScript = "echo \"copy external files\"\ncp -r ${SRCROOT}/vendor ${TARGET_BUILD_DIR}/${TARGET_NAME}.app/Contents/Resources\ncp -r ${SRCROOT}/plugin ${TARGET_BUILD_DIR}/${TARGET_NAME}.app/Contents/Resources\ncp -r ${SRCROOT}/common ${TARGET_BUILD_DIR}/${TARGET_NAME}.app/Contents/Resources\ncp -r ${SRCROOT}/Gemfile* ${TARGET_BUILD_DIR}/${TARGET_NAME}.app/Contents/Resources\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
