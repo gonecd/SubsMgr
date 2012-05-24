@@ -53,11 +53,16 @@ module FileCache
 	CACHE_PATH = "/tmp/subsmgr"
 
 	BROWSER = Mechanize.new { |agent|
-		agent.user_agent_alias = 'Mac Safari'
-		agent.gzip_enabled = false
+		agent.user_agent_alias = 'Linux Firefox'
 		agent.follow_meta_refresh = false
+		agent.gzip_enabled = false
+		agent.open_timeout = 30
+		agent.read_timeout = 120
+		agent.request_headers = {'Accept-Language' => 'fr, fr-fr ;q=0.8, en-us;q=0.7,en;q=0.5'}
 		agent.history.max_size = 5
 		agent.keep_alive = false
+		agent.idle_timeout = 2
+		agent.retry_change_requests = true
 	}
 
 	module_function
@@ -76,7 +81,7 @@ module FileCache
 	def get_zip(link, file, referer = nil)
 		begin
 			# Récupération du zip
-			full_path = get_file(link, :refered => referer, :zip => true)
+			full_path = get_file(link, :referer => referer, :zip => true)
 
 			# Extraction du zip
 			if file == "None"
@@ -127,10 +132,11 @@ module FileCache
 			Tools.logger.debug("# SubsMgr cache - Load #{source}")
 		else
 			Tools.logger.debug("# SubsMgr cache - Live request #{source} - Referer: #{options[:referer]}")
-			file = BROWSER.get(source, :referer => options[:referer])
+			file = BROWSER.get(source, [], options[:referer])
 			cache.write(crc, file.body)
 			flatten_archive(path) if options[:zip]
 		end
+		Tools.logger.debug("# SubsMgr cache - subtitle path #{path}")
 		path
 	end
 
@@ -145,7 +151,7 @@ module FileCache
 			options[:xml] ? Nokogiri::XML(cache.read(crc)).root : Nokogiri::HTML(cache.read(crc)).root
 		else
 			begin
-				file = BROWSER.get(source, :referer => options[:refered])
+				file = BROWSER.get(source, [], options[:referer])
 				cache.write(crc, file.body.to_s)
 				options[:xml] ? Nokogiri::XML(file.body.to_s).root : file.root
 			rescue Mechanize::ResponseCodeError => err

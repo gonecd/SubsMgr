@@ -1131,6 +1131,7 @@ class SubsMgr < OSX::NSWindowController
 		@liste.reloadData
 
 		@roue.stopAnimation(self)
+		rowSelected
 	end
 	ib_action :SearchSub
 

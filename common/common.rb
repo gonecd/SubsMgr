@@ -7,7 +7,7 @@ if (rvm = `$HOME/.rvm/bin/rvm gemdir 2>/dev/null`.strip) != ''
 	ENV['GEM_HOME'] = rvm
 end
 vendored = File.expand_path(File.join(File.dirname(__FILE__), "../vendor/bundle/ruby/1.8"))
-$LOAD_PATH << "#{vendored}/gems/bundler-1.0.10/lib"
+$LOAD_PATH << "#{vendored}/gems/bundler-1.1.3/lib"
 
 require 'rubygems'
 ENV['GEM_PATH'] = vendored + (ENV['GEM_PATH'] ? ":#{ENV['GEM_PATH']}" : '')
