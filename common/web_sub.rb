@@ -45,7 +45,7 @@ class WebSub < CommonStruct
 			# on verifie le nom complet, mais aussi les formes du type .3LETTRES. et .4LETTRES.
 			unless fichier.match(%r{(#{ligne.team}|[\.-]#{ligne.team.to_s[0..3]}?[\.-])}i)
 				# dim et lol sont le même groupe
-				unless ligne.team.match(/^(dim|lol|dimension)$/i) && fichier.match(/(dim[\.-]|lol[\.-]|dimension)/i)
+				unless ligne.team.match(/^(dim|lol|dimension)$/im) && fichier.match(/(dim[\.-]|lol[\.-]|dimension)/im)
 					self.score -=	 3
 					self.errors[:team] = true
 				end
@@ -72,12 +72,12 @@ class WebSub < CommonStruct
 			end
 
 			# on préfère les version tag vs notag
-			if fichier.match(/tag/i) && !fichier.match(/notag/i)
+			if fichier.match(/tag/im) && !fichier.match(/notag/im)
 				self.score += 1 # avec tag c'est mieux que sans tag
 			end
 
 			# check du format 720p
-			if fichier.match(/720p/i)
+			if fichier.match(/720p/im)
 				if ligne.format == '720p'
 					self.score += 1
 				elsif !self.errors[:team]
@@ -128,17 +128,17 @@ class WebSub < CommonStruct
 		return false unless french?(txt)
 
 		case
-		when txt.match(/s0?#{saison}e0?#{episode}([^0-9]|$)/i) then true # format S01E01 et variantes
-		when txt.match(/0?#{saison}x0?#{episode}([^0-9]|$)/i) then true # format 01X01 et variantes
-		when txt.match(/#{saison}#{sprintf('%02d',episode)}([^0-9]|$)/i) then true	 # format 101
+		when txt.match(/s0?#{saison}e0?#{episode}([^0-9]|$)/im) then true # format S01E01 et variantes
+		when txt.match(/0?#{saison}x0?#{episode}([^0-9]|$)/im) then true # format 01X01 et variantes
+		when txt.match(/#{saison}#{sprintf('%02d',episode)}([^0-9]|$)/im) then true		# format 101
 		else false
 		end
 	end
 
 	# verifie si le fichier name ressemble a un nom de fichier "français" (ie pas VO ou EN) et exploitable (srt/zip/rar)
 	def self.french?(txt)
-		return false unless txt.match(/\.(srt|rar|zip)$/i)
-		return false if txt.match(/[\.\s_-](EN|VO)[\.\s_-]/i)
+		return false unless txt.match(/\.(srt|rar|zip)$/im)
+		return false if txt.match(/[\.\s_-](EN|VO)[\.\s_-]/im)
 		return true
 	end
 
