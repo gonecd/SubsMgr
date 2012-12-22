@@ -54,10 +54,10 @@ class WebSub < CommonStruct
 			# Check des infos supplémentaires, mais sans tenir compte de l'ordre qui peut varier
 			ok = true
 			ligne.infos.split(/\./).each do |key|
-				if key != '' && !fichier.match(%r{\.#{key}}i)
-					ok = false
-					break
-				end
+				next if key.blank?
+				next if fichier.match(%r{\.#{key}}i)
+				ok = false
+				break
 			end
 			unless ok
 				self.score -= 3
@@ -77,8 +77,13 @@ class WebSub < CommonStruct
 			end
 
 			# check du format 720p
-			if fichier.match(/720p/im) && ligne.format == '720p'
-				self.score += 1
+			if fichier.match(/720p/im)
+				if ligne.format == '720p'
+					self.score += 1
+				elsif !errors[:team]
+					# si pas le même format mais même team, alors c'est quand même mieux qu'une autre team
+					self.score += 1
+				end
 			end
 
 			self.confiant = (self.score.to_f / 4).round + rank
