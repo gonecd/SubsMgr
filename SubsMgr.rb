@@ -1121,7 +1121,7 @@ class SubsMgr < OSX::NSWindowController
 
 		# Positionnement sur le meilleur candidat
 		@current.conf = 0
-		@current.candidats.sort!
+		@current.candidats = @current.candidats.sort_by {|x| [-x.score, x.errors[:team] ? 1 : 0]}
 		if @current.candidats.size>0
 			@plusmoins.setIntValue(1)
 			@current.conf = @current.candidats.first.confiant.to_i

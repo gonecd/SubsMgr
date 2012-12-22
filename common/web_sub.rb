@@ -81,7 +81,7 @@ class WebSub < CommonStruct
 				if ligne.format == '720p'
 					self.score += 1
 				elsif !self.errors[:team]
-					# si pas le même format mais même team, alors c'est quand même mieux qu'une autre team
+					# si pas le même format mais même team, alors c'est mieux qu'une autre team
 					self.score += 1
 				end
 			end
