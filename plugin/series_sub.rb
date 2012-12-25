@@ -16,15 +16,17 @@ class Plugin::SeriesSub < Plugin::Base
 	end
 
 	def do_search
-		monURL = "http://www.seriessub.com/sous-titres/"+current.serie.downcase.gsub(/ /, '_')+"/saison_"+current.saison.to_s+"/"
-		rec1 = sprintf("%s.%d%02d", current.serie.downcase.gsub(/ /, '.'), current.saison, current.episode)
-		rec2 = sprintf("%s.%dx%02d", current.serie.downcase.gsub(/ /, '.'), current.saison, current.episode)
-		rec3 = sprintf("%s.s%d", current.serie.downcase.gsub(/ /, '.'), current.saison)
+		name = current.serie.gsub(/[\s-]+20[0-9]{2}$/im, '')
+		monURL = "http://www.seriessub.com/sous-titres/#{name.gsub(/\s+/, '_')}/saison_#{current.saison}/"
+		rec1 = sprintf("%s.*.%d%02d", name.downcase.gsub(/ /, '.'), current.saison, current.episode)
+		rec2 = sprintf("%s.*.%dx%02d", name.downcase.gsub(/ /, '.'), current.saison, current.episode)
+		rec3 = sprintf("%s.*.s%d", name.downcase.gsub(/ /, '.'), current.saison)
 		rec4 = sprintf("%d%02d", current.saison, current.episode)
 		rec5 = sprintf("%dx%02d", current.saison, current.episode)
 
 		doc = FileCache.get_html(monURL, File.dirname(monURL))
 		doc.search("#sous-titres-list tr").collect do |k|
+			Tools.logger.info "#{k} - #{rec1} - #{rec2} - #{rec3} - #{rec4} - #{rec5}"
 			if k.to_s.match(/(#{rec1}|#{rec2})/im) && k.to_s.match(/(vf|fr)/im)
 				# Info globales au fichier
 				fichierCible = k.at("a.linkst").inner_html
