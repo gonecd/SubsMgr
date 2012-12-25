@@ -18,7 +18,7 @@ class Plugin::Podnapisi < Plugin::Base
 	end
 
 	def do_search
-		monURL = "http://www.podnapisi.net/ppodnapisi/search?tbsl=3&asdp=0&sK=#{current.serie.gsub(/ /, '+')}&sJ=8&sT=1&sY=&sAKA2=1&sR=&sTS=#{current.saison}&sTE=#{current.episode}"
+		monURL = "http://www.podnapisi.net/ppodnapisi/search?tbsl=3&asdp=0&sK=#{CGI.escape(current.serie)}&sJ=8&sT=1&sY=&sAKA2=1&sR=&sTS=#{current.saison}&sTE=#{current.episode}"
 
 		# Trouver la page de la serie :
 		doc = FileCache.get_html(monURL)

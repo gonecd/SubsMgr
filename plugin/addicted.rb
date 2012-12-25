@@ -7,8 +7,14 @@ class Plugin::Addicted < Plugin::Base
 	end
 
 	def do_search
+		# les noms de séries peuvent parfois inclure une année, auquel cas, l'année est entre parenthese
+		if (m = current.serie.match(/^(.+)[\s-]+([0-9]{4})$/im))
+			name = "#{m[1]} (#{m[2]})"
+		else
+			name = current.serie
+		end
 		# faire l'analyse et la recherche d'un épisode spécifique
-		monURL = "http://www.addic7ed.com/serie/#{current.serie.gsub(/ /, '%20')}/#{current.saison}/#{current.episode}/8"
+		monURL = "http://www.addic7ed.com/serie/#{CGI.escape(name)}/#{current.saison}/#{current.episode}/8"
 		rec = sprintf("%s %dx%02d", current.serie, current.saison, current.episode)
 
 		# Trouver la page de la serie :
@@ -18,10 +24,15 @@ class Plugin::Addicted < Plugin::Base
 
 		doc.search("div[@id='container95m'] table[@class='tabel95'] tr td table[@class='tabel95']").collect do |k|
 			new_ligne = WebSub.new
-			txt = [rec, '-']
-			txt << k.at("td:nth-of-type(1)").text.to_s.squish.gsub(/\s*Version\s+/im, '').gsub(/[,].+$/, '').squish
-			txt << '-'
-			txt << k.search("td[@class='newsDate']").at("td:nth-of-type(1)").text.to_s.gsub(/works?\s+with/im, '').squish
+			txt = [rec]
+			unless (val = k.at("td:nth-of-type(1)").text.to_s.squish.gsub(/\s*Version\s+/im, '').gsub(/[,].+$/, '').squish).blank?
+				txt << "-"
+				txt << val
+			end
+			unless (val = k.search("td[@class='newsDate']").at("td:nth-of-type(1)").text.to_s.gsub(/(works?\s+with|also)\s*/im, '').squish).blank?
+				txt << "-"
+				txt << val
+			end
 			txt << ".srt"
 			new_ligne.fichier = txt.join('-').gsub(/[-]{2,}/im, '-')
 			new_ligne.date = k.at("td:nth-of-type(3)").text.to_s
