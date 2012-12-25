@@ -55,9 +55,7 @@ class WebSub < CommonStruct
 			ok = true
 			ligne.infos.split(/[\.-]+/).each do |key|
 				next if key.blank?
-				key = key.squish
-				next if fichier.match(%r{[\.-]#{key}}im)
-				Tools.logger.info "INFO MISSING: #{key} - #{fichier} - #{fichier.match(%r{[\.+]#{key}}i)}"
+				next if fichier.match(%r{[\.-]#{key.squish}}im)
 				ok = false
 				break
 			end

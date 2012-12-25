@@ -18,8 +18,12 @@ class Plugin::Addicted < Plugin::Base
 
 		doc.search("div[@id='container95m'] table[@class='tabel95'] tr td table[@class='tabel95']").collect do |k|
 			new_ligne = WebSub.new
-			new_ligne.fichier = rec+k.at("td:nth-of-type(1)").text.to_s
-			new_ligne.fichier = rec + k.at("td:nth-of-type(1)").text.to_s + k.search("td[@class='newsDate']").at("td:nth-of-type(1)").text.to_s + ".srt"
+			txt = [rec, '-']
+			txt << k.at("td:nth-of-type(1)").text.to_s.squish.gsub(/\s*Version\s+/im, '').gsub(/[,].+$/, '').squish
+			txt << '-'
+			txt << k.search("td[@class='newsDate']").at("td:nth-of-type(1)").text.to_s.gsub(/works?\s+with/im, '').squish
+			txt << ".srt"
+			new_ligne.fichier = txt.join('-').gsub(/[-]{2,}/im, '-')
 			new_ligne.date = k.at("td:nth-of-type(3)").text.to_s
 			new_ligne.lien = k.at("a[@class='buttonDownload']")['href']
 			new_ligne.referer = monURL
