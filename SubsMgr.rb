@@ -48,7 +48,8 @@ class SubsMgr < OSX::NSWindowController
 	ib_outlets :bSearch, :bAccept, :bClean, :bRollback, :bManual, :bNoSub
 	ib_outlets :bTest, :bGoWeb, :bLoadSub, :bViewSub, :bDir
 	ib_outlets :bCleanSerie, :bWebSerie, :bInfoSerie
-
+	ib_outlets :bVlc
+	
 	# Filtres de la liste
 	ib_outlets :bAll, :bAttente, :bTraites, :bErreurs
 
@@ -1262,22 +1263,40 @@ class SubsMgr < OSX::NSWindowController
 	# Fonctions liées aux sous-titres
 	# ------------------------------------------
 	def Tester(sender)
-		@fenMovie.makeKeyAndOrderFront_(sender)
-
 		if @current.candidats[@plusmoins.intValue-1].lien != ""
 			# Récupération du sous titre
 			GetSub()
 
 			if File.exist?("/tmp/Sub.srt")
-				FileUtils.mv("/tmp/Sub.srt", @prefs["Directories"]["Download"]+@current.fichier+".srt")
-				@cinema.setMovie_(OSX::QTMovie.movieWithFile(@prefs["Directories"]["Download"]+@current.fichier))
-				@cinema.play(self)
+				# hack violent car j'ai jamais réussi à trouver comment definir un nouveau bouton dans l'interface
+				# et le relier à la methode Vlc
+				if ENV['USER'] == 'olivier'
+					system("/Applications/VLC.app/Contents/MacOS/VLC --sub-file /tmp/Sub.srt \"#{@prefs["Directories"]["Download"]+@current.fichier}\"")
+				else
+					@fenMovie.makeKeyAndOrderFront_(sender)
+					FileUtils.mv("/tmp/Sub.srt", @prefs["Directories"]["Download"]+@current.fichier+".srt")
+					@cinema.setMovie_(OSX::QTMovie.movieWithFile(@prefs["Directories"]["Download"]+@current.fichier))
+					@cinema.play(self)
+				end
 			else
 				@fenMovie.close()
 			end
 		end
 	end
 	ib_action :Tester
+
+	def Vlc(sender)
+		if @current.candidats[@plusmoins.intValue-1].lien != ""
+			# Récupération du sous titre
+			GetSub()
+
+			if File.exist?("/tmp/Sub.srt")
+				FileUtils.mv("/tmp/Sub.srt", @prefs["Directories"]["Download"]+@current.fichier+".srt")
+				system("/Applications/VLC.app/Contents/MacOS/VLC #{@prefs["Directories"]["Download"]+@current.fichier}")
+			end
+		end
+	end
+	ib_action :Vlc
 
 	def TestOK(sender)
 
@@ -1327,7 +1346,6 @@ class SubsMgr < OSX::NSWindowController
 	ib_action :TestKO
 
 	def GoWeb(sender)
-
 		monURL = @current.candidats[@plusmoins.intValue-1].referer.to_s.strip
 		return if monURL == ''
 		system("open -a Safari '#{monURL}'")
@@ -1509,8 +1527,6 @@ class SubsMgr < OSX::NSWindowController
 	ib_action :GoWebSerie
 
 	def CleanSerie(sender)
-
-
 	end
 	ib_action :CleanSerie
 
