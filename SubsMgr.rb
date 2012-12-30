@@ -643,7 +643,7 @@ class SubsMgr < OSX::NSWindowController
 			when 4 then masque = "%s%sSaison %d Episode %02d"
 			end
 
-			@current.fileTarget = sprintf(masque, @current.serie, sep, @current.saison, @current.episode).gsub(/[\s\/:]+/, ', ')
+			@current.fileTarget = sprintf(masque, @current.serie, sep, @current.saison, @current.episode).gsub(/[\/:]+/, ', ').squish
 
 		rescue Exception=>e
 			Tools.logger.error "# SubsMgr Error # buildTargets ["+@current.fichier+"] : "+e
