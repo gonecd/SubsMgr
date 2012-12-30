@@ -26,7 +26,6 @@ class Plugin::SeriesSub < Plugin::Base
 
 		doc = FileCache.get_html(monURL, File.dirname(monURL))
 		doc.search("#sous-titres-list tr").collect do |k|
-			Tools.logger.info "#{k} - #{rec1} - #{rec2} - #{rec3} - #{rec4} - #{rec5}"
 			if k.to_s.match(/(#{rec1}|#{rec2})/im) && k.to_s.match(/(vf|fr)/im)
 				# Info globales au fichier
 				fichierCible = k.at("a.linkst").inner_html
