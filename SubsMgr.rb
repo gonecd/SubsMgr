@@ -49,7 +49,7 @@ class SubsMgr < OSX::NSWindowController
 	ib_outlets :bTest, :bGoWeb, :bLoadSub, :bViewSub, :bDir
 	ib_outlets :bCleanSerie, :bWebSerie, :bInfoSerie
 	ib_outlets :bVlc
-	
+
 	# Filtres de la liste
 	ib_outlets :bAll, :bAttente, :bTraites, :bErreurs
 
@@ -327,7 +327,7 @@ class SubsMgr < OSX::NSWindowController
 		# Récupération des données dans le fichier CSV
 		File.open("#{Common::PREF_PATH}/SubsMgrHistory.csv").each do |line|
 			begin
-				row = CSV.parse_line(line,';')
+				row = CSV.parse_line(line, ';')
 				raise CSV::IllegalFormatError unless (row && row.size == 8)
 
 				# On parse la liste des épisodes
@@ -438,7 +438,7 @@ class SubsMgr < OSX::NSWindowController
 				new_ligne = Library.new
 				new_ligne.serie = episode.serie.to_s.downcase
 				new_ligne.saison = episode.saison
-				new_ligne.image = SerieBanner(episode.serie.downcase)
+				new_ligne.image = SerieBanner(episode.serie)
 				new_ligne.episodes = []
 
 				@ligneslibrary << new_ligne
@@ -652,56 +652,69 @@ class SubsMgr < OSX::NSWindowController
 		end
 	end
 
-	def initBanners()
-		@series.each() do |serie|
-			@seriesBanners[serie[0]] = OSX::NSImage.alloc.initWithContentsOfFile_(@prefs["Directories"]["Banners"]+@series[serie[0]]["Banner"])
+	def initBanners
+		cleanupBanners
+		@series.each do |serie|
+			SerieBanner(serie[0])
 		end
 	end
+	
+	def cleanupBanners
+		# on nettoye la base des doublons eventuels liés aux problemes de case
+		cleaned = false
+		@series.each do |k, v|
+			if (k != k.downcase)
+				@series[k.downcase] = v
+				@series.delete(k)
+				cleaned = true
+			elsif (v['Banner'] != v['Banner'].downcase)
+				@series[k]['Banner'] = v['Banner'].downcase
+				cleaned = true
+			end
+		end
+		@series.save_plist("#{Common::PREF_PATH}/SubsMgrSeries.plist") if cleaned
+	end
+
+	def banner_path(myserie)
+		myserie = myserie.downcase
+		if @series[myserie] && @series[myserie]["Banner"]
+			File.join(@prefs["Directories"]["Banners"], @series[myserie]["Banner"].to_s.downcase)
+		end
+	end
+
 	def SerieBanner(myserie)
-		# Connait-on la série ?
-		connue = @series.any? do |serie|
-			(serie[0] == myserie)
-		end
-
-		if !connue
-			# Recherche sur TheTVdb
-			monURL = "http://www.thetvdb.com/api/GetSeries.php?seriesname="+myserie.gsub(/ /, '+')
-			doc = FileCache.get_html(monURL, :xml => true)
-			found = 0
-			linkBanner = " "
-			doc.search("Series").each do |k|
-				if k.search("SeriesName").inner_html.downcase.to_s == myserie.downcase.to_s
-					@series[myserie] = {"Id" => k.search("seriesid").inner_html.downcase.to_s, "Banner" => myserie+".jpg"}
-					linkBanner = k.search("banner").inner_html.downcase.to_s
-					@series.save_plist("#{Common::PREF_PATH}/SubsMgrSeries.plist")
-					found = 1
-					break
-				end
-			end
-
-			if found == 1
-				# On loade la bannière sur theTVdb
-				FileUtils.cp(FileCache.get_file("http://www.thetvdb.com/banners/"+linkBanner), @prefs["Directories"]["Banners"]+@series[myserie]["Banner"])
-				@seriesBanners[myserie] = OSX::NSImage.alloc.initWithContentsOfFile_(@prefs["Directories"]["Banners"]+@series[myserie]["Banner"])
-				return @seriesBanners[myserie]
-			else
-				return @seriesBanners["."]
-			end
+		myserie = myserie.downcase
+		path = banner_path(myserie)
+		if path && File.exists?(path) && (File.size(path)>100)
+			Tools.logger.info "BANNIERE CONNUE: #{myserie} - #{path}"
+			@seriesBanners[myserie] ||= OSX::NSImage.alloc.initWithContentsOfFile_(path)
 		else
-			return @seriesBanners[myserie]
+			# Recherche sur TheTVdb
+			monURL = "http://www.thetvdb.com/api/GetSeries.php?seriesname=#{myserie.gsub(/ /, '+')}"
+			doc = FileCache.get_html(monURL, :xml => true)
+			blk = doc.search("Series").detect do |k|
+				k.search("SeriesName").inner_html.to_s.downcase == myserie
+			end
+			
+			if blk
+				# on memorise les paramètres de la banniere
+				@series[myserie] = {"Id" => blk.search("seriesid").inner_html.downcase, "Banner" => "#{myserie.downcase}.jpg"}
+				@series.save_plist("#{Common::PREF_PATH}/SubsMgrSeries.plist")
+
+				# On loade la bannière sur theTVdb
+				linkBanner = blk.search("banner").inner_html.to_s.downcase
+				path = banner_path(myserie)
+				FileUtils.cp(FileCache.get_file("http://www.thetvdb.com/banners/#{linkBanner}"), path)
+				Tools.logger.info "NEW BANN: #{myserie} - #{path} - #{"http://www.thetvdb.com/banners/#{linkBanner}"}"
+				@seriesBanners[myserie] ||= OSX::NSImage.alloc.initWithContentsOfFile_(path)
+			else
+				@seriesBanners["."]
+			end
 		end
 	end
-	def SerieId(myserie)
-		# Connait-on la série ?
-		connue = @series.any? do |serie|
-			(serie[0] == myserie)
-		end
 
-		if connue
-			return @series[myserie]["Id"]
-		else
-			return 0
-		end
+	def SerieId(myserie)
+		@series[myserie] ? @series[myserie]['Id'].to_i : 0
 	end
 
 	def AnalyseFichier(chaine)
@@ -850,15 +863,15 @@ class SubsMgr < OSX::NSWindowController
 						myepisode["Statut"] = Icones.list["Aired"]
 
 						subtitled = @allEpisodes.any? do |eps|
-							(eps.serie.downcase.to_s == maserie.serie) and (eps.saison == maserie.saison) and (eps.episode == myepisode["Episode"]) and (eps.status == "Traité")
+							(eps.serie.to_s.downcase == maserie.serie) and (eps.saison == maserie.saison) and (eps.episode == myepisode["Episode"]) and (eps.status == "Traité")
 						end
 
 						vidloaded = @allEpisodes.any? do |eps|
-							(eps.serie.downcase.to_s == maserie.serie) and (eps.saison == maserie.saison) and (eps.episode == myepisode["Episode"]) and (eps.status == "Attente")
+							(eps.serie.to_s.downcase == maserie.serie) and (eps.saison == maserie.saison) and (eps.episode == myepisode["Episode"]) and (eps.status == "Attente")
 						end
 
 						torrentloaded = @allEpisodes.any? do |eps|
-							(eps.serie.downcase.to_s == maserie.serie) and (eps.saison == maserie.saison) and (eps.episode == myepisode["Episode"]) and (eps.status == "Unloaded")
+							(eps.serie.to_s.downcase == maserie.serie) and (eps.saison == maserie.saison) and (eps.episode == myepisode["Episode"]) and (eps.status == "Unloaded")
 						end
 
 						if subtitled then myepisode["Statut"] = Icones.list["Subtitled"] end

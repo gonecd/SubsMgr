@@ -141,7 +141,7 @@ module FileCache
 			cache.write(crc, file.body)
 			flatten_archive(path) if options[:zip]
 		end
-		Tools.logger.debug("# SubsMgr cache - subtitle path #{path}")
+		Tools.logger.debug("# SubsMgr cache - File path #{path}")
 		path
 	end
 
