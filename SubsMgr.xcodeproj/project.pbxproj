@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		094CC61D12FF1B8B00D21AA2 /* Icones in Resources */ = {isa = PBXBuildFile; fileRef = 094CC5F912FF1B8B00D21AA2 /* Icones */; };
+		095767A016EE3F0100D33F12 /* mire.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 0957679F16EE3F0100D33F12 /* mire.jpg */; };
 		0982F90D12FF3D0400A3CD47 /* SubsMgr.icns in Resources */ = {isa = PBXBuildFile; fileRef = 0982F90C12FF3D0400A3CD47 /* SubsMgr.icns */; };
 		09D5D3E8131179FA005DCEAC /* libexslt.0.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = 09D5D3DE131179F5005DCEAC /* libexslt.0.dylib */; };
 		09D5D3E9131179FA005DCEAC /* libiconv.2.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = 09D5D3E0131179F5005DCEAC /* libiconv.2.dylib */; };
@@ -59,6 +60,7 @@
 /* Begin PBXFileReference section */
 		089C165DFE840E0CC02AAC07 /* English */ = {isa = PBXFileReference; comments = "Hello world"; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		094CC5F912FF1B8B00D21AA2 /* Icones */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Icones; sourceTree = "<group>"; };
+		0957679F16EE3F0100D33F12 /* mire.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = mire.jpg; path = Icones/mire.jpg; sourceTree = "<group>"; };
 		097F98B312FF167E002F004B /* plugin */ = {isa = PBXFileReference; lastKnownFileType = folder; path = plugin; sourceTree = "<group>"; };
 		097F98C012FF1694002F004B /* common */ = {isa = PBXFileReference; lastKnownFileType = folder; path = common; sourceTree = "<group>"; };
 		0982F90C12FF3D0400A3CD47 /* SubsMgr.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; name = SubsMgr.icns; path = Icones/SubsMgr.icns; sourceTree = "<group>"; };
@@ -179,6 +181,7 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				0957679F16EE3F0100D33F12 /* mire.jpg */,
 				62ABEB5513106DE200CA1E9A /* SubsMgrSeries.plist */,
 				0982F90C12FF3D0400A3CD47 /* SubsMgr.icns */,
 				094CC5F912FF1B8B00D21AA2 /* Icones */,
@@ -266,7 +269,7 @@
 		29B97313FDCFA39411CA2CEA /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0430;
+				LastUpgradeCheck = 0460;
 			};
 			buildConfigurationList = 4D7A7B570ABF745500C2D4C0 /* Build configuration list for PBXProject "SubsMgr" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -313,6 +316,7 @@
 				094CC61D12FF1B8B00D21AA2 /* Icones in Resources */,
 				0982F90D12FF3D0400A3CD47 /* SubsMgr.icns in Resources */,
 				62ABEB5613106DE200CA1E9A /* SubsMgrSeries.plist in Resources */,
+				095767A016EE3F0100D33F12 /* mire.jpg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -391,6 +395,7 @@
 		4DDCA70F0ACC9A6100E082CE /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_MODEL_TUNING = G5;
@@ -412,6 +417,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
+				COMBINE_HIDPI_IMAGES = YES;
 				GCC_MODEL_TUNING = G5;
 				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = "$(HOME)/Applications";

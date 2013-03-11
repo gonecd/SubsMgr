@@ -1265,6 +1265,7 @@ class SubsMgr < OSX::NSWindowController
 	def Tester(sender)
 		if @current.candidats[@plusmoins.intValue-1].lien != ""
 			# Récupération du sous titre
+			FileUtils.rm_f("/tmp/Sub.srt") if File.exists?("/tmp/Sub.srt")
 			GetSub()
 
 			if File.exist?("/tmp/Sub.srt")
