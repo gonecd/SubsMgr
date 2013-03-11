@@ -67,7 +67,6 @@ class SubsMgr < OSX::NSWindowController
 		@lignesinfos = []
 		@lignessources = []
 		@ligneslibrary = []
-		@seriesBanners = {}
 		@liste.dataSource = self
 		@liste.setDelegate_(self)
 		@ovliste.dataSource = self
@@ -107,8 +106,7 @@ class SubsMgr < OSX::NSWindowController
 		Plugin::Local.local_path = @prefs["Directories"]["Subtitles"]
 
 		# Initialisation des banières de séries
-		@series = Plist::parse_xml("#{Common::PREF_PATH}/SubsMgrSeries.plist")
-		initBanners()
+		@banner = Banner.new(@prefs["Directories"]["Banners"])
 
 		# Initialisation des Statistiques
 		StatsRAZ(self) unless File.exist?("#{Common::PREF_PATH}/SubsMgrStats.plist")
@@ -142,7 +140,7 @@ class SubsMgr < OSX::NSWindowController
 
 			# Affichage de l'analyse du fichier source
 			@serie.setStringValue_(@current.serie)
-			@image.setImage(SerieBanner(@current.serie))
+			@image.setImage(@banner.retrieve_for(@current.serie))
 			@saison.setIntValue(@current.saison)
 			@episode.setIntValue(@current.episode)
 			@team.setStringValue_(@current.team)
@@ -418,7 +416,7 @@ class SubsMgr < OSX::NSWindowController
 
 		# On ajoute la ligne "All series"
 		new_ligne = Library.new
-		new_ligne.image = @seriesBanners["."]
+		new_ligne.image = Icones.list["None"]
 		new_ligne.serie = "."
 		new_ligne.saison = 0
 		new_ligne.URLTVdb = "http://www.thetvdb.com/"
@@ -438,7 +436,7 @@ class SubsMgr < OSX::NSWindowController
 				new_ligne = Library.new
 				new_ligne.serie = episode.serie.to_s.downcase
 				new_ligne.saison = episode.saison
-				new_ligne.image = SerieBanner(episode.serie)
+				new_ligne.image = @banner.retrieve_for(episode.serie)
 				new_ligne.episodes = []
 
 				@ligneslibrary << new_ligne
@@ -447,10 +445,9 @@ class SubsMgr < OSX::NSWindowController
 
 		@ligneslibrary.sort! {|x,y| x.serie+x.saison.to_s <=> y.serie+y.saison.to_s }
 
-
 		# On ajoute la ligne "Errors"
 		new_ligne = Library.new
-		new_ligne.image = @seriesBanners["."]
+		new_ligne.image = Icones.list["None"]
 		new_ligne.serie = "Error"
 		new_ligne.saison = 0
 		new_ligne.URLTVdb = "http://www.thetvdb.com/"
@@ -466,7 +463,7 @@ class SubsMgr < OSX::NSWindowController
 			if maserie.serie == "." or maserie.serie == "Error" then next end
 
 			# Recherche de la page de la saison sur TheTVdb
-			monURL = "http://www.thetvdb.com/?tab=series&id="+SerieId(maserie.serie.to_s.downcase).to_s
+			monURL = "http://www.thetvdb.com/?tab=series&id=#{@banner.id_for(maserie.serie)}"
 			if monURL == "http://www.thetvdb.com/?tab=series&id=0" then next end
 			doc = FileCache.get_html(monURL)
 			doc.search("a.seasonlink").each do |k|
@@ -650,71 +647,6 @@ class SubsMgr < OSX::NSWindowController
 			@current.comment = "Pb dans l'analyse du fichier"
 
 		end
-	end
-
-	def initBanners
-		cleanupBanners
-		@series.each do |serie|
-			SerieBanner(serie[0])
-		end
-	end
-	
-	def cleanupBanners
-		# on nettoye la base des doublons eventuels liés aux problemes de case
-		cleaned = false
-		@series.each do |k, v|
-			if (k != k.downcase)
-				@series[k.downcase] = v
-				@series.delete(k)
-				cleaned = true
-			elsif (v['Banner'] != v['Banner'].downcase)
-				@series[k]['Banner'] = v['Banner'].downcase
-				cleaned = true
-			end
-		end
-		@series.save_plist("#{Common::PREF_PATH}/SubsMgrSeries.plist") if cleaned
-	end
-
-	def banner_path(myserie)
-		myserie = myserie.downcase
-		if @series[myserie] && @series[myserie]["Banner"]
-			File.join(@prefs["Directories"]["Banners"], @series[myserie]["Banner"].to_s.downcase)
-		end
-	end
-
-	def SerieBanner(myserie)
-		myserie = myserie.downcase
-		path = banner_path(myserie)
-		if path && File.exists?(path) && (File.size(path)>100)
-			Tools.logger.info "BANNIERE CONNUE: #{myserie} - #{path}"
-			@seriesBanners[myserie] ||= OSX::NSImage.alloc.initWithContentsOfFile_(path)
-		else
-			# Recherche sur TheTVdb
-			monURL = "http://www.thetvdb.com/api/GetSeries.php?seriesname=#{myserie.gsub(/ /, '+')}"
-			doc = FileCache.get_html(monURL, :xml => true)
-			blk = doc.search("Series").detect do |k|
-				k.search("SeriesName").inner_html.to_s.downcase == myserie
-			end
-			
-			if blk
-				# on memorise les paramètres de la banniere
-				@series[myserie] = {"Id" => blk.search("seriesid").inner_html.downcase, "Banner" => "#{myserie.downcase}.jpg"}
-				@series.save_plist("#{Common::PREF_PATH}/SubsMgrSeries.plist")
-
-				# On loade la bannière sur theTVdb
-				linkBanner = blk.search("banner").inner_html.to_s.downcase
-				path = banner_path(myserie)
-				FileUtils.cp(FileCache.get_file("http://www.thetvdb.com/banners/#{linkBanner}"), path)
-				Tools.logger.info "NEW BANN: #{myserie} - #{path} - #{"http://www.thetvdb.com/banners/#{linkBanner}"}"
-				@seriesBanners[myserie] ||= OSX::NSImage.alloc.initWithContentsOfFile_(path)
-			else
-				@seriesBanners["."]
-			end
-		end
-	end
-
-	def SerieId(myserie)
-		@series[myserie] ? @series[myserie]['Id'].to_i : 0
 	end
 
 	def AnalyseFichier(chaine)

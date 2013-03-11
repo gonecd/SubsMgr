@@ -31,6 +31,7 @@ require 'web_sub'
 require 'ligne'
 require 'file_cache'
 require 'icones'
+require 'banner'
 require 'statistics'
 require 'tools'
 
