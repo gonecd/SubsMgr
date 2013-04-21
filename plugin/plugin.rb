@@ -41,6 +41,24 @@ module Plugin
 			self.idx_candidat = idx_candidat
 		end
 
+		# retrieve and verify subtitle is valid, otherwise delete retrieved file
+		def retrieve_subtitle
+			get_from_source
+			return true if valid_subtitle?
+			File.unlink("/tmp/Sub.srt") if File.exists?("/tmp/Sub.srt")
+			return false
+		end
+
+		def valid_subtitle?
+			content = File.exists?("/tmp/Sub.srt") ? File.read("/tmp/Sub.srt") : nil
+			# empty file
+			return false if content.blank?
+			# html file
+			return false if content.match(/<(body|html)[^>]*>/im)
+			true
+		end
+		
+
 		# generic search
 		def search_sub
 			# Lister tous les candidats disponibles et remplir la structure @current.candidats

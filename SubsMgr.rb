@@ -944,14 +944,14 @@ class SubsMgr < OSX::NSWindowController
 		start = Time.now
 		if @current.candidats[@plusmoins.intValue-1].lien != ""
 			# Récupération du sous titre
-			GetSub()
+			if GetSub()
+				# Rangement des fichiers
+				CheckArbo()
+				ManageFiles()
 
-			# Rangement des fichiers
-			CheckArbo()
-			ManageFiles()
-
-			# Mise à jour du fichier de suivi
-			updateHistory(sender)
+				# Mise à jour du fichier de suivi
+				updateHistory(sender)
+			end
 		end
 
 		src = @current.candidats[@plusmoins.intValue-1].source
@@ -1364,16 +1364,18 @@ class SubsMgr < OSX::NSWindowController
 	end
 	ib_action :NoSub
 
-	def GetSub()
+	def GetSub
 		# Récupération du sous titre
 		if @current.candidats[@plusmoins.intValue-1].lien != ""
 			begin
 				plugin = Plugin.constantize(@current.candidats[@plusmoins.intValue-1].source)
-				plugin.new(@current, @lignessources[plugin.index].rank, @plusmoins.intValue-1).get_from_source
+				res = plugin.new(@current, @lignessources[plugin.index].rank, @plusmoins.intValue-1).retrieve_subtitle
+				$stderr.puts "# SubsMgr Error # GetSub [ #{@current.fichier} ] - empty or html file found" unless res
 			rescue NoMethodError => err
 				$stderr.puts "# SubsMgr Error # GetSub [ #{@current.fichier} ] - #{err.inspect}"
 			end
 		end
+		return false unless res
 
 		# Post Traitements
 		if @bSupprCrochets.state() == 1 then system('sed -e "s/\<[^\>]*\>//g" /tmp/Sub.srt > /tmp/Sub2.srt'); FileUtils.mv("/tmp/Sub2.srt", "/tmp/Sub.srt") end
