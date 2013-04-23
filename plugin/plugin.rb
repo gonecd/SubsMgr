@@ -43,6 +43,7 @@ module Plugin
 
 		# retrieve and verify subtitle is valid, otherwise delete retrieved file
 		def retrieve_subtitle
+			File.unlink("/tmp/Sub.srt") if File.exists?("/tmp/Sub.srt")
 			get_from_source
 			return true if valid_subtitle?
 			File.unlink("/tmp/Sub.srt") if File.exists?("/tmp/Sub.srt")
@@ -52,9 +53,17 @@ module Plugin
 		def valid_subtitle?
 			content = File.exists?("/tmp/Sub.srt") ? File.read("/tmp/Sub.srt") : nil
 			# empty file
-			return false if content.blank?
+			if content.blank?
+				Tools.logger.error "# SubsMgr Error # blank subtitle"
+				return false
+			end
+			
 			# html file
-			return false if content.match(/<(body|html)[^>]*>/im)
+			if content.match(/<(body|html)[^>]*>/im)
+				Tools.logger.error "# SubsMgr Error # html file found instead of real subtitles"
+				return false
+			end
+			
 			true
 		end
 		

@@ -92,7 +92,7 @@ module FileCache
 				system("/usr/bin/unzip -c -qq #{full_path} '#{file}' > /tmp/Sub.srt")
 			end
 		rescue Exception => e
-			$stderr.puts "# SubsMgr Error # get_zip [#{file}] : #{e.inspect}\n#{e.backtrace.join('\n')}"
+			Tools.logger.error "# SubsMgr Error # get_zip [#{file}] : #{e.inspect}\n#{e.backtrace.join('\n')}"
 			@current.comment = "Pb dans la récupération du zip"
 		end
 	end
@@ -160,7 +160,7 @@ module FileCache
 				cache.write(crc, file.body.to_s)
 				options[:xml] ? Nokogiri::XML(file.body.to_s).root : file.root
 			rescue Mechanize::ResponseCodeError => err
-				Tools.logger.error("ERROR: #{source} : #{err.inspect}")
+				Tools.logger.error("# SubsMgr Error # #{source} : #{err.inspect}")
 				txt = "<br/>"
 				cache.write(crc, txt)
 				options[:xml] ? Nokogiri::XML(txt).root : Nokogiri::HTML(txt).root

@@ -942,6 +942,7 @@ class SubsMgr < OSX::NSWindowController
 		@current.processed!
 
 		start = Time.now
+		
 		if @current.candidats[@plusmoins.intValue-1].lien != ""
 			# Récupération du sous titre
 			if GetSub()
@@ -951,6 +952,9 @@ class SubsMgr < OSX::NSWindowController
 
 				# Mise à jour du fichier de suivi
 				updateHistory(sender)
+			else
+				$stderr.puts "Sub not accepted - invalid sub file detected - Canceled"
+				return false
 			end
 		end
 
@@ -1211,9 +1215,8 @@ class SubsMgr < OSX::NSWindowController
 		if @current.candidats[@plusmoins.intValue-1].lien != ""
 			# Récupération du sous titre
 			FileUtils.rm_f("/tmp/Sub.srt") if File.exists?("/tmp/Sub.srt")
-			GetSub()
 
-			if File.exist?("/tmp/Sub.srt")
+			if GetSub()
 				# hack violent car j'ai jamais réussi à trouver comment definir un nouveau bouton dans l'interface
 				# et le relier à la methode Vlc
 				if ENV['USER'] == 'olivier'
@@ -1234,9 +1237,7 @@ class SubsMgr < OSX::NSWindowController
 	def Vlc(sender)
 		if @current.candidats[@plusmoins.intValue-1].lien != ""
 			# Récupération du sous titre
-			GetSub()
-
-			if File.exist?("/tmp/Sub.srt")
+			if GetSub()
 				FileUtils.mv("/tmp/Sub.srt", @prefs["Directories"]["Download"]+@current.fichier+".srt")
 				system("/Applications/VLC.app/Contents/MacOS/VLC #{@prefs["Directories"]["Download"]+@current.fichier}")
 			end
@@ -1300,11 +1301,7 @@ class SubsMgr < OSX::NSWindowController
 
 	def ViewSub(sender)
 		if @current.candidats[@plusmoins.intValue-1].lien != ""
-			# Récupération du sous titre
-			GetSub()
-
-			# Affichage du sous titre dans textedit
-			if File.exist?("/tmp/Sub.srt")
+			if GetSub()
 				system("open -a textedit /tmp/Sub.srt")
 			else
 				puts "Problem dans ViewSub"
@@ -1315,11 +1312,7 @@ class SubsMgr < OSX::NSWindowController
 
 	def LoadSub(sender)
 		if @current.candidats[@plusmoins.intValue-1].lien != ""
-			# Récupération du sous titre
-			GetSub()
-
-			# Déplacement du fichier dans le répertoire de sous titres
-			if File.exist?("/tmp/Sub.srt")
+			if GetSub()
 				FileUtils.mv("/tmp/Sub.srt", @prefs["Directories"]["Subtitles"]+@current.candidats[@plusmoins.intValue-1].fichier+".srt")
 			else
 				puts "Problem dans LoadSub"
@@ -1366,11 +1359,11 @@ class SubsMgr < OSX::NSWindowController
 
 	def GetSub
 		# Récupération du sous titre
+		res = false
 		if @current.candidats[@plusmoins.intValue-1].lien != ""
 			begin
 				plugin = Plugin.constantize(@current.candidats[@plusmoins.intValue-1].source)
 				res = plugin.new(@current, @lignessources[plugin.index].rank, @plusmoins.intValue-1).retrieve_subtitle
-				$stderr.puts "# SubsMgr Error # GetSub [ #{@current.fichier} ] - empty or html file found" unless res
 			rescue NoMethodError => err
 				$stderr.puts "# SubsMgr Error # GetSub [ #{@current.fichier} ] - #{err.inspect}"
 			end
@@ -1378,9 +1371,17 @@ class SubsMgr < OSX::NSWindowController
 		return false unless res
 
 		# Post Traitements
-		if @bSupprCrochets.state() == 1 then system('sed -e "s/\<[^\>]*\>//g" /tmp/Sub.srt > /tmp/Sub2.srt'); FileUtils.mv("/tmp/Sub2.srt", "/tmp/Sub.srt") end
-		if @bSupprAccolades.state() == 1 then system('sed -e "s/{[^}]*}//g" /tmp/Sub.srt > /tmp/Sub2.srt'); FileUtils.mv("/tmp/Sub2.srt", "/tmp/Sub.srt") end
-		if @bCommande.state() == 1 then system(@prefs["Subs management"]["Commande"]) end
+		if @bSupprCrochets.state == 1 then
+			system('sed -e "s/\<[^\>]*\>//g" /tmp/Sub.srt > /tmp/Sub2.srt'); FileUtils.mv("/tmp/Sub2.srt", "/tmp/Sub.srt")
+		end
+		if @bSupprAccolades.state == 1 then
+			system('sed -e "s/{[^}]*}//g" /tmp/Sub.srt > /tmp/Sub2.srt'); FileUtils.mv("/tmp/Sub2.srt", "/tmp/Sub.srt")
+		end
+		if @bCommande.state == 1 then
+			system(@prefs["Subs management"]["Commande"])
+		end
+		
+		return true
 	end
 
 
