@@ -166,13 +166,14 @@ class SubsMgr < OSX::NSWindowController
 				manageButtons("EpisodeAttente")
 			end
 
-		rescue Exception=>e
+		rescue Exception => e
 			Tools.logger.error "# SubsMgr Error # rowSelected ["+@current.fichier+"] : "+e
 			@current.comment = "Pb dans l'analyse du fichier"
 		end
 		@liste.reloadData
 	end
 	ib_action :rowSelected
+
 
 	def serieSelected(sender)
 
@@ -266,14 +267,6 @@ class SubsMgr < OSX::NSWindowController
 			nil
 		end
 	end
-
-	def tableView_shouldSelectRow(view, row)
-		@liste.selectRowIndexes_byExtendingSelection_(OSX::NSIndexSet.indexSetWithIndex(row), false)
-		rowSelected()
-		return true
-	end
-
-
 
 	# ------------------------------------------
 	# Methodes de récupération des données de base
@@ -943,7 +936,10 @@ class SubsMgr < OSX::NSWindowController
 
 		start = Time.now
 		
-		if @current.candidats[@plusmoins.intValue-1].lien != ""
+		if @current.candidats[@plusmoins.intValue-1].blank?
+			# no subs available
+			return false
+		elsif @current.candidats[@plusmoins.intValue-1].lien != ""
 			# Récupération du sous titre
 			if GetSub()
 				# Rangement des fichiers
@@ -970,15 +966,7 @@ class SubsMgr < OSX::NSWindowController
 		# Raffraichissement de la liste
 		if sender != @team
 			@current.comment = "Traité en Manuel"
-			if @bAttente.state == 1
-				@lignes.delete(@current)
-				if (numberOfRowsInTableView(@liste) > 0)
-					@liste.selectRowIndexes_byExtendingSelection_(OSX::NSIndexSet.indexSetWithIndex(0), false)
-					rowSelected()
-				end
-			end
-
-			@liste.reloadData()
+			select_next_line
 
 			# Raffraichissement des statistiques
 			StatsRefresh(self)
@@ -988,6 +976,26 @@ class SubsMgr < OSX::NSWindowController
 	end
 	ib_action :AcceptSub
 
+	def select_next_line(refresh_only = false)
+		idx = @liste.selectedRow()
+		if (@bAttente.state == 1) && !refresh_only
+			@lignes.delete(@current)
+		else
+			# nothing cleaned so let's move to next entry
+			idx += 1
+		end
+		
+		@liste.reloadData()
+		if (numberOfRowsInTableView(@liste) > 0)
+			if (numberOfRowsInTableView(@liste)>=idx)
+				@liste.selectRowIndexes_byExtendingSelection_(OSX::NSIndexSet.indexSetWithIndex(idx), false)
+			else
+				@liste.selectRowIndexes_byExtendingSelection_(OSX::NSIndexSet.indexSetWithIndex(0), false)
+			end
+			rowSelected()
+		end
+	end
+		
 	def ManageFiles()
 		if File.exist?("/tmp/Sub.srt")
 
@@ -1268,16 +1276,7 @@ class SubsMgr < OSX::NSWindowController
 			updateHistory(sender)
 
 			# Raffraichissement de la liste
-			if (@bAttente.state == 1)
-				@lignes.delete(@current)
-				if (numberOfRowsInTableView(@liste) > 0)
-					@liste.selectRowIndexes_byExtendingSelection_(OSX::NSIndexSet.indexSetWithIndex(0), false)
-					rowSelected()
-				end
-			end
-
-			@liste.reloadData()
-
+			select_next_line
 			@fenMovie.close()
 		end
 	end
@@ -1344,16 +1343,7 @@ class SubsMgr < OSX::NSWindowController
 
 		# Raffraichissement de la liste
 		@current.comment = "Traité en Manuel"
-		if @bAttente.state == 1
-			@lignes.delete(@current)
-			if (numberOfRowsInTableView(@liste) > 0)
-				@liste.selectRowIndexes_byExtendingSelection_(OSX::NSIndexSet.indexSetWithIndex(0), false)
-				rowSelected()
-			end
-		end
-
-		@liste.reloadData()
-
+		select_next_line
 	end
 	ib_action :NoSub
 
@@ -1369,7 +1359,7 @@ class SubsMgr < OSX::NSWindowController
 			end
 		end
 		unless res
-			@liste.reloadData
+			select_next_line(true)
 			return false
 		end
 
