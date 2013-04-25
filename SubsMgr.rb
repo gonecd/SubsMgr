@@ -1368,7 +1368,10 @@ class SubsMgr < OSX::NSWindowController
 				$stderr.puts "# SubsMgr Error # GetSub [ #{@current.fichier} ] - #{err.inspect}"
 			end
 		end
-		return false unless res
+		unless res
+			@liste.reloadData
+			return false
+		end
 
 		# Post Traitements
 		if @bSupprCrochets.state == 1 then

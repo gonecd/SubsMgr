@@ -168,7 +168,7 @@ module FileCache
 		end
 	end
 
-	def clean()
+	def clean
 		FileUtils.rm_rf(CACHE_PATH)
 	end
 

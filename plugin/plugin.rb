@@ -54,13 +54,15 @@ module Plugin
 			content = File.exists?("/tmp/Sub.srt") ? File.read("/tmp/Sub.srt") : nil
 			# empty file
 			if content.blank?
-				Tools.logger.error "# SubsMgr Error # blank subtitle"
+				current.comment = "blank subtitle"
+				Tools.logger.error "# SubsMgr Error # #{current.comment}"
 				return false
 			end
 			
 			# html file
 			if content.match(/<(body|html)[^>]*>/im)
-				Tools.logger.error "# SubsMgr Error # html file found instead of real subtitles"
+				current.comment = "html file found instead of real subtitles"
+				Tools.logger.error "# SubsMgr Error # #{current.comment}"
 				return false
 			end
 			
