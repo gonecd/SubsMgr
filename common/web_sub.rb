@@ -55,10 +55,13 @@ class WebSub < CommonStruct
 			ok = true
 			ligne.infos.split(/[\.-]+/).each do |key|
 				next if key.blank?
+				next if key.match(/720p/) # format verifié plus tard
 				next if fichier.match(%r{[\.-]#{key.squish}}im)
+				Tools.logger.info "INFOS ERROR - #{ligne.infos} - #{fichier} - #{key}"
 				ok = false
 				break
 			end
+			
 			unless ok
 				self.score -= 3
 				self.errors[:infos] = true
@@ -85,6 +88,7 @@ class WebSub < CommonStruct
 					self.score += 1
 				end
 			end
+			Tools.logger.info "#{ligne} - #{fichier} - #{score} - #{errors.inspect}"
 
 			self.confiant = (self.score.to_f / 4).round + rank
 			self.score += rank
