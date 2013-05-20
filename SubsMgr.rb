@@ -402,7 +402,8 @@ class SubsMgr < OSX::NSWindowController
 			end
 		end
 
-		@allEpisodes.sort! {|x,y| x.fichier <=> y.fichier }
+		# on trie sans tenir compte de la casse et des caractères spéciaux
+		@allEpisodes.sort! {|x,y| x.fichier.gsub(/[^a-z0-9\s-]+/i, '').downcase <=> y.fichier.gsub(/[^a-z0-9\s-]+/i, '').downcase }
 	end
 	def RelisterSeries
 		@ligneslibrary.clear
