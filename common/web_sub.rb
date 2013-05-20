@@ -57,7 +57,6 @@ class WebSub < CommonStruct
 				next if key.blank?
 				next if key.match(/720p/) # format verifié plus tard
 				next if fichier.match(%r{[\.-]#{key.squish}}im)
-				Tools.logger.info "INFOS ERROR - #{ligne.infos} - #{fichier} - #{key}"
 				ok = false
 				break
 			end
@@ -88,7 +87,6 @@ class WebSub < CommonStruct
 					self.score += 1
 				end
 			end
-			Tools.logger.info "#{ligne} - #{fichier} - #{score} - #{errors.inspect}"
 
 			self.confiant = (self.score.to_f / 4).round + rank
 			self.score += rank
