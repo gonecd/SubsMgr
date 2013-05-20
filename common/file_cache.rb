@@ -64,7 +64,9 @@ module FileCache
 		agent.idle_timeout = 2
 		agent.retry_change_requests = true
 	}
-
+	
+	PROXY = Proxy.new
+	
 	module_function
 
 	def cache
@@ -131,6 +133,11 @@ module FileCache
 		if cache.exists?(crc)
 			Tools.logger.debug("# SubsMgr cache - Load #{source}")
 		else
+			if (proxy = PROXY.get_proxy)
+				Tools.logger.debug("# SubsMgr cache - use proxy #{proxy.inspect}")
+				BROWSER.set_proxy(proxy.host, proxy.port, proxy.user, proxy.password)
+			end
+			
 			if options[:load_referer] && options[:referer]
 				# parfois il faut vraiment aller sur la page de referer au préalable pour être sur que tout est positionné correctement
 				Tools.logger.debug "SubsMgr cache - Force referer #{options[:referer]}"

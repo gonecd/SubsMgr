@@ -23,28 +23,6 @@ require 'mechanize'
 require 'active_support/all'
 
 # ------------------------------------------
-# Common definitions
-# ------------------------------------------
-require 'structures'
-require 'plugin'
-require 'web_sub'
-require 'ligne'
-require 'file_cache'
-require 'icones'
-require 'banner'
-require 'statistics'
-require 'tools'
-
-# ------------------------------------------
-# Sources managers: chargement dynamique
-# ------------------------------------------
-Dir.glob(File.expand_path(File.dirname(__FILE__) + "/../plugin/*.rb")).each do |f|
-	name = f.split('/').last.gsub('.rb', '')
-	next if name == 'plugin'
-	require name
-end
-
-# ------------------------------------------
 # Common tools
 # ------------------------------------------
 module Common
@@ -55,3 +33,27 @@ module Common
 		txt.gsub(/<\/?[^>]+>/im, '')
 	end
 end
+
+# ------------------------------------------
+# Common definitions
+# ------------------------------------------
+require 'tools'
+require 'structures'
+require 'plugin'
+require 'web_sub'
+require 'ligne'
+require 'proxy'
+require 'file_cache'
+require 'icones'
+require 'banner'
+require 'statistics'
+
+# ------------------------------------------
+# Sources managers: chargement dynamique
+# ------------------------------------------
+Dir.glob(File.expand_path(File.dirname(__FILE__) + "/../plugin/*.rb")).each do |f|
+	name = f.split('/').last.gsub('.rb', '')
+	next if name == 'plugin'
+	require name
+end
+
