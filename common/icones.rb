@@ -19,6 +19,8 @@ module Icones
 		@icone["TorrentLoaded"] = OSX::NSImage.alloc.initWithContentsOfFile_(File.join(path, "torrent.png"))
 		@icone["VideoLoaded"] = OSX::NSImage.alloc.initWithContentsOfFile_(File.join(path, "test.png"))
 		@icone["EpSpecial"] = OSX::NSImage.alloc.initWithContentsOfFile_(File.join(path, "special.png"))
+		@icone["All series"] = OSX::NSImage.alloc.initWithContentsOfFile_(File.join(path, "All series.png"))
+		@icone["Erreurs"] = OSX::NSImage.alloc.initWithContentsOfFile_(File.join(path, "Erreurs.png"))
 		
 		# on charge les icones des plugins en partant de la convention que l'icone d'un plugin
 		# correspond à son nom en minuscule et que l'icone porte l'extension png

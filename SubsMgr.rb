@@ -425,7 +425,7 @@ class SubsMgr < OSX::NSWindowController
         
         # On ajoute la ligne "All series"
         new_ligne = Library.new
-        new_ligne.image = Icones.list["None"]
+        new_ligne.image = Icones.list["All series"]
         new_ligne.serie = "."
         new_ligne.saison = 0
         new_ligne.URLTVdb = "http://www.thetvdb.com/"
@@ -484,7 +484,7 @@ class SubsMgr < OSX::NSWindowController
         
         # On ajoute la ligne "Errors"
         new_ligne = Library.new
-        new_ligne.image = Icones.list["None"]
+        new_ligne.image = Icones.list["Erreurs"]
         new_ligne.serie = "Error"
         new_ligne.saison = 0
         new_ligne.URLTVdb = "http://www.thetvdb.com/"
