@@ -269,6 +269,14 @@ class SubsMgr < OSX::NSWindowController
         end
     end
     
+    def tableView_shouldSelectRow(view, row)
+        @liste.selectRowIndexes_byExtendingSelection_(OSX::NSIndexSet.indexSetWithIndex(row), false)
+        rowSelected()
+        return true
+    end
+    
+    
+    
     # ------------------------------------------
     # Methodes de récupération des données de base
     # ------------------------------------------
