@@ -268,6 +268,12 @@ class SubsMgr < OSX::NSWindowController
             nil
         end
     end
+
+    def tableView_setObjectValue_forTableColumn_row(view, value, column, index)
+
+        if (column.identifier == 'Active') then @lignessources[index].active = value.intValue end
+        if (column.identifier == 'Ranking') then @lignessources[index].rank = value.intValue end
+    end
     
     def tableView_shouldSelectRow(view, row)
         @liste.selectRowIndexes_byExtendingSelection_(OSX::NSIndexSet.indexSetWithIndex(row), false)
@@ -712,7 +718,7 @@ class SubsMgr < OSX::NSWindowController
             @current.saison = temp[2].to_i
             @current.episode = temp[3].to_i
             
-            # on vire l'ann√©e du nom de la s√©rie si elle est l√†
+            # on vire l'annee du nom de la serie si elle est la
             @current.serie = @current.serie.gsub(/(2011|2012|2013|2014|2015)/, '').to_s.strip
             
             # et on traite les infos correctement pour eliminer l'eventuel titre d'épisode
@@ -1663,32 +1669,6 @@ class SubsMgr < OSX::NSWindowController
         @bSupprAccolades.setState(@pSupprAccolades.state)
         @pCommande.stringValue.blank? ? @bCommande.setState(0) : @bCommande.setState(1)
     end
-    
-    def PrefSourceModif(sender)
-        @alertMessage.setStringValue("")
-        @rankSource.setIntValue(@lignessources[@listesources.selectedRow].rank)
-        @activeSource.setState(@lignessources[@listesources.selectedRow].active)
-        @nomSource.setStringValue(@lignessources[@listesources.selectedRow].source)
-        @fenSource.makeKeyAndOrderFront_(sender)
-    end
-    ib_action :PrefSourceModif
-    
-    def PrefSourceValid(sender)
-        if (@activeSource.state == 0) && (@lignessources[@listesources.selectedRow].active == 1)
-            @sourcesActives -= - 1
-        end
-        
-        @lignessources[@listesources.selectedRow].active = @activeSource.state
-        @lignessources[@listesources.selectedRow].rank = @rankSource.intValue
-        @listesources.reloadData()
-        @fenSource.close()
-    end
-    ib_action :PrefSourceValid
-    
-    def PrefSourceCancel(sender)
-        @fenSource.close()
-    end
-    ib_action :PrefSourceCancel
     
     def PrefDirChoose(sender)
         panel = OSX::NSOpenPanel.alloc().init()
