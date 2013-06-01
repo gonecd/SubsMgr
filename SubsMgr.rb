@@ -712,6 +712,9 @@ class SubsMgr < OSX::NSWindowController
             @current.saison = temp[2].to_i
             @current.episode = temp[3].to_i
             
+            # on vire l'ann√©e du nom de la s√©rie si elle est l√†
+            @current.serie = @current.serie.gsub(/(2011|2012|2013|2014|2015)/, '').to_s.strip
+            
             # et on traite les infos correctement pour eliminer l'eventuel titre d'épisode
             infos = temp[4].to_s.split('-')
             
