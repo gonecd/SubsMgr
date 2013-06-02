@@ -121,7 +121,6 @@ class SubsMgr < OSX::NSWindowController
         manageButtons("Clear")
     end
     
-    
     def CheckForUdate()
     end
     
